@@ -9,11 +9,12 @@
 	<meta charset="utf-8"></meta>
 	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
-	
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 
 	<div class="container">
+	<div class= "col-md-4 col col-md-offset-4">
 		
 				<h1>Formulario de registro</h1>
 				
@@ -27,46 +28,47 @@
 					
 					<div class="form-group">
 						<label>Apellido Paterno</label>
-						<h:inputTextarea id="apellidoPaterno" label="apellidoPaterno" styleClass="form-control" value="apellidoPaterno">
+						<h:inputText id="apellidoPaterno" label="apellidoPaterno" styleClass="form-control" value="apellidoPaterno">
 					    	<f:validateLength minimum="1" maximum="100" />
-					    </h:inputTextarea>
+					    </h:inputText>
 					</div>
 					
 					<div class="form-group">
 						<label>Apellido Materno</label>
-						<h:inputTextarea id="apellidoMaterno" label="apellidoMaterno" styleClass="form-control" value="apellidoMaterno">
+						<h:inputText id="apellidoMaterno" label="apellidoMaterno" styleClass="form-control" value="apellidoMaterno">
 					    	<f:validateLength minimum="1" maximum="100" />
-					    </h:inputTextarea>
+					    </h:inputText>
 					</div>
 					
 					<div class="form-group">
 						<label>E-mail</label>
-						<h:inputTextarea id="correo" label="correo" styleClass="form-control" value="correo">
+						<h:inputText id="correo" label="correo" styleClass="form-control" value="correo">
 					    	<f:validateLength minimum="1" maximum="100" />
-					    </h:inputTextarea>
+					    </h:inputText>
 					</div>
 					
 					<div class="form-group">
 						<label>Celular</label>
-						<h:inputTextarea id="celular" label="celular" styleClass="form-control" value="celular">
+						<h:inputText id="celular" label="celular" styleClass="form-control" value="celular">
 					    	<f:validateLength minimum="1" maximum="100" />
-					    </h:inputTextarea>
+					    </h:inputText>
 					</div>
 					
 					<div class="form-group">
 						<label>Password</label>
-						<h:inputTextarea id="password" label="password" styleClass="form-control" value="password">
+						<h:inputText id="password" label="password" styleClass="form-control" value="password">
 					    	<f:validateLength minimum="6" maximum="15" />
-					    </h:inputTextarea>
+					    </h:inputText>
 					</div>
 					
 					<div class="form-group">
 						<label>Repetir password</label>
-						<h:inputTextarea id="repetirPassword" label="repetirPassword" styleClass="form-control" value="repetirPassword">
+						<h:inputText id="repetirPassword" label="repetirPassword" styleClass="form-control" value="repetirPassword">
 					    	<f:validateLength minimum="6" maximum="15" />
-					    </h:inputTextarea>
+					    </h:inputText>
 					</div>
 					
+					<div class="g-recaptcha" data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"></div>
 					
 					<div class="form-group">
 						<h:commandButton styleClass="btn btn-primary btn-block"
@@ -79,7 +81,7 @@
 					</div>
 					
 				</h:form>
-			
+				</div>
 		</div>
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
