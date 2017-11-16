@@ -2,7 +2,7 @@ package cl.accenture.curso_java.sistema_de_reserva.modelo;
 
 public class Usuario {
 
-	private int id;
+	private String id;
 	private String nombre;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
@@ -15,7 +15,7 @@ public class Usuario {
 	public Usuario() {
 		
 	}
-	public Usuario(int id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String celular,
+	public Usuario(String id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String celular,
 			int edad, boolean estado, String preferencias) {
 		super();
 		this.id = id;
@@ -28,10 +28,10 @@ public class Usuario {
 		this.estado = estado;
 		this.preferencias = preferencias;
 	}
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getNombre() {
