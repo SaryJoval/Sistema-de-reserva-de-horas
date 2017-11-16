@@ -2,18 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
-<title></title>
-<meta charset="utf-8"></meta>
-<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous"></link>
-<script src='https://www.google.com/recaptcha/api.js'></script>
-</head>
-<body>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+
+	<title></title>
+	<meta charset="utf-8"></meta>
+	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+		crossorigin="anonymous"></link>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+</h:head>
+<h:body>
 
 	<div class="container">
 		<div class="col-md-4 col col-md-offset-4">
@@ -32,7 +34,8 @@
 				<div class="form-group">
 					<label>Apellido Paterno</label>
 					<h:inputText id="apellidoPaterno" label="apellidoPaterno"
-						styleClass="form-control" value="#{usuarioController.apellidoPaterno}">
+						styleClass="form-control"
+						value="#{usuarioController.apellidoPaterno}">
 						<f:validateLength minimum="1" maximum="100" />
 					</h:inputText>
 				</div>
@@ -40,7 +43,8 @@
 				<div class="form-group">
 					<label>Apellido Materno</label>
 					<h:inputText id="apellidoMaterno" label="apellidoMaterno"
-						styleClass="form-control" value="#{usuarioController.apellidoMaterno}">
+						styleClass="form-control"
+						value="#{usuarioController.apellidoMaterno}">
 						<f:validateLength minimum="1" maximum="100" />
 					</h:inputText>
 				</div>
@@ -78,27 +82,19 @@
 				</div>
 				<h5>¿Qué día te acomoda ir a nuestras sucursales? (Puedes
 					marcar más de uno)</h5>
-					
-				<div class="radio">
-					<label> <input type="radio" name="Lunes"
-						id="optionsRadios1" value="option1" checked>Lunes</input> </label>
-				</div>
-				<div class="radio">
-					<label> <input type="radio" name="optionsRadios"
-						id="optionsRadios2" value="option2">Martes</input> </label>
-				</div>
-				<div class="radio disabled">
-					<label> <input type="radio" name="optionsRadios"
-						id="optionsRadios3" value="option3" disabled>Miércoles</input> </label>
-				</div>
-				<div class="radio disabled">
-					<label> <input type="radio" name="optionsRadios"
-						id="optionsRadios3" value="option3" disabled>Jueves</input> </label>
-				</div>
-				<div class="radio disabled">
-					<label> <input type="radio" name="optionsRadios"
-						id="optionsRadios3" value="option3" disabled>Viernes</input></label>
-				</div>
+
+<!-- 				<h:form> -->
+
+<!--  					<p:selectCheckboxMenu id="menu" --> 
+<!--  						value="#{usuarioController.idpreferencia}" label="Preferencia" --> 
+<!--  						filter="true" filterMatchMode="startsWith" --> 
+<!--  						panelStyle="width:250px"> --> 
+<!--  						<f:selectItems value="#{usuarioController.preferencias}" --> 
+<!--  							var="preferencia" itemLabel="preferencia.valor" --> 
+<!-- 							itemValue="preferencia.idpreferencia" /> --> 
+<!-- 				</p:selectCheckboxMenu> --> 
+
+<!-- 				</h:form> -->
 
 				<br></br>
 				<div class="g-recaptcha"
@@ -107,23 +103,24 @@
 				<br> </br>
 				<div class="form-group">
 					<h:commandButton styleClass="btn btn-primary btn-block"
-						value="Guardar" action="guardar"></h:commandButton>
+						value="Guardar" action="#{usuarioController.guardar}"></h:commandButton>
 				</div>
 
 				<div class="form-group">
 					<h:commandButton styleClass="btn btn-primary btn-block"
-						value="Limpiar" action="limpiar"></h:commandButton>
+						value="Limpiar" action="#{usuarioController.limpiar}"></h:commandButton>
 				</div>
 
 			</h:form>
 		</div>
 	</div>
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-		crossorigin="anonymous"></script>
-</body>
+	<!-- 	<script -->
+	<!-- 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> -->
+	<!-- 	<script -->
+	<!-- 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" -->
+	<!-- 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" -->
+	<!-- 		crossorigin="anonymous"></script> -->
+
+</h:body>
 </html>

@@ -152,11 +152,15 @@ public class UsuarioController implements Serializable{
 		this.correo = "";
 		this.celular = "";
 		this.edad = 0;
-		this.estado = estado;
 		this.preferencias = new ArrayList<String>();
 		
 		
 	}
+	
+	public void enlistarPreferencias(){
+		
+	}
+	
 	
 	
 
