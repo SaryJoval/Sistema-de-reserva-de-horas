@@ -1,90 +1,111 @@
 <!DOCTYPE html>
-<html
- 	  xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <head>
-	<title></title>
-	<meta charset="utf-8"></meta>
-	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"></link>
-	<script src='https://www.google.com/recaptcha/api.js'></script>
+<title></title>
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous"></link>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 
 	<div class="container">
-	<div class= "col-md-4 col col-md-offset-4">
-		
-				<h1>Formulario de registro</h1>
-				
-				<h:form>
-					<div class="form-group">
-						<label>Nombre</label>
-						<h:inputText id="nombre" label="nombre" styleClass="form-control" value="nombre">
-					    	<f:validateLength minimum="1" maximum="100" />
-					    </h:inputText>
-					</div>
-					
-					<div class="form-group">
-						<label>Apellido Paterno</label>
-						<h:inputText id="apellidoPaterno" label="apellidoPaterno" styleClass="form-control" value="apellidoPaterno">
-					    	<f:validateLength minimum="1" maximum="100" />
-					    </h:inputText>
-					</div>
-					
-					<div class="form-group">
-						<label>Apellido Materno</label>
-						<h:inputText id="apellidoMaterno" label="apellidoMaterno" styleClass="form-control" value="apellidoMaterno">
-					    	<f:validateLength minimum="1" maximum="100" />
-					    </h:inputText>
-					</div>
-					
-					<div class="form-group">
-						<label>E-mail</label>
-						<h:inputText id="correo" label="correo" styleClass="form-control" value="correo">
-					    	<f:validateLength minimum="1" maximum="100" />
-					    </h:inputText>
-					</div>
-					
-					<div class="form-group">
-						<label>Celular</label>
-						<h:inputText id="celular" label="celular" styleClass="form-control" value="celular">
-					    	<f:validateLength minimum="1" maximum="100" />
-					    </h:inputText>
-					</div>
-					
-					<div class="form-group">
-						<label>Password</label>
-						<h:inputText id="password" label="password" styleClass="form-control" value="password">
-					    	<f:validateLength minimum="6" maximum="15" />
-					    </h:inputText>
-					</div>
-					
-					<div class="form-group">
-						<label>Repetir password</label>
-						<h:inputText id="repetirPassword" label="repetirPassword" styleClass="form-control" value="repetirPassword">
-					    	<f:validateLength minimum="6" maximum="15" />
-					    </h:inputText>
-					</div>
-					
-					<div class="g-recaptcha" data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"></div>
-					
-					<div class="form-group">
-						<h:commandButton styleClass="btn btn-primary btn-block"
-							value="Guardar" action="guardar"></h:commandButton>
-					</div>
-					
-					<div class="form-group">
-						<h:commandButton styleClass="btn btn-primary btn-block"
-							value="Limpiar" action="limpiar"></h:commandButton>
-					</div>
-					
-				</h:form>
+		<div class="col-md-4 col col-md-offset-4">
+
+			<h1>Formulario de registro</h1>
+
+			<h:form>
+				<div class="form-group">
+					<label>Nombre</label>
+					<h:inputText id="nombre" label="nombre" styleClass="form-control"
+						value="nombre">
+						<f:validateLength minimum="1" maximum="100" />
+					</h:inputText>
 				</div>
+
+				<div class="form-group">
+					<label>Apellido Paterno</label>
+					<h:inputText id="apellidoPaterno" label="apellidoPaterno"
+						styleClass="form-control" value="apellidoPaterno">
+						<f:validateLength minimum="1" maximum="100" />
+					</h:inputText>
+				</div>
+
+				<div class="form-group">
+					<label>Apellido Materno</label>
+					<h:inputText id="apellidoMaterno" label="apellidoMaterno"
+						styleClass="form-control" value="apellidoMaterno">
+						<f:validateLength minimum="1" maximum="100" />
+					</h:inputText>
+				</div>
+
+				<div class="form-group">
+					<label>E-mail</label>
+					<h:inputText id="correo" label="correo" styleClass="form-control"
+						value="correo">
+						<f:validateLength minimum="1" maximum="100" />
+					</h:inputText>
+				</div>
+
+				<div class="form-group">
+					<label>Celular</label>
+					<h:inputText id="celular" label="celular" styleClass="form-control"
+						value="celular">
+						<f:validateLength minimum="1" maximum="100" />
+					</h:inputText>
+				</div>
+
+				<div class="form-group">
+					<label>Password</label>
+					<h:inputText id="password" label="password"
+						styleClass="form-control" value="password">
+						<f:validateLength minimum="6" maximum="15" />
+					</h:inputText>
+				</div>
+
+				<div class="form-group">
+					<label>Repetir password</label>
+					<h:inputText id="repetirPassword" label="repetirPassword"
+						styleClass="form-control" value="repetirPassword">
+						<f:validateLength minimum="6" maximum="15" />
+					</h:inputText>
+				</div>
+
+				<label class="radio-inline"> <input type="radio"
+					name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1 </label>
+				<label class="radio-inline"> <input type="radio"
+					name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2 </label>
+				<label class="radio-inline"> <input type="radio"
+					name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3 </label>
+
+				<div class="g-recaptcha"
+					data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"></div>
+
+				<div class="form-group">
+					<h:commandButton styleClass="btn btn-primary btn-block"
+						value="Guardar" action="guardar"></h:commandButton>
+				</div>
+
+				<div class="form-group">
+					<h:commandButton styleClass="btn btn-primary btn-block"
+						value="Limpiar" action="limpiar"></h:commandButton>
+				</div>
+
+			</h:form>
 		</div>
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	</div>
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
 </body>
 </html>
