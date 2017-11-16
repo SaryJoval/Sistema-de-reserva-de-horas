@@ -6,6 +6,7 @@ public class Usuario {
 
 	private String id;
 	private String nombreUsuario;
+	private String password;
 	private String nombre;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
@@ -24,11 +25,12 @@ public class Usuario {
 	public Usuario() {
 		
 	}
-	public Usuario(String id, String nombre, String nombreUsuario, String apellidoPaterno, String apellidoMaterno, String correo, String celular,
+	public Usuario(String id, String nombre, String nombreUsuario, String password, String apellidoPaterno, String apellidoMaterno, String correo, String celular,
 			int edad, boolean estado, List<String> preferencias) {
 		super();
 		this.id = id;
 		this.nombreUsuario = nombreUsuario;
+		this.password= password;
 		this.nombre = nombre;
 		this.apellidoPaterno = apellidoPaterno;
 		this.apellidoMaterno = apellidoMaterno;
@@ -49,6 +51,12 @@ public class Usuario {
 	}
 	public void setId(String id) {
 		this.id = id;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 	public String getNombre() {
 		return nombre;
@@ -92,6 +100,11 @@ public class Usuario {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+	
+
+	
+	
+	
 	
 	
 	

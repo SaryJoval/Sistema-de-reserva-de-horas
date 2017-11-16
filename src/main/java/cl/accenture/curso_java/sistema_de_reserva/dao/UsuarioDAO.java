@@ -14,6 +14,8 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
  * @author Administrador
  *private int id;
 	private String nombre;
+	private String nombreUsuario;
+	privaye String password;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
 	private String correo;
@@ -39,7 +41,7 @@ public class UsuarioDAO {
 	}
 
 	public void insertarUsuario(Usuario usuario) throws SQLException, SinConexionException {
-		PreparedStatement st = Conexion.getInstancia().prepareStatement("insert into usuario(id, nombre, apellidoPaterno, apellidoMaterno, correo, celular, edad, estado, nombreUsuario) values(?,?,?,?,?,?,?,?,?);");
+		PreparedStatement st = Conexion.getInstancia().prepareStatement("insert into usuario(id, nombre, apellidoPaterno, apellidoMaterno, correo, celular, edad, estado, nombreUsuario, password) values(?,?,?,?,?,?,?,?,?,?);");
 		st.setString(1, usuario.getId());
 		st.setString(2, usuario.getNombre());
 		st.setString(3, usuario.getApellidoPaterno());
@@ -49,6 +51,7 @@ public class UsuarioDAO {
 		st.setInt(7, usuario.getEdad());
 		st.setBoolean(8, usuario.isEstado());
 		st.setString(9, usuario.getNombreUsuario());
+		st.setString(10, usuario.getPassword());
 
 		st.executeUpdate();
 	}
