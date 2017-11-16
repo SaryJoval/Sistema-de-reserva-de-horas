@@ -24,7 +24,7 @@
 				<div class="form-group">
 					<label>Nombre</label>
 					<h:inputText id="nombre" label="nombre" styleClass="form-control"
-						value="nombre">
+						value="#{usuarioController.nombre}">
 						<f:validateLength minimum="1" maximum="100" />
 					</h:inputText>
 				</div>
@@ -32,7 +32,7 @@
 				<div class="form-group">
 					<label>Apellido Paterno</label>
 					<h:inputText id="apellidoPaterno" label="apellidoPaterno"
-						styleClass="form-control" value="apellidoPaterno">
+						styleClass="form-control" value="#{usuarioController.apellidoPaterno}">
 						<f:validateLength minimum="1" maximum="100" />
 					</h:inputText>
 				</div>
@@ -40,7 +40,7 @@
 				<div class="form-group">
 					<label>Apellido Materno</label>
 					<h:inputText id="apellidoMaterno" label="apellidoMaterno"
-						styleClass="form-control" value="apellidoMaterno">
+						styleClass="form-control" value="#{usuarioController.apellidoMaterno}">
 						<f:validateLength minimum="1" maximum="100" />
 					</h:inputText>
 				</div>
@@ -48,7 +48,7 @@
 				<div class="form-group">
 					<label>E-mail</label>
 					<h:inputText id="correo" label="correo" styleClass="form-control"
-						value="correo">
+						value="#{usuarioController.correo}">
 						<f:validateLength minimum="1" maximum="100" />
 					</h:inputText>
 				</div>
@@ -56,7 +56,7 @@
 				<div class="form-group">
 					<label>Celular</label>
 					<h:inputText id="celular" label="celular" styleClass="form-control"
-						value="celular">
+						value="#{usuarioController.celular}">
 						<f:validateLength minimum="1" maximum="100" />
 					</h:inputText>
 				</div>
@@ -76,17 +76,35 @@
 						<f:validateLength minimum="6" maximum="15" />
 					</h:inputText>
 				</div>
+				<h5>¿Qué día te acomoda ir a nuestras sucursales? (Puedes
+					marcar más de uno)</h5>
+					
+				<div class="radio">
+					<label> <input type="radio" name="Lunes"
+						id="optionsRadios1" value="option1" checked>Lunes</input> </label>
+				</div>
+				<div class="radio">
+					<label> <input type="radio" name="optionsRadios"
+						id="optionsRadios2" value="option2">Martes</input> </label>
+				</div>
+				<div class="radio disabled">
+					<label> <input type="radio" name="optionsRadios"
+						id="optionsRadios3" value="option3" disabled>Miércoles</input> </label>
+				</div>
+				<div class="radio disabled">
+					<label> <input type="radio" name="optionsRadios"
+						id="optionsRadios3" value="option3" disabled>Jueves</input> </label>
+				</div>
+				<div class="radio disabled">
+					<label> <input type="radio" name="optionsRadios"
+						id="optionsRadios3" value="option3" disabled>Viernes</input></label>
+				</div>
 
-				<label class="radio-inline"> <input type="radio"
-					name="inlineRadioOptions" id="inlineRadio1" value="option1"> 1 </label>
-				<label class="radio-inline"> <input type="radio"
-					name="inlineRadioOptions" id="inlineRadio2" value="option2"> 2 </label>
-				<label class="radio-inline"> <input type="radio"
-					name="inlineRadioOptions" id="inlineRadio3" value="option3"> 3 </label>
-
+				<br></br>
 				<div class="g-recaptcha"
 					data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"></div>
 
+				<br> </br>
 				<div class="form-group">
 					<h:commandButton styleClass="btn btn-primary btn-block"
 						value="Guardar" action="guardar"></h:commandButton>
