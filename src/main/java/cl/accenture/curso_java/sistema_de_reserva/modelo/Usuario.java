@@ -1,8 +1,11 @@
 package cl.accenture.curso_java.sistema_de_reserva.modelo;
 
+import java.util.List;
+
 public class Usuario {
 
 	private String id;
+	private String nombreUsuario;
 	private String nombre;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
@@ -10,15 +13,22 @@ public class Usuario {
 	private String celular;
 	private int edad;
 	private boolean estado;
-	private String preferencias;
+	private List<String> preferencias;
 	
+	public List<String> getPreferencias() {
+		return preferencias;
+	}
+	public void setPreferencias(List<String> preferencias) {
+		this.preferencias = preferencias;
+	}
 	public Usuario() {
 		
 	}
-	public Usuario(String id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo, String celular,
-			int edad, boolean estado, String preferencias) {
+	public Usuario(String id, String nombre, String nombreUsuario, String apellidoPaterno, String apellidoMaterno, String correo, String celular,
+			int edad, boolean estado, List<String> preferencias) {
 		super();
 		this.id = id;
+		this.nombreUsuario = nombreUsuario;
 		this.nombre = nombre;
 		this.apellidoPaterno = apellidoPaterno;
 		this.apellidoMaterno = apellidoMaterno;
@@ -27,6 +37,12 @@ public class Usuario {
 		this.edad = edad;
 		this.estado = estado;
 		this.preferencias = preferencias;
+	}
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario = nombreUsuario;
 	}
 	public String getId() {
 		return id;
@@ -76,12 +92,9 @@ public class Usuario {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-	public String getPreferencias() {
-		return preferencias;
-	}
-	public void setPreferencias(String preferencias) {
-		this.preferencias = preferencias;
-	}
+	
+	
+	
 	
 	
 }
