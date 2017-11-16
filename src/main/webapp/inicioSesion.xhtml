@@ -1,48 +1,50 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <head>
 <meta charset="utf-8"></meta>
-<meta name="viewport" content="width=device-width, initialscale=
-1"></meta>
-<title>Inicio Sesion</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous"></link>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+<meta name="description" content=""></meta>
+<meta name="author" content=""></meta>
+<title>Shop Item - Start Bootstrap Template</title>
+
+<!-- Bootstrap core CSS -->
+<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+<link href="css/shop-item.css" rel="stylesheet"></link>
 </head>
 
 <body>
-	<DIV class="container">
-			<div id="headInicioSesion" class="col-md-4 col-md-offset-4  " align="center">
-				<img alt="" class="img-responsive" src="imagenes/head inicio sesion.jpg"> </img>
-			</div>
-		
-			<div  class="col-md-4 col-md-offset-4  " align="center">
-			
-				<form class="form-signin">
-						<IMG alt="" src="imagenes/head inicio sesion.jpg" />
-						<h2 class="form-signin-heading">Inicio Sesión</h2>
-						<label for="inputEmail" class="sr-only">Rut</label>
-						<input	type="email" id="inputEmail" class="form-control"
-								placeholder="11.111.111-1"> </input> 
-						<label	for="inputPassword" class="sr-only">Password</label> 
-						<input type="password" id="inputPassword" class="form-control"
-								placeholder="Password" ></input>
-						<div class="checkbox">
-							<label> <input type="checkbox" value="remember-me"></input>	Remember me	</label>
-						</div>
-						<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-				</form>
-			</div>
-	</DIV>
+	<ui:include src="/WEB-INF/navegador.xhtml"></ui:include>
 
+	<!-- Page Content -->
+	<div class="container">
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/
-1.11.1/jquery.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+		<div class="row">
+
+				<div  class="col-md-4 col-md-offset-4  " align="center">
+				
+					<h:form class="form-signin">
+							<IMG alt="" src="imagenes/head inicio sesion.jpg" />
+							<h2 class="form-signin-heading">Inicio Sesión</h2>
+							<label for="nombreUsuario" class="sr-only"></label>
+							 <h:inputText styleClass="form-control"value="#usuarioController.correo"> </h:inputText>
+							<label	for="inputPassword" class="sr-only">Password</label> 
+							<h:inputSecret id="inputPassword" styleClass="form-control" value="" ></h:inputSecret>
+							<div id="recuperarPassword" class="">
+								<label> ¿Olvidó su contraseña? </label>
+							</div>
+							<button class="btn btn-lg btn-primary btn-block" type="submit">Iniciar sesión</button>
+					</h:form>
+				</div>
+		</div>
+</div>
+
+<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
