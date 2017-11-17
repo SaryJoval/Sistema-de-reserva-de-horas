@@ -2,6 +2,7 @@ package cl.accenture.curso_java.sistema_de_reserva.controladores;
 
 import java.io.Serializable;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -28,7 +29,7 @@ public class UsuarioController implements Serializable{
 	private String celular;
 	private int edad;
 	private boolean estado;
-	private String preferencias;
+	private List<String>preferencias;
 	private List<Usuario>usuarios;
 	
 	private boolean errorNuevo;
@@ -40,7 +41,7 @@ public class UsuarioController implements Serializable{
 		
 	}
 	public UsuarioController(String id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
-			String celular, int edad, boolean estado, String preferencias, List<Usuario> usuarios) {
+			String celular, int edad, boolean estado, List<String> preferencias, List<Usuario> usuarios) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -101,10 +102,10 @@ public class UsuarioController implements Serializable{
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-	public String getPreferencias() {
+	public List<String> getPreferencias() {
 		return preferencias;
 	}
-	public void setPreferencias(String preferencias) {
+	public void setPreferencias(List<String> preferencias) {
 		this.preferencias = preferencias;
 	}
 	public List<Usuario> getUsuarios() {
@@ -151,11 +152,15 @@ public class UsuarioController implements Serializable{
 		this.correo = "";
 		this.celular = "";
 		this.edad = 0;
-		this.estado = estado;
-		this.preferencias = "";
+		this.preferencias = new ArrayList<String>();
 		
 		
 	}
+	
+	public void enlistarPreferencias(){
+		
+	}
+	
 	
 	
 
