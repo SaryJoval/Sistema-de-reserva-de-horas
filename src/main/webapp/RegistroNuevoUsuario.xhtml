@@ -23,6 +23,15 @@
 			<h1>Formulario de registro</h1>
 
 			<h:form>
+			
+				<div class="form-group">
+					<label>Rut</label>
+					<h:inputText id="id" label="id" styleClass="form-control"
+						value="#{usuarioController.id}">
+						<f:validateLength minimum="1" maximum="100" />
+					</h:inputText>
+				</div>
+				
 				<div class="form-group">
 					<label>Nombre</label>
 					<h:inputText id="nombre" label="nombre" styleClass="form-control"
@@ -65,36 +74,17 @@
 					</h:inputText>
 				</div>
 
-				<div class="form-group">
-					<label>Password</label>
-					<h:inputText id="password" label="password"
-						styleClass="form-control" value="password">
-						<f:validateLength minimum="6" maximum="15" />
-					</h:inputText>
-				</div>
+				<h:outputLabel for="pwd1" value="Ingrese contraseña " />
+				<p:password id="pwd1" value="#{passwordView.password5}" match="pwd2"
+					label="Password 1" required="true" />
 
-				<div class="form-group">
-					<label>Repetir password</label>
-					<h:inputText id="repetirPassword" label="repetirPassword"
-						styleClass="form-control" value="repetirPassword">
-						<f:validateLength minimum="6" maximum="15" />
-					</h:inputText>
-				</div>
+				<h:outputLabel for="pwd2" value="Repita contraseña  " />
+				<p:password id="pwd2" value="#{passwordView.password5}"
+					label="Password 2" required="true" />
+					
 				<h5>¿Qué día te acomoda ir a nuestras sucursales? (Puedes
 					marcar más de uno)</h5>
 
-<!-- 				<h:form> -->
-
-<!--  					<p:selectCheckboxMenu id="menu" --> 
-<!--  						value="#{usuarioController.idpreferencia}" label="Preferencia" --> 
-<!--  						filter="true" filterMatchMode="startsWith" --> 
-<!--  						panelStyle="width:250px"> --> 
-<!--  						<f:selectItems value="#{usuarioController.preferencias}" --> 
-<!--  							var="preferencia" itemLabel="preferencia.valor" --> 
-<!-- 							itemValue="preferencia.idpreferencia" /> --> 
-<!-- 				</p:selectCheckboxMenu> --> 
-
-<!-- 				</h:form> -->
 
 				<br></br>
 				<div class="g-recaptcha"
