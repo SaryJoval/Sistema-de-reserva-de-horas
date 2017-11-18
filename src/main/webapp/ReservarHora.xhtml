@@ -38,39 +38,63 @@
 						<h3 class="card-title">Reservar Hora</h3>
 
 						<h:form>
-				
-							#{agregarReservaControlador.mensaje}
-							<h:selectOneMenu id="nombre"
-								styleClass="btn btn-default dropdown-toggle"
-								value="#{agregarReservaControlador.nombre}">
-								<f:selectItems value="#{agregarReservaControlador.sucursales}"
-									var="sucursal" itemLabel="#{sucursal.nombre}"
-									itemValue="#{sucursal.nombre}" />
-							</h:selectOneMenu>
+						
+						#{agregarReservaControlador.mensaje}
 
-							<br />
+							<div class="form-group">
 
-							<p>Selecciona servicio</p>
+								<div class="form-group">
 
-							<h:selectOneRadio value="#{agregarReservaControlador.servicio}">
-								<f:selectItem itemValue="Venta" itemLabel="Venta" />
-								<f:selectItem itemValue="Posventa" itemLabel="Posventa" />
-							</h:selectOneRadio>
+									<label>Fecha</label>
 
-							<hr />
+									<p:calendar id="inline" mode="inline"
+										value="#{agregarReservaControlador.reserva.fechaReserva}">
+									</p:calendar>
 
-							<p:calendar id="inline" mode="inline"
-								value="#{agregarReservaControlador.fechaReserva}">
-							</p:calendar>
+								</div>
+
+								<div class="form-group">
+
+									<label>Servicio</label>
+
+									<h:selectOneRadio
+										value="#{agregarReservaControlador.reserva.servicio}">
+										<f:selectItem itemValue="Venta" itemLabel="Venta" />
+										<f:selectItem itemValue="Posventa" itemLabel="Posventa" />
+									</h:selectOneRadio>
+
+								</div>
+
+								<label>Sucursal</label>
+
+								<h:selectOneMenu 
+									styleClass="btn btn-default dropdown-toggle"
+									value="#{agregarReservaControlador.sucursal.nombre}">
+									<f:selectItems value="#{agregarReservaControlador.sucursales}"
+										var="sucursal" itemLabel="#{sucursal.nombre}"
+										itemValue="#{sucursal.nombre}" />
+								</h:selectOneMenu>
+
+							</div>
 
 
-							<h:selectOneMenu value="#{agregarReservaControlador.hora}">
-								<f:selectItem itemValue="10:10:10" itemLabel="10:10:10" />
-								<f:selectItem itemValue="11:11:11" itemLabel="11:11:11" />
-							</h:selectOneMenu>
+							<div class="form-group">
 
-							<h:commandButton styleClass="btn btn-default" value="Guardar"
-								action="#{agregarReservaControlador.agregarReserva}"></h:commandButton>
+								<label>Hora</label>
+
+								<h:selectOneMenu
+									value="#{agregarReservaControlador.reserva.hora}">
+									<f:selectItem itemValue="10:10:10" itemLabel="10:10:10" />
+									<f:selectItem itemValue="11:11:11" itemLabel="11:11:11" />
+								</h:selectOneMenu>
+
+							</div>
+
+							<div class="form-group">
+								<h:commandButton styleClass="btn btn-primary btn-block"
+									value="Guardar"
+									action="#{agregarReservaControlador.agregarReserva}"></h:commandButton>
+							</div>
 
 						</h:form>
 
@@ -78,7 +102,6 @@
 				</div>
 
 			</div>
-			<!-- /.col-lg-9 -->
 
 		</div>
 

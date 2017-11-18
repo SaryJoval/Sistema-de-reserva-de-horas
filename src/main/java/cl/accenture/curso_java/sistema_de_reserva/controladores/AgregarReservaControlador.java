@@ -1,13 +1,11 @@
 package cl.accenture.curso_java.sistema_de_reserva.controladores;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 
 import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.SucursalDAO;
@@ -15,7 +13,7 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Reserva;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Sucursal;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class AgregarReservaControlador implements Serializable {
 
 	/**
@@ -24,51 +22,15 @@ public class AgregarReservaControlador implements Serializable {
 	private static final long serialVersionUID = 2545746997175419045L;
 
 	private String mensaje;
+	private Reserva reserva;
+	private Sucursal sucursal;
+
 	private List<Sucursal> sucursales;
 
-	//
-	private String nombre;
-	private String servicio;
-	private Date fechaReserva;
-	private Time hora;
-
 	public AgregarReservaControlador() {
+		this.reserva = new Reserva();
+		this.sucursal = new Sucursal();
 		obtenerSucursal();
-		agregarReserva();
-	}
-
-	public void obtenerSucursal() {
-		try {
-			this.sucursales = SucursalDAO.obtenerSucursal();
-			this.mensaje = "";
-		} catch (Exception e) {
-			this.mensaje = "Lo sentimos, Ocurrio un error al obtener la Sucursal";
-			this.sucursales = new ArrayList<Sucursal>();
-		}
-	}
-
-	public void agregarReserva() {
-
-		try {
-
-			Reserva reserva = new Reserva();
-			Sucursal sucursal = new Sucursal();
-
-			reserva.setFechaReserva(fechaReserva);
-			System.out.println("fecha: " + fechaReserva);
-			reserva.setHora(hora);
-			reserva.setServicio(servicio);
-			sucursal.setNombre(nombre);
-			System.out.println("nombre: " + nombre);
-
-			ReservaDAO.agregarReserva(reserva, sucursal);
-			this.mensaje = "la reserva se agrego correctamente";
-			reserva = null;
-			sucursal = null;
-		} catch (Exception e) {
-			this.mensaje = "Ocurrio un error al agregar la reserva";
-		}
-
 	}
 
 	public String getMensaje() {
@@ -91,36 +53,44 @@ public class AgregarReservaControlador implements Serializable {
 		return serialVersionUID;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public Reserva getReserva() {
+		return reserva;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setReserva(Reserva reserva) {
+		this.reserva = reserva;
 	}
 
-	public String getServicio() {
-		return servicio;
+	public Sucursal getSucursal() {
+		return sucursal;
 	}
 
-	public void setServicio(String servicio) {
-		this.servicio = servicio;
+	public void setSucursal(Sucursal sucursal) {
+		this.sucursal = sucursal;
 	}
 
-	public Date getFechaReserva() {
-		return fechaReserva;
+	public void obtenerSucursal() {
+		try {
+			this.sucursales = SucursalDAO.obtenerSucursal();
+			this.mensaje = "";
+		} catch (Exception e) {
+			this.mensaje = "Lo sentimos, Ocurrio un error al obtener la Sucursal";
+			this.sucursales = new ArrayList<Sucursal>();
+		}
 	}
 
-	public void setFechaReserva(Date fechaReserva) {
-		this.fechaReserva = fechaReserva;
-	}
+	public void agregarReserva() {
 
-	public Time getHora() {
-		return hora;
-	}
+		try {
 
-	public void setHora(Time hora) {
-		this.hora = hora;
+			ReservaDAO.agregarReserva(this.reserva, this.sucursal);
+			this.mensaje = "la reserva se agrego correctamente";
+			reserva = null;
+			sucursal = null;
+		} catch (Exception e) {
+			this.mensaje = "Ocurrio un error al agregar la reserva";
+		}
+
 	}
 
 }

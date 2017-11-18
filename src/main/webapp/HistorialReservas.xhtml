@@ -38,7 +38,6 @@
 
 						<div class="card-text">
 
-
 							#{listarReservaControlador.mensaje}
 
 							<h:dataTable value="#{listarReservaControlador.reservas}"
@@ -58,16 +57,17 @@
 									<f:facet name="header">Servicio</f:facet>
 									#{reserva.servicio}
 								</h:column>
+								
+								<h:column>
+									<f:facet name="header">Hora</f:facet>
+									#{reserva.hora}
+								</h:column>
 
 								<h:column>
 									<f:facet name="header">Sucursal</f:facet>
 									#{reserva.sucursal}
 								</h:column>
 
-								<h:column>
-									<f:facet name="header">Hora</f:facet>
-									#{reserva.hora}
-								</h:column>
 
 							</h:dataTable>
 

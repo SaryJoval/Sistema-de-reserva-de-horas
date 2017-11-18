@@ -25,8 +25,8 @@ public class ReservaDAO {
 			reserva.setIdreserva(rs.getInt("idreserva"));
 			reserva.setFechaReserva(rs.getDate("fechaReserva"));
 			reserva.setServicio(rs.getString("servicio"));
-			reserva.setSucursal(rs.getString("sucursal"));
 			reserva.setHora(rs.getTime("hora"));
+			reserva.setSucursal(rs.getString("sucursal"));
 
 			reservas.add(reserva);
 		}
@@ -35,7 +35,6 @@ public class ReservaDAO {
 
 	public static void agregarReserva(Reserva reserva, Sucursal sucursal) throws SQLException, SinConexionException {
 
-		System.out.println("agregar reserva DAO");
 		PreparedStatement st = Conexion.getInstancia()
 				.prepareStatement("insert into reserva (fechaReserva,servicio,sucursal,hora) values(?,?,?,?);");
 
