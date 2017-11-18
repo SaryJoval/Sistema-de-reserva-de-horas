@@ -12,23 +12,25 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Reserva;
 
 @ManagedBean
 @SessionScoped
-public class ListarReservaController implements Serializable {
+public class ListarReservaControlador implements Serializable {
 
 	private static final long serialVersionUID = -4791973245161975696L;
 
-	private List<Reserva> reservas;
 	private String mensaje;
+	private List<Reserva> reservas;
 
-	public ListarReservaController() {
+	public ListarReservaControlador() {
 		obtenerReserva();
 	}
 
-	public List<Reserva> getReservas() {
-		return reservas;
-	}
-
-	public void setReservas(List<Reserva> reservas) {
-		this.reservas = reservas;
+	public void obtenerReserva() {
+		try {
+			this.reservas = ReservaDAO.obtenerReserva();
+			this.mensaje = "";
+		} catch (Exception e) {
+			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las Reservas";
+			this.reservas = new ArrayList<Reserva>();
+		}
 	}
 
 	public String getMensaje() {
@@ -39,19 +41,16 @@ public class ListarReservaController implements Serializable {
 		this.mensaje = mensaje;
 	}
 
+	public List<Reserva> getReservas() {
+		return reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
-	}
-	
-	public void obtenerReserva() {
-		
-		try {
-			this.reservas = ReservaDAO.obtenerReservas();
-		} catch (Exception e) {
-			this.mensaje = "Ocurrio un error al obtener las reservas de horas";
-			this.reservas = new ArrayList<Reserva>();
-		}
-		
 	}
 
 }

@@ -22,7 +22,7 @@
 	<ui:include src="/WEB-INF/navegador.xhtml"></ui:include>
 
 	<!-- Page Content -->
-	<div class="container">
+	<div class="container con">
 
 		<div class="row">
 
@@ -34,24 +34,19 @@
 
 				<div class="card mt-4">
 					<div class="card-body">
-						<h3 class="card-title">Histoiral de reservas</h3>
+						<h3 class="card-title">Historial de reservas</h3>
 
 						<div class="card-text">
-							
-							
-						#{listarReservaController.mensaje}
-							
-							<h:dataTable value="#{listarReservaController.reservas}"
-									var="reserva" styleClass="table table-bordered">
+
+
+							#{listarReservaControlador.mensaje}
+
+							<h:dataTable value="#{listarReservaControlador.reservas}"
+								var="reserva" styleClass="table table-bordered">
 
 								<h:column>
 									<f:facet name="header">ID</f:facet>
-									#{reserva.idReserva}
-								</h:column>
-
-								<h:column>
-									<f:facet name="header">Fecha Actual</f:facet>
-									#{reserva.fechaActual}
+									#{reserva.idreserva}
 								</h:column>
 
 								<h:column>
@@ -64,9 +59,17 @@
 									#{reserva.servicio}
 								</h:column>
 
+								<h:column>
+									<f:facet name="header">Sucursal</f:facet>
+									#{reserva.sucursal}
+								</h:column>
+
+								<h:column>
+									<f:facet name="header">Hora</f:facet>
+									#{reserva.hora}
+								</h:column>
+
 							</h:dataTable>
-								
-							
 
 						</div>
 
@@ -83,8 +86,8 @@
 
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- 	<script src="vendor/jquery/jquery.min.js"></script> -->
+	<!-- 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
 </body>
 

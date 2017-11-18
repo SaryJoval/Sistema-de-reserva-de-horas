@@ -1,41 +1,43 @@
 package cl.accenture.curso_java.sistema_de_reserva.modelo;
 
+import java.sql.Time;
 import java.util.Date;
-
 
 public class Reserva {
 
-	private int idReserva;
+	private int idreserva;
 	private Date fechaReserva;
-	private Date fechaActual;
 	private String servicio;
-	private Sucursal sucursal;
+	private String sucursal;
+	private int idusuario;
+	private Time hora;
 
 	public Reserva() {
 		super();
-		this.idReserva = 0;
+		this.idreserva = 0;
 		this.fechaReserva = new Date();
-		this.fechaActual = new Date();
 		this.servicio = "";
-		this.sucursal = new Sucursal();
+		this.sucursal = "";
+		this.idusuario = 0;
+		this.hora = new Time(0);
 	}
-	
 
-	public Reserva(int idReserva, Date fechaReserva, Date fechaActual, String servicios, Sucursal sucursal) {
+	public Reserva(int idreserva, Date fechaReserva, String servicio, String sucursal, int idusuario, Time hora) {
 		super();
-		this.idReserva = idReserva;
+		this.idreserva = idreserva;
 		this.fechaReserva = fechaReserva;
-		this.fechaActual = fechaActual;
-		this.servicio = servicios;
+		this.servicio = servicio;
 		this.sucursal = sucursal;
+		this.idusuario = idusuario;
+		this.hora = hora;
 	}
 
-	public int getIdReserva() {
-		return idReserva;
+	public int getIdreserva() {
+		return idreserva;
 	}
 
-	public void setIdReserva(int idReserva) {
-		this.idReserva = idReserva;
+	public void setIdreserva(int idreserva) {
+		this.idreserva = idreserva;
 	}
 
 	public Date getFechaReserva() {
@@ -46,14 +48,6 @@ public class Reserva {
 		this.fechaReserva = fechaReserva;
 	}
 
-	public Date getFechaActual() {
-		return fechaActual;
-	}
-
-	public void setFechaActual(Date fechaActual) {
-		this.fechaActual = fechaActual;
-	}
-
 	public String getServicio() {
 		return servicio;
 	}
@@ -62,12 +56,28 @@ public class Reserva {
 		this.servicio = servicio;
 	}
 
-	public Sucursal getSucursal() {
+	public String getSucursal() {
 		return sucursal;
 	}
 
-	public void setSucursal(Sucursal sucursal) {
+	public void setSucursal(String sucursal) {
 		this.sucursal = sucursal;
+	}
+
+	public int getIdusuario() {
+		return idusuario;
+	}
+
+	public void setIdusuario(int idusuario) {
+		this.idusuario = idusuario;
+	}
+
+	public Time getHora() {
+		return hora;
+	}
+
+	public void setHora(Time hora) {
+		this.hora = hora;
 	}
 
 }

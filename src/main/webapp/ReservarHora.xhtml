@@ -2,22 +2,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
 
-<meta charset="utf-8"></meta>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
-<meta name="description" content=""></meta>
-<meta name="author" content=""></meta>
-<title>Shop Item - Start Bootstrap Template</title>
+	<meta charset="utf-8"></meta>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+	<meta name="description" content=""></meta>
+	<meta name="author" content=""></meta>
+	<title>Shop Item - Start Bootstrap Template</title>
 
-<!-- Bootstrap core CSS -->
-<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
-<link href="css/shop-item.css" rel="stylesheet"></link>
-</head>
+	<!-- Bootstrap core CSS -->
+	<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link href="css/shop-item.css" rel="stylesheet"></link>
+</h:head>
 
-<body>
+<h:body>
 
 	<ui:include src="/WEB-INF/navegador.xhtml"></ui:include>
 
@@ -35,7 +36,44 @@
 				<div class="card mt-4">
 					<div class="card-body">
 						<h3 class="card-title">Reservar Hora</h3>
-						<p class="card-text"></p>
+
+						<h:form>
+				
+							#{agregarReservaControlador.mensaje}
+							<h:selectOneMenu id="nombre"
+								styleClass="btn btn-default dropdown-toggle"
+								value="#{agregarReservaControlador.nombre}">
+								<f:selectItems value="#{agregarReservaControlador.sucursales}"
+									var="sucursal" itemLabel="#{sucursal.nombre}"
+									itemValue="#{sucursal.nombre}" />
+							</h:selectOneMenu>
+
+							<br />
+
+							<p>Selecciona servicio</p>
+
+							<h:selectOneRadio value="#{agregarReservaControlador.servicio}">
+								<f:selectItem itemValue="Venta" itemLabel="Venta" />
+								<f:selectItem itemValue="Posventa" itemLabel="Posventa" />
+							</h:selectOneRadio>
+
+							<hr />
+
+							<p:calendar id="inline" mode="inline"
+								value="#{agregarReservaControlador.fechaReserva}">
+							</p:calendar>
+
+
+							<h:selectOneMenu value="#{agregarReservaControlador.hora}">
+								<f:selectItem itemValue="10:10:10" itemLabel="10:10:10" />
+								<f:selectItem itemValue="11:11:11" itemLabel="11:11:11" />
+							</h:selectOneMenu>
+
+							<h:commandButton styleClass="btn btn-default" value="Guardar"
+								action="#{agregarReservaControlador.agregarReserva}"></h:commandButton>
+
+						</h:form>
+
 					</div>
 				</div>
 
@@ -49,9 +87,9 @@
 
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- 	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
-</body>
+</h:body>
 
 </html>
