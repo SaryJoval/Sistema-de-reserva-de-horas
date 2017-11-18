@@ -23,6 +23,8 @@ public class UsuarioController implements Serializable{
 	
 	private String id;
 	private String nombre;
+	private String nombreUsuario;
+	private String password;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
 	private String correo;
@@ -40,11 +42,13 @@ public class UsuarioController implements Serializable{
 	public UsuarioController() {
 		
 	}
-	public UsuarioController(String id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
+	public UsuarioController(String id, String nombre, String nombreUsuario, String password, String apellidoPaterno, String apellidoMaterno, String correo,
 			String celular, int edad, boolean estado, List<String> preferencias, List<Usuario> usuarios) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
+		this.nombreUsuario = nombreUsuario;
+		this.password = password;
 		this.apellidoPaterno = apellidoPaterno;
 		this.apellidoMaterno = apellidoMaterno;
 		this.correo = correo;
@@ -53,6 +57,13 @@ public class UsuarioController implements Serializable{
 		this.estado = estado;
 		this.preferencias = preferencias;
 		this.usuarios = usuarios;
+	}
+		
+		public String getNombreUsuario() {
+			return nombreUsuario;
+		}
+		public void setNombreUsuario(String nombreUsuario) {
+			this.nombreUsuario = nombreUsuario;
 	}
 	public String getId() {
 		return id;
@@ -114,6 +125,13 @@ public class UsuarioController implements Serializable{
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -123,6 +141,8 @@ public class UsuarioController implements Serializable{
 		Usuario usuario = new Usuario();
 		usuario.setId(this.id);
 		usuario.setNombre(this.nombre);
+		usuario.setNombreUsuario(this.nombreUsuario);
+		usuario.setPassword(this.password);
 		usuario.setApellidoPaterno(this.apellidoPaterno);
 		usuario.setApellidoPaterno(this.apellidoPaterno);
 		usuario.setCorreo(this.correo);
@@ -147,6 +167,8 @@ public class UsuarioController implements Serializable{
 	public void limpiar() {
 		this.id = "";
 		this.nombre = "";
+		this.nombreUsuario="";
+		this.password="";
 		this.apellidoPaterno = "";
 		this.apellidoMaterno = "";
 		this.correo = "";
@@ -156,12 +178,12 @@ public class UsuarioController implements Serializable{
 		
 		
 	}
+
 	
 	public void enlistarPreferencias(){
 		
 	}
-	
-	
+
 	
 
 }
