@@ -44,7 +44,7 @@ public class ReservaDAO {
 		st.setString(2, reserva.getServicio());
 		st.setString(3, sucursal.getNombre());
 		st.setTime(4, reserva.getHora());
-		st.setInt(5, usuario.getId());
+		st.setString(5, usuario.getNombreUsuario());
 
 		st.executeUpdate();
 	}

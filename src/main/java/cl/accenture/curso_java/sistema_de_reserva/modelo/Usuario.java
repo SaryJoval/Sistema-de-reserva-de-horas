@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Usuario {
 
-	private int id;
+	private String id;
 	private String nombre;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
@@ -28,11 +28,11 @@ public class Usuario {
 		this.password = password;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

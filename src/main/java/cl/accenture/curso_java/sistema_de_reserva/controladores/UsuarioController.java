@@ -21,7 +21,7 @@ public class UsuarioController implements Serializable {
 	 */
 	private static final long serialVersionUID = 5485314226149147415L;
 
-	private int id;
+	private String id;
 	private String nombre;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
@@ -40,7 +40,7 @@ public class UsuarioController implements Serializable {
 
 	}
 
-	public UsuarioController(int id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
+	public UsuarioController(String id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
 			int celular, int edad, int estado, List<String> preferencias, List<Usuario> usuarios) {
 		super();
 		this.id = id;
@@ -55,11 +55,11 @@ public class UsuarioController implements Serializable {
 		this.usuarios = usuarios;
 	}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -181,7 +181,7 @@ public class UsuarioController implements Serializable {
 	}
 
 	public void limpiar() {
-		this.id = 0;
+		this.id = "";
 		this.nombre = "";
 		this.apellidoPaterno = "";
 		this.apellidoMaterno = "";

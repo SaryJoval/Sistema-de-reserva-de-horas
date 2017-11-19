@@ -44,7 +44,7 @@ public class UsuarioDAO {
 	public static void insertarUsuario(Usuario usuario) throws SQLException, SinConexionException {
 		PreparedStatement st = Conexion.getInstancia().prepareStatement(
 				"insert into usuario(id, nombre, apellidoPaterno, apellidoMaterno, correo, celular, edad, estado, nombreUsuario) values(?,?,?,?,?,?,?,?,?);");
-		st.setInt(1, usuario.getId());
+		st.setString(1, usuario.getId());
 		st.setString(2, usuario.getNombre());
 		st.setString(3, usuario.getApellidoPaterno());
 		st.setString(4, usuario.getApellidoPaterno());
