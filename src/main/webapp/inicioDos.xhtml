@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<head>
+		<title>Inicio Dos</title>
+		<meta charset="utf-8"></meta>
+		<meta name="viewport"
+			  content="width=device-width, initial-scale=1"></meta>
+		<!-- Bootstrap core CSS -->
+		<link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+		<link href="css/shop-item.css" rel="stylesheet"></link>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+		      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" 
+		      crossorigin="anonymous"></link>
+</head>
+
+<style>
+  #telecom{color: lightgray;
+  }
+  #navbar{ display: block;
+  }
+  #botonRegistrar{background-color: black; color: lightgray;}
+  #miTelecom{}
+  #quieroCliente{margin: 50px;}
+  #quieroEjecutivo{margin: 50px;}
+  #quieroAdmin{margin: 50px;}
+</style>
+
+<body>
+<nav id="navbar" class="navbar navbar-inverse navbar-static-top">	
+		  <div class="navbar-form navbar-left">
+		  		<a id="telecom" href="inicioDos.xhtml">Telecom</a>
+		  </div>
+		   <DIV  class="navbar-right">
+		    <!-- 			<button type="button" class="btn btn-primary  btn-lg btn-block" > -->
+				<a id ="miTelecom" class="btn btn-default" href="inicioSesion.xhtml">
+					<IMG class="" alt="" src="imagenes/teleffff.png" />
+				 Ingresar a mi Telecom </a>
+				<!-- 			</button> -->
+				<!-- 			<button type="button" class="btn btn-default  btn-lg btn-block"> -->
+				<a class="btn btn-default" href="RegistroNuevoUsuario.xhtml"> Nuevo Cliente Telecom</a>
+				<!-- 			</button> -->
+			</DIV>
+		</nav>
+
+	<!-- Main jumbotron for a primary marketing message or call to action -->
+		<div id ="jumbotron" class="">
+			<h1>Bienvenido a Telecom!</h1>
+			<p>Telecom es una compañía de telecomunicaciones  puedas
+			estar más cerca de lo que tú quieres. Bla bla bla bla y más bla bla
+			 </p>
+			<!-- 			<button type="button" class="btn btn-default  btn-lg btn-block"> -->
+				<a id="botonRegistrar" class="btn btn-default" href="RegistroNuevoUsuario.xhtml"> Quiero ser Cliente Telecom </a>
+				<!-- 			</button> -->
+		</div><!-- container -->
+
+	<div class="container"> <!-- Example row of columns -->
+		<div class="row text-center">
+			<div class="col-md-4 " >
+				<h2 >¿Eres Cliente?</h2>
+				<A>
+				<IMG  alt="" src="imagenes/clienteee.png" />
+				</A>
+				<a id="quieroCliente" class="btn btn-default" href="inicioSesion.xhtml" role="button" > Quiero iniciar sesión
+				</a>
+			</div>
+			<div class="col-md-4">
+				<h2 > ¿Eres Ejecutivo?</h2>
+				<A>
+				<IMG  alt="" src="imagenes/ejecutivooo.png" />
+				</A>
+				<a id="quieroEjecutivo" class="btn btn-default" href="inicioSesion.xhtml" role="button">Quiero iniciar sesión
+				</a>
+					
+			</div>
+			<div class="col-md-4">
+				<h2  >¿Eres Administrador?</h2>
+				<A>
+				<IMG  alt="" src="imagenes/adminnn.png" />
+				</A>
+				<a id="quieroAdmin" class="btn btn-default" href="inicioSesion.xhtml" role="button">Quiero iniciar sesión
+				</a>
+			</div>
+		</div>
+
+		<hr></hr>
+		<footer>
+			<p> 2017 Accenture, Fundación Portas.</p>
+		</footer>
+	</div><!-- /container -->
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
