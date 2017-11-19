@@ -5,6 +5,8 @@ import java.util.Date;
 public class Usuario {
 
 	private String id;
+	private String nombreUsuario;
+	private String password;
 	private String nombre;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
@@ -22,8 +24,32 @@ public class Usuario {
 
 	}
 
-	public Usuario(String nombreUsuario, String password) {
+  public Usuario(String nombreUsuario, String password) {
 		super();
+		this.nombreUsuario = nombreUsuario;
+		this.password = password;
+	}
+
+	public Usuario(String id, String nombre, String nombreUsuario, String password, String apellidoPaterno, String apellidoMaterno, String correo, String celular,
+			int edad, boolean estado, List<String> preferencias) {
+		super();
+		this.id = id;
+		this.nombreUsuario = nombreUsuario;
+		this.password= password;
+		this.nombre = nombre;
+		this.apellidoPaterno = apellidoPaterno;
+		this.apellidoMaterno = apellidoMaterno;
+		this.correo = correo;
+		this.celular = celular;
+		this.edad = edad;
+		this.estado = estado;
+		this.preferencias = preferencias;
+	}
+	public String getNombreUsuario() {
+		return nombreUsuario;
+	}
+	public void setNombreUsuario(String nombreUsuario) {
+
 		this.nombreUsuario = nombreUsuario;
 		this.password = password;
 	}
@@ -34,6 +60,13 @@ public class Usuario {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getNombre() {
@@ -91,6 +124,7 @@ public class Usuario {
 	public void setEstado(int estado) {
 		this.estado = estado;
 	}
+
 
 	public String getNombreUsuario() {
 		return nombreUsuario;

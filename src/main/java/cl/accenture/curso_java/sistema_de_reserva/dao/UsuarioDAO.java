@@ -16,10 +16,25 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.SinConexionException;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 
 /**
+
  * @author Administrador private int id; private String nombre; private String
  *         apellidoPaterno; private String apellidoMaterno; private String
  *         correo; private String celular; private int edad; private boolean
  *         estado; private String preferencias;
+=======
+ * @author Administrador
+ *private int id;
+	private String nombre;
+	private String nombreUsuario;
+	private String password;
+	private String apellidoPaterno;
+	private String apellidoMaterno;
+	private String correo;
+	private String celular;
+	private int edad;
+	private boolean estado;
+	private String preferencias;
+
  */
 public class UsuarioDAO {
 
@@ -41,9 +56,11 @@ public class UsuarioDAO {
 		throw new ObjetoNoEncontradoException("Usuario y/o password incorrectos");
 	}
 
+
 	public static void insertarUsuario(Usuario usuario) throws SQLException, SinConexionException {
 		PreparedStatement st = Conexion.getInstancia().prepareStatement(
 				"insert into usuario(id, nombre, apellidoPaterno, apellidoMaterno, correo, celular, edad, estado, nombreUsuario) values(?,?,?,?,?,?,?,?,?);");
+
 		st.setString(1, usuario.getId());
 		st.setString(2, usuario.getNombre());
 		st.setString(3, usuario.getApellidoPaterno());
@@ -53,6 +70,7 @@ public class UsuarioDAO {
 		st.setInt(7, usuario.getEdad());
 		st.setInt(8, 1);
 		st.setString(9, usuario.getNombreUsuario());
+		st.setString(10, usuario.getPassword());
 
 		st.executeUpdate();
 	}
