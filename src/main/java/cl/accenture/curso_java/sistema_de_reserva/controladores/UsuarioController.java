@@ -14,13 +14,13 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 
 @ManagedBean
 @SessionScoped
-public class UsuarioController implements Serializable{
+public class UsuarioController implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5485314226149147415L;
-	
+
 	private String id;
 	private String nombre;
 	private String nombreUsuario;
@@ -28,22 +28,24 @@ public class UsuarioController implements Serializable{
 	private String apellidoPaterno;
 	private String apellidoMaterno;
 	private String correo;
-	private String celular;
+	private int celular;
 	private int edad;
-	private boolean estado;
-	private List<String>preferencias;
-	private List<Usuario>usuarios;
+	private int estado;
 	
+	private List<String> preferencias;
+	private List<Usuario> usuarios;
+
 	private boolean errorNuevo;
 	private String mensajeNuevoUsuario;
-	
-	
-	
+
 	public UsuarioController() {
-		
+
 	}
-	public UsuarioController(String id, String nombre, String nombreUsuario, String password, String apellidoPaterno, String apellidoMaterno, String correo,
-			String celular, int edad, boolean estado, List<String> preferencias, List<Usuario> usuarios) {
+
+
+	public UsuarioController(String id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
+			int celular, int edad, int estado, List<String> preferencias, List<Usuario> usuarios) {
+
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -58,6 +60,7 @@ public class UsuarioController implements Serializable{
 		this.preferencias = preferencias;
 		this.usuarios = usuarios;
 	}
+
 		
 		public String getNombreUsuario() {
 			return nombreUsuario;
@@ -65,66 +68,87 @@ public class UsuarioController implements Serializable{
 		public void setNombreUsuario(String nombreUsuario) {
 			this.nombreUsuario = nombreUsuario;
 	}
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public String getNombre() {
 		return nombre;
 	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+
 	public String getApellidoPaterno() {
 		return apellidoPaterno;
 	}
+
 	public void setApellidoPaterno(String apellidoPaterno) {
 		this.apellidoPaterno = apellidoPaterno;
 	}
+
 	public String getApellidoMaterno() {
 		return apellidoMaterno;
 	}
+
 	public void setApellidoMaterno(String apellidoMaterno) {
 		this.apellidoMaterno = apellidoMaterno;
 	}
+
 	public String getCorreo() {
 		return correo;
 	}
+
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	public String getCelular() {
+
+	public int getCelular() {
 		return celular;
 	}
-	public void setCelular(String celular) {
+
+	public void setCelular(int celular) {
 		this.celular = celular;
 	}
+
 	public int getEdad() {
 		return edad;
 	}
+
 	public void setEdad(int edad) {
 		this.edad = edad;
 	}
-	public boolean isEstado() {
+
+	public int isEstado() {
 		return estado;
 	}
-	public void setEstado(boolean estado) {
+
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
+
 	public List<String> getPreferencias() {
 		return preferencias;
 	}
+
 	public void setPreferencias(List<String> preferencias) {
 		this.preferencias = preferencias;
 	}
+
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
+
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
+
 	public String getPassword() {
 		return password;
 	}
@@ -135,9 +159,25 @@ public class UsuarioController implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
+
+	public boolean isErrorNuevo() {
+		return errorNuevo;
+	}
+
+	public void setErrorNuevo(boolean errorNuevo) {
+		this.errorNuevo = errorNuevo;
+	}
+
+	public String getMensajeNuevoUsuario() {
+		return mensajeNuevoUsuario;
+	}
+
+	public void setMensajeNuevoUsuario(String mensajeNuevoUsuario) {
+		this.mensajeNuevoUsuario = mensajeNuevoUsuario;
+	}
+
 	public void guardar() {
-		
+
 		Usuario usuario = new Usuario();
 		usuario.setId(this.id);
 		usuario.setNombre(this.nombre);
@@ -149,10 +189,9 @@ public class UsuarioController implements Serializable{
 		usuario.setCelular(this.celular);
 		usuario.setEdad(this.edad);
 		usuario.setEstado(this.estado);
-		usuario.setPreferencias(this.preferencias);
-		
+
 		UsuarioDAO dao = new UsuarioDAO();
-		
+
 		try {
 			dao.insertarUsuario(usuario);
 		} catch (SQLException e) {
@@ -163,7 +202,7 @@ public class UsuarioController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void limpiar() {
 		this.id = "";
 		this.nombre = "";
@@ -172,13 +211,11 @@ public class UsuarioController implements Serializable{
 		this.apellidoPaterno = "";
 		this.apellidoMaterno = "";
 		this.correo = "";
-		this.celular = "";
+		this.celular = 0;
 		this.edad = 0;
 		this.preferencias = new ArrayList<String>();
-		
-		
+
 	}
 
-	
 
 }
