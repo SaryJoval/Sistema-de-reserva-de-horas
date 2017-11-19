@@ -180,10 +180,5 @@ public class UsuarioController implements Serializable{
 	}
 
 	
-	public void enlistarPreferencias(){
-		
-	}
-
-	
 
 }
