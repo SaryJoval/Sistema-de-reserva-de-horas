@@ -15,7 +15,7 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
  *private int id;
 	private String nombre;
 	private String nombreUsuario;
-	privaye String password;
+	private String password;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
 	private String correo;
