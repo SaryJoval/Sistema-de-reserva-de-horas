@@ -6,15 +6,11 @@ public class Sucursal {
 	private String nombre;
 
 	public Sucursal() {
-		super();
-		this.idsucursal = 0;
-		this.nombre = "";
+
 	}
 
-	public Sucursal(int idsucursal, String nombre) {
-		super();
+	public Sucursal(int idsucursal) {
 		this.idsucursal = idsucursal;
-		this.nombre = nombre;
 	}
 
 	public int getIdsucursal() {

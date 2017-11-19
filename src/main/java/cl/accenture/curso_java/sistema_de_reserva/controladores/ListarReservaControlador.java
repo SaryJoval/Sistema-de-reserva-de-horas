@@ -5,13 +5,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Reserva;
+import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class ListarReservaControlador implements Serializable {
 
 	private static final long serialVersionUID = -4791973245161975696L;
@@ -25,11 +27,13 @@ public class ListarReservaControlador implements Serializable {
 
 	public void obtenerReserva() {
 		try {
-			this.reservas = ReservaDAO.obtenerReserva();
+			Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+			this.reservas = ReservaDAO.obtenerReserva(usuario.getNombreUsuario());
 			this.mensaje = "";
 		} catch (Exception e) {
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las Reservas";
 			this.reservas = new ArrayList<Reserva>();
+			System.err.println(e);
 		}
 	}
 

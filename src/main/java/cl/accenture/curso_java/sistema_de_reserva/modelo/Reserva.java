@@ -13,23 +13,13 @@ public class Reserva {
 	private Time hora;
 
 	public Reserva() {
-		super();
-		this.idreserva = 0;
-		this.fechaReserva = new Date();
-		this.servicio = "";
-		this.sucursal = "";
-		this.idusuario = 0;
-		this.hora = new Time(0);
+
 	}
 
-	public Reserva(int idreserva, Date fechaReserva, String servicio, String sucursal, int idusuario, Time hora) {
-		super();
+	public Reserva(int idreserva) {
+		
 		this.idreserva = idreserva;
-		this.fechaReserva = fechaReserva;
-		this.servicio = servicio;
-		this.sucursal = sucursal;
-		this.idusuario = idusuario;
-		this.hora = hora;
+
 	}
 
 	public int getIdreserva() {
