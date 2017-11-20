@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<head>
+<meta charset="utf-8"></meta>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+<meta name="description" content=""></meta>
+<meta name="author" content=""></meta>
+<title>Shop Item - Start Bootstrap Template</title>
+
+<!-- Bootstrap core CSS -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+<link href="css/shop-item.css" rel="stylesheet"></link>
+<link href="css/estilo.css" rel="stylesheet"></link>
+<link rel="stylesheet"
+	href="https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700"></link>
+</head>
+<body>
+
+	<ui:include src="/WEB-INF/navegador.xhtml"></ui:include>
+
+	<div class="container">
+
+		<div class="row">
+
+			<ui:include src="/WEB-INF/lateral.xhtml"></ui:include>
+
+			<div class="col-lg-9 corrector">
+
+				<section class="home-section">
+
+					<div class="container">
+
+						<div class="row">
+
+							<div
+								class="col-sm-offset-2 col-md-12 col-sm-6 margin-left-setting">
+
+								<div class="panel panel-default">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-md-12 lead">
+												<h3>Perfil</h3>
+												<hr></hr>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-4 text-center">
+												<img class="img-circle avatar avatar-original"
+													style="-webkit-user-select: none; display: block; margin: auto;"
+													src="imagenes/user.png"></img>
+											</div>
+											<div class="col-md-8">
+												<div class="row">
+													<div class="col-md-12">
+														<h1 class="only-bottom-margin">#{listarPerfilControlador.usuario.nombreUsuario}</h1>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6">
+														<span class="text-muted">Nombre</span>
+														#{listarPerfilControlador.usuario.nombre}<br></br> <span
+															class="text-muted">Apellido </span>#{listarPerfilControlador.usuario.apellidoPaterno}
+														#{listarPerfilControlador.usuario.apellidoMaterno}<br></br>
+														<span class="text-muted">Correo</span> #{listarPerfilControlador.usuario.correo}<br></br>
+														<span class="text-muted">Celular</span> #{listarPerfilControlador.usuario.celular}<br></br>
+													</div>
+
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<hr></hr>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</section>
+
+
+			</div>
+		</div>
+	</div>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -3,106 +3,64 @@ package cl.accenture.curso_java.sistema_de_reserva.controladores;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 
 import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.SinConexionException;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 
 @ManagedBean
-@SessionScoped
-public class UsuarioController implements Serializable{
+@RequestScoped
+public class UsuarioController implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 5485314226149147415L;
-	
-	private int idUsuario;
-	private String nombreUsuario;
+
+	private String id;
 	private String nombre;
-<<<<<<< HEAD
-=======
-	private String nombreUsuario;
->>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
-	private String password;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
 	private String correo;
 	private int celular;
 	private int edad;
-	private Date ultimoIngreso;
-	private boolean estado;
-	private List<String> preferencias;
+	private int estado;
 	
-	private List<Usuario>usuarios;
+	private List<String> preferencias;
+	private List<Usuario> usuarios;
+
 	private boolean errorNuevo;
 	private String mensajeNuevoUsuario;
-	
-	public UsuarioController() {
-		
-	}
-<<<<<<< HEAD
 
-	public UsuarioController(int idUsuario, String nombreUsuario, String nombre, String password, String apellidoPaterno,
-			String apellidoMaterno, String correo, int celular, int edad, Date ultimoIngreso, boolean estado,
-			List<String> preferencias, List<Usuario> usuarios, boolean errorNuevo, String mensajeNuevoUsuario) {
-=======
-	public UsuarioController(String id, String nombre, String nombreUsuario, String password, String apellidoPaterno, String apellidoMaterno, String correo,
-			String celular, int edad, boolean estado, List<String> preferencias, List<Usuario> usuarios) {
->>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
+	public UsuarioController() {
+
+	}
+
+	public UsuarioController(String id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
+			int celular, int edad, int estado, List<String> preferencias, List<Usuario> usuarios) {
 		super();
-		this.idUsuario= idUsuario;
-		this.nombreUsuario = nombreUsuario;
+		this.id = id;
 		this.nombre = nombre;
-<<<<<<< HEAD
-=======
-		this.nombreUsuario = nombreUsuario;
->>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
-		this.password = password;
 		this.apellidoPaterno = apellidoPaterno;
 		this.apellidoMaterno = apellidoMaterno;
 		this.correo = correo;
 		this.celular = celular;
 		this.edad = edad;
-		this.ultimoIngreso = ultimoIngreso;
 		this.estado = estado;
 		this.preferencias = preferencias;
 		this.usuarios = usuarios;
-		this.errorNuevo = errorNuevo;
-		this.mensajeNuevoUsuario = mensajeNuevoUsuario;
 	}
 
-	public int getId() {
-		return idUsuario;
-	}
-
-	public void setId(int id) {
-		this.idUsuario = id;
-	}
-<<<<<<< HEAD
-
-	public String getNombreUsuario() {
-		return nombreUsuario;
-=======
-		
-		public String getNombreUsuario() {
-			return nombreUsuario;
-		}
-		public void setNombreUsuario(String nombreUsuario) {
-			this.nombreUsuario = nombreUsuario;
-	}
 	public String getId() {
 		return id;
->>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
 	}
 
-	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario = nombreUsuario;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getNombre() {
@@ -111,14 +69,6 @@ public class UsuarioController implements Serializable{
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public String getApellidoPaterno() {
@@ -161,19 +111,11 @@ public class UsuarioController implements Serializable{
 		this.edad = edad;
 	}
 
-	public Date getUltimoIngreso() {
-		return ultimoIngreso;
-	}
-
-	public void setUltimoIngreso(Date ultimoIngreso) {
-		this.ultimoIngreso = ultimoIngreso;
-	}
-
-	public boolean isEstado() {
+	public int isEstado() {
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(int estado) {
 		this.estado = estado;
 	}
 
@@ -192,7 +134,10 @@ public class UsuarioController implements Serializable{
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
-<<<<<<< HEAD
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 
 	public boolean isErrorNuevo() {
 		return errorNuevo;
@@ -208,47 +153,22 @@ public class UsuarioController implements Serializable{
 
 	public void setMensajeNuevoUsuario(String mensajeNuevoUsuario) {
 		this.mensajeNuevoUsuario = mensajeNuevoUsuario;
-=======
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
->>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	public void guardar() {
-		
+
 		Usuario usuario = new Usuario();
-<<<<<<< HEAD
-	usuario.setNombreUsuario(this.nombreUsuario);
-	usuario.setNombre(this.nombre);
-	usuario.setApellidoPaterno(this.apellidoPaterno);
-	usuario.setApellidoMaterno(this.apellidoMaterno);
-	usuario.setEdad(this.edad);
-	usuario.setCorreo(this.correo);
-	usuario.setCelular(this.celular);
-	usuario.setPassword(this.password);
-=======
 		usuario.setId(this.id);
 		usuario.setNombre(this.nombre);
-		usuario.setNombreUsuario(this.nombreUsuario);
-		usuario.setPassword(this.password);
 		usuario.setApellidoPaterno(this.apellidoPaterno);
 		usuario.setApellidoPaterno(this.apellidoPaterno);
 		usuario.setCorreo(this.correo);
 		usuario.setCelular(this.celular);
 		usuario.setEdad(this.edad);
 		usuario.setEstado(this.estado);
-		usuario.setPreferencias(this.preferencias);
->>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
-		
+
 		UsuarioDAO dao = new UsuarioDAO();
-		
+
 		try {
 			dao.insertarUsuario(usuario);
 		} catch (SQLException e) {
@@ -259,22 +179,22 @@ public class UsuarioController implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void limpiar() {
-		this.nombreUsuario="";
+		this.id = "";
 		this.nombre = "";
-		this.nombreUsuario="";
-		this.password="";
 		this.apellidoPaterno = "";
 		this.apellidoMaterno = "";
 		this.correo = "";
 		this.celular = 0;
 		this.edad = 0;
 		this.preferencias = new ArrayList<String>();
-		
-		
+
 	}
 
+	public void enlistarPreferencias() {
+
+	}
 	
 
 }
