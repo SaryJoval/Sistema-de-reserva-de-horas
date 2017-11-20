@@ -7,6 +7,7 @@ public class Usuario {
 
 	private int idUsuario;
 	private String nombreUsuario;
+	private String password;
 	private String nombre;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
@@ -21,13 +22,19 @@ public class Usuario {
 	public Usuario() {
 
 	}
+<<<<<<< HEAD
 
 	public Usuario(int idUsuario, String nombreUsuario, String nombre, String apellidoPaterno, String apellidoMaterno,
 			String correo, int celular, int edad, Date ultimoIngreso, boolean estado, List<String> preferencias,
 			String password) {
+=======
+	public Usuario(String id, String nombre, String nombreUsuario, String password, String apellidoPaterno, String apellidoMaterno, String correo, String celular,
+			int edad, boolean estado, List<String> preferencias) {
+>>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
 		super();
 		this.idUsuario = idUsuario;
 		this.nombreUsuario = nombreUsuario;
+		this.password= password;
 		this.nombre = nombre;
 		this.apellidoPaterno = apellidoPaterno;
 		this.apellidoMaterno = apellidoMaterno;
@@ -55,7 +62,22 @@ public class Usuario {
 	public void setNombreUsuario(String nombreUsuario) {
 		this.nombreUsuario = nombreUsuario;
 	}
+<<<<<<< HEAD
 
+=======
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+>>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
 	public String getNombre() {
 		return nombre;
 	}
@@ -119,6 +141,7 @@ public class Usuario {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+<<<<<<< HEAD
 
 	public List<String> getPreferencias() {
 		return preferencias;
@@ -137,3 +160,16 @@ public class Usuario {
 	}
 
 }
+=======
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+}
+>>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e

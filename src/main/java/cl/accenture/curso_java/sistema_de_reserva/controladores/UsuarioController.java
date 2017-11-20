@@ -25,6 +25,10 @@ public class UsuarioController implements Serializable{
 	private int idUsuario;
 	private String nombreUsuario;
 	private String nombre;
+<<<<<<< HEAD
+=======
+	private String nombreUsuario;
+>>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
 	private String password;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
@@ -42,14 +46,23 @@ public class UsuarioController implements Serializable{
 	public UsuarioController() {
 		
 	}
+<<<<<<< HEAD
 
 	public UsuarioController(int idUsuario, String nombreUsuario, String nombre, String password, String apellidoPaterno,
 			String apellidoMaterno, String correo, int celular, int edad, Date ultimoIngreso, boolean estado,
 			List<String> preferencias, List<Usuario> usuarios, boolean errorNuevo, String mensajeNuevoUsuario) {
+=======
+	public UsuarioController(String id, String nombre, String nombreUsuario, String password, String apellidoPaterno, String apellidoMaterno, String correo,
+			String celular, int edad, boolean estado, List<String> preferencias, List<Usuario> usuarios) {
+>>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
 		super();
 		this.idUsuario= idUsuario;
 		this.nombreUsuario = nombreUsuario;
 		this.nombre = nombre;
+<<<<<<< HEAD
+=======
+		this.nombreUsuario = nombreUsuario;
+>>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
 		this.password = password;
 		this.apellidoPaterno = apellidoPaterno;
 		this.apellidoMaterno = apellidoMaterno;
@@ -71,9 +84,21 @@ public class UsuarioController implements Serializable{
 	public void setId(int id) {
 		this.idUsuario = id;
 	}
+<<<<<<< HEAD
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
+=======
+		
+		public String getNombreUsuario() {
+			return nombreUsuario;
+		}
+		public void setNombreUsuario(String nombreUsuario) {
+			this.nombreUsuario = nombreUsuario;
+	}
+	public String getId() {
+		return id;
+>>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
 	}
 
 	public void setNombreUsuario(String nombreUsuario) {
@@ -167,6 +192,7 @@ public class UsuarioController implements Serializable{
 	public void setUsuarios(List<Usuario> usuarios) {
 		this.usuarios = usuarios;
 	}
+<<<<<<< HEAD
 
 	public boolean isErrorNuevo() {
 		return errorNuevo;
@@ -182,6 +208,13 @@ public class UsuarioController implements Serializable{
 
 	public void setMensajeNuevoUsuario(String mensajeNuevoUsuario) {
 		this.mensajeNuevoUsuario = mensajeNuevoUsuario;
+=======
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+>>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
 	}
 
 	public static long getSerialversionuid() {
@@ -191,6 +224,7 @@ public class UsuarioController implements Serializable{
 	public void guardar() {
 		
 		Usuario usuario = new Usuario();
+<<<<<<< HEAD
 	usuario.setNombreUsuario(this.nombreUsuario);
 	usuario.setNombre(this.nombre);
 	usuario.setApellidoPaterno(this.apellidoPaterno);
@@ -199,6 +233,19 @@ public class UsuarioController implements Serializable{
 	usuario.setCorreo(this.correo);
 	usuario.setCelular(this.celular);
 	usuario.setPassword(this.password);
+=======
+		usuario.setId(this.id);
+		usuario.setNombre(this.nombre);
+		usuario.setNombreUsuario(this.nombreUsuario);
+		usuario.setPassword(this.password);
+		usuario.setApellidoPaterno(this.apellidoPaterno);
+		usuario.setApellidoPaterno(this.apellidoPaterno);
+		usuario.setCorreo(this.correo);
+		usuario.setCelular(this.celular);
+		usuario.setEdad(this.edad);
+		usuario.setEstado(this.estado);
+		usuario.setPreferencias(this.preferencias);
+>>>>>>> c57243f38d61daff0c1fbb0648dfbe07e83f4f9e
 		
 		UsuarioDAO dao = new UsuarioDAO();
 		
@@ -216,6 +263,8 @@ public class UsuarioController implements Serializable{
 	public void limpiar() {
 		this.nombreUsuario="";
 		this.nombre = "";
+		this.nombreUsuario="";
+		this.password="";
 		this.apellidoPaterno = "";
 		this.apellidoMaterno = "";
 		this.correo = "";
@@ -225,12 +274,7 @@ public class UsuarioController implements Serializable{
 		
 		
 	}
-	
-	public void enlistarPreferencias(){
-		
-	}
-	
-	
+
 	
 
 }
