@@ -18,12 +18,13 @@
 </head>
 
 <body>
+<ui:include src="/WEB-INF/navegador.xhtml"></ui:include>
 <div class= "container">
 <h:form id="registrationForm" method="post" class="form-horizontal mitad" action="#">
  
 			
  
-				<h2>Formulario de Registro</h2>
+				
 				
 				
 				<div class="form-group">
@@ -32,7 +33,7 @@
  
 						<div class="col-lg-3">
  
-							<input type="text" class="form-control" name="nombreUsuario" value="#{usuarioController.nombreUsuario}"/>
+							<input type="text" class="form-control" name="nombreUsuario" value="#{usuarioControlador.id}"/>
  
 						</div>
  
@@ -45,7 +46,7 @@
  
 						<div class="col-lg-3">
  
-							<input type="text" class="form-control" name="nombre" value="#{usuarioController.nombre}"/>
+							<input type="text" class="form-control" name="nombre" value="#{usuarioControlador.nombre}"/>
  
 						</div>
  
@@ -59,7 +60,7 @@
  
 						<div class="col-lg-3">
  
-							<input type="text" class="form-control" name="apellidoPaterno" value="#{usuarioController.apellidoPaterno}"/>
+							<input type="text" class="form-control" name="apellidoPaterno" value="#{usuarioControlador.apellidoPaterno}"/>
  
 						</div>
  
@@ -71,7 +72,7 @@
  
 						<div class="col-lg-3">
  
-							<input type="text" class="form-control" name="apellidoMaterno" value="#{usuarioController.apellidoMaterno}"/>
+							<input type="text" class="form-control" name="apellidoMaterno" value="#{usuarioControlador.apellidoMaterno}"/>
  
 						</div>
  
@@ -83,7 +84,7 @@
  
 						<div class="col-lg-3">
  
-							<input type="text" class="form-control" name="edad" value="#{usuarioController.edad}"/>
+							<input type="text" class="form-control" name="edad" value="#{usuarioControlador.edad}"/>
  
 						</div>
  
@@ -96,7 +97,7 @@
  
 						<div class="col-lg-3">
  
-							<input type="text" class="form-control" name="correo" value="#{usuarioController.correo}"/>
+							<input type="text" class="form-control" name="correo" value="#{usuarioControlador.correo}"/>
  
 						</div>
  
@@ -108,7 +109,7 @@
  
 						<div class="col-lg-3">
  
-							<input type="text" class="form-control" name="celular" value="#{usuarioController.celular}"/>
+							<input type="text" class="form-control" name="celular" value="#{usuarioControlador.celular}"/>
  
 						</div>
  
@@ -120,7 +121,7 @@
  
 						<div class="col-lg-3">
  
-							<input type="password" class="form-control" name="password" value="#{usuarioController.password}" />
+							<input type="password" class="form-control" name="password" value="#{usuarioControlador.password}" />
  
 						</div>
  
@@ -132,7 +133,7 @@
  
 						<div class="col-lg-3">
  
-							<input type="password" class="form-control" name="confirmPassword" value="#{usuarioController.password}" />
+							<input type="password" class="form-control" name="confirmPassword" value="#{usuarioControlador.password}" />
  
 						</div>
 						</div>
@@ -171,7 +172,7 @@
  				<div class="form-group">
  				<div class="col-lg-3 col-lg-offset-3">
 					<h:commandButton styleClass="btn btn-primary btn-block"
-						value="Limpiar" action="#{usuarioController.limpiar}"></h:commandButton>
+						value="Limpiar" action="#{usuarioControlador.limpiar}"></h:commandButton>
 						</div>
 				</div>
  
@@ -179,7 +180,7 @@
  					<div class="col-lg-3 col-lg-offset-3">
  
 							<h:commandButton styleClass="btn btn-primary btn-block"
-							value= "Registrarse" action="#{usuarioController.guardar}"></h:commandButton>
+							value= "Registrarse" action="#{usuarioControlador.guardar}"></h:commandButton>
 							
  
 						</div>

@@ -14,7 +14,7 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 
 @ManagedBean
 @RequestScoped
-public class UsuarioController implements Serializable {
+public class UsuarioControlador implements Serializable {
 
 	/**
 	 * 
@@ -29,6 +29,7 @@ public class UsuarioController implements Serializable {
 	private int celular;
 	private int edad;
 	private int estado;
+	private String password;
 	
 	private List<String> preferencias;
 	private List<Usuario> usuarios;
@@ -36,12 +37,12 @@ public class UsuarioController implements Serializable {
 	private boolean errorNuevo;
 	private String mensajeNuevoUsuario;
 
-	public UsuarioController() {
+	public UsuarioControlador() {
 
 	}
 
-	public UsuarioController(String id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
-			int celular, int edad, int estado, List<String> preferencias, List<Usuario> usuarios) {
+	public UsuarioControlador(String id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
+			int celular, int edad, int estado, List<String> preferencias, List<Usuario> usuarios, String password) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -53,6 +54,7 @@ public class UsuarioController implements Serializable {
 		this.estado = estado;
 		this.preferencias = preferencias;
 		this.usuarios = usuarios;
+		this.password = password;
 	}
 
 	public String getId() {
@@ -154,6 +156,19 @@ public class UsuarioController implements Serializable {
 	public void setMensajeNuevoUsuario(String mensajeNuevoUsuario) {
 		this.mensajeNuevoUsuario = mensajeNuevoUsuario;
 	}
+	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getEstado() {
+		return estado;
+	}
 
 	public void guardar() {
 
@@ -165,7 +180,7 @@ public class UsuarioController implements Serializable {
 		usuario.setCorreo(this.correo);
 		usuario.setCelular(this.celular);
 		usuario.setEdad(this.edad);
-		usuario.setEstado(this.estado);
+		usuario.setPassword(this.password);
 
 		UsuarioDAO dao = new UsuarioDAO();
 

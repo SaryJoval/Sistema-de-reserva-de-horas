@@ -41,14 +41,19 @@
 				<DIV style="padding: 10px;">
 					<h:form class="form-signin">
 							<h2 class="form-signin-heading">Inicio Sesión</h2>
-							<label	 class="sr-only">Nombre de Usuario</label> 
-							<h:inputText styleClass="form-control" value=""> </h:inputText>
-							<label	 class="sr-only">Password</label> 
-							<h:inputSecret id="inputPassword" styleClass="form-control" value="" ></h:inputSecret>
+							<label>Nombre de Usuario:</label> 
+							<h:inputText styleClass="form-control" value="#{loginControlador.nombreUsuario}" placeholder="Usuario"> </h:inputText>
+							<label>Password:</label> 
+							<h:inputSecret id="inputPassword" styleClass="form-control" value="#{loginControlador.password}" placeholder="Password"></h:inputSecret>
+							<br></br>
+							
+							<h:commandButton value="Ingresar"
+							action="#{loginControlador.iniciarSesion}"
+							styleClass="btn btn-info btn-block btn-lg"></h:commandButton>
+							
 							<div id="recuperarPassword" class="">
-								<label> ¿Olvidó su contraseña? </label>
+								<label> <h6>¿Olvidó su contraseña? </h6></label>
 							</div>
-							<button class="btn btn-lg btn-warning btn-block" type="submit">Iniciar sesión</button>
 					</h:form>
 				</DIV>
 			</div>
