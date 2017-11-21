@@ -58,7 +58,7 @@ public class AgregarReservaControlador implements Serializable {
 		reserva.setSucursal(this.nombre);
 		reserva.setFechaReserva(this.fechaReserva);
 		reserva.setHora(this.hora);
-		usuario.setId(usuario.getId());
+//		usuario.setId(usuario.get());
 
 		try {
 			ReservaDAO.agregarReserva(reserva, sucursal,usuario);

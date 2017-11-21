@@ -15,10 +15,10 @@
  
 	 fields: {
  
-		 nombreUsuario: {
+		 'registrationForm\\:nombreUsuario': {
 			 validators: {
 				 stringLength: {
-                     min: 6,
+                     min: 5,
                      max: 15,
                      message: 'El nombre de usuario debe tener entre 6 a 15 caracteres'
                  },
@@ -28,7 +28,7 @@
 				 }
 			 }
 		 },
-		 nombre: {
+		 'registrationForm\\:nombre':{
 			 validators: {
 				 stringLength: {
                      min: 6,
@@ -40,21 +40,21 @@
 				 }
 			 }
 		 },
-		 apellidoPaterno: {
+		 'registrationForm\\:apellidoPaterno': {
 			 validators: {
 				 notEmpty: {
 					 message: 'El apellido paterno es obligatorio'
 				 }
 			 }
 		 },
-		 apellidoMaterno: {
+		 'registrationForm\\:apellidoMaterno': {
 			 validators: {
 				 notEmpty: {
 					 message: 'El apellido materno es obligatorio'
 				 }
 			 }
 		 },
-		 edad: {
+		 'registrationForm\\:edad': {
 			 validators: {
 				 between: {
                      min: 18,
@@ -74,7 +74,7 @@
 				 }
 			 }
 		 },
-		 correo: {
+		 'registration\\:correo': {
 			 validators: {
 				 emailAddress:{ 
 					 message: 'Por favor ingrese un mail válido'
@@ -85,7 +85,7 @@
 				 }
 			 }
 		 },
-		 celular: {
+		 'registration\\:celular': {
 			 validators: {
 				 stringLength: {
                      min: 8,
@@ -97,7 +97,7 @@
 				 }
 			 }
 		 },
-		 password: {
+		 'registration\\:contraseña': {
 			 validators: {
 				 notEmpty: {
 					 message: 'La contraseña es requerida'

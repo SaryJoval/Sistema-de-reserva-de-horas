@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<head>
+
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+
+<title>Sistema de Reservas de horas</title>
+
+<!-- Bootstrap core CSS -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+
+<!-- Custom fonts for this template -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+	type="text/css"></link>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css"></link>
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css"></link>
+
+<!-- Custom styles for this template -->
+<link href="css/freelancer.min.css" rel="stylesheet"></link>
+<link href="css/estiloPerfil.css" rel="stylesheet"></link>
+
+</head>
+
+<body id="page-top">
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top"
+		id="mainNav">
+		<div class="container">
+			<a class="navbar-brand js-scroll-trigger perfil "
+				href="Cliente.xhtml">Modificacion de Perfil</a>
+		</div>
+	</nav>
+
+	<hr></hr>
+	<hr></hr>
+
+	<!-- Modificacion de Perfil -->
+	<section class="success " id="perfil">
+
+		<div class="container">
+
+			<h2 class="text-center">Perfil</h2>
+
+			<hr></hr>
+
+			<div class="row">
+
+				<div class="col-lg-12 ">
+
+					<h:form id="registrationForm" method="post"
+						styleClass="form-horizontal perfil" action="#">
+
+						<div class="form-group">
+
+							<label class="col-lg-6 control-label">Nombre de usuario</label>
+
+							<div class="col-lg-6 perfil">
+
+								<h:inputText type="text" class="form-control"
+									name="nombreUsuario"
+									value="#{usuarioControlador.nombreUsuario}"
+									p:placeholder="supply value"></h:inputText>
+
+							</div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label class="col-lg-6 control-label">Nombre</label>
+
+							<div class="col-lg-6 perfil">
+
+								<h:inputText type="text" class="form-control" name="nombre"
+									value="#{usuarioControlador.nombre}"></h:inputText>
+
+							</div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label class="col-lg-6 control-label">Apellido Paterno</label>
+
+							<div class="col-lg-6 perfil">
+
+								<h:inputText type="text" class="form-control"
+									name="apellidoPaterno"
+									value="#{usuarioControlador.apellidoPaterno}"></h:inputText>
+
+							</div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label class="col-lg-6 control-label">Apellido Materno</label>
+
+							<div class="col-lg-6 perfil">
+
+								<h:inputText type="text" class="form-control"
+									name="apellidoMaterno"
+									value="#{usuarioControlador.apellidoMaterno}"></h:inputText>
+
+							</div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label class="col-lg-6 control-label">Edad</label>
+
+							<div class="col-lg-6 perfil">
+
+								<h:inputText type="text" class="form-control" name="edad"
+									value="#{usuarioControlador.edad}"></h:inputText>
+
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+
+							<label class="col-lg-6 control-label">Correo Electrónico</label>
+
+							<div class="col-lg-6 perfil">
+								<h:inputText type="text" class="form-control" name="correo"
+									value="#{usuarioControlador.correo}"></h:inputText>
+
+							</div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label class="col-lg-6 control-label">Celular</label>
+
+							<div class="col-lg-6 perfil">
+
+								<h:inputText type="text" class="form-control" name="celular"
+									value="#{usuarioControlador.celular}"></h:inputText>
+
+							</div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label class="col-lg-6 control-label">Password</label>
+
+							<div class="col-lg-6 perfil">
+
+								<h:inputSecret type="password" class="form-control"
+									name="password" value="#{usuarioControlador.password}"></h:inputSecret>
+
+							</div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label class="col-lg-6 control-label">Repita su password</label>
+
+							<div class="col-lg-6 perfil">
+
+								<h:inputSecret type="password" class="form-control"
+									name="confirmPassword" value="#{usuarioControlador.password}"></h:inputSecret>
+
+							</div>
+						</div>
+						<br></br>
+						<div class="col-lg-offset-6 ">
+							<div class="g-recaptcha"
+								data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"></div>
+						</div>
+
+						<div class="form-group">
+							<div class="col-lg-6 col-lg-offset-3 perfil">
+
+								<h:commandButton styleClass="btn btn-primary btn-block"
+									value="Modificar" action="#{usuarioControlador.guardar}">
+								</h:commandButton>
+
+							</div>
+
+						</div>
+
+					</h:form>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+	<div class="scroll-top d-lg-none">
+		<a class="btn btn-primary js-scroll-trigger" href="#page-top"> <i
+			class="fa fa-chevron-up"></i>
+		</a>
+	</div>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="jquery/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Plugin JavaScript -->
+	<script src="jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Contact Form JavaScript -->
+	<script src="js/jqBootstrapValidation.js"></script>
+	<script src="js/contact_me.js"></script>
+
+	<!-- Custom scripts for this template -->
+	<script src="js/freelancer.min.js"></script>
+
+</body>
+
+</html>

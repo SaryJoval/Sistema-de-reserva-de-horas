@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<head>
+
+<meta charset="ISO-8859-1"></meta>
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+
+<title>Sistema de Reservas de horas</title>
+
+<!-- Bootstrap core CSS -->
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+
+<!-- Custom fonts for this template -->
+<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+	type="text/css"></link>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet" type="text/css"></link>
+<link
+	href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+	rel="stylesheet" type="text/css"></link>
+
+<!-- Custom styles for this template -->
+<link href="css/freelancer.min.css" rel="stylesheet"></link>
+
+</head>
+
+<body id="page-top">
+
+	<!-- Navigation -->
+	<h:form>
+		<nav class="navbar navbar-expand-lg navbar-light fixed-top"
+			id="mainNav">
+			<div class="container">
+				<a class="navbar-brand js-scroll-trigger" href="Cliente.xhtml">Sistema
+					de Reservas</a>
+				<button class="navbar-toggler navbar-toggler-right" type="button"
+					data-toggle="collapse" data-target="#navbarResponsive"
+					aria-controls="navbarResponsive" aria-expanded="false"
+					aria-label="Toggle navigation">
+					Menu <i class="fa fa-bars"></i>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarResponsive">
+
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item"><a class="nav-link js-scroll-trigger"
+							href="#perfil">#{listarPerfilControlador.usuario.nombreUsuario}</a></li>
+						<li class="nav-item"><a class="nav-link js-scroll-trigger"
+							href="#reserva">Reserva</a></li>
+						<li class="nav-item"><a class="nav-link js-scroll-trigger"
+							href="#historial">Historial</a></li>
+						<li class="nav-item"><h:commandLink styleClass="nav-link"
+								action="#{loginControlador.cerrarSesion}">Cerrar</h:commandLink></li>
+					</ul>
+
+				</div>
+			</div>
+		</nav>
+
+	</h:form>
+
+	<!-- Header -->
+	<header class="masthead">
+		<div class="container">
+			<img class="img-fluid" src="img/profile.png" alt=""></img>
+			<div class="intro-text">
+				<span class="name">Sistema de Reservas</span>
+				<hr class="star-light"></hr>
+				<span class="skills">Accenture</span>
+			</div>
+		</div>
+	</header>
+
+	<!-- Perfil Section -->
+	<section class="success" id="perfil">
+		<div class="container">
+			<h2 class="text-center">#{listarPerfilControlador.usuario.nombreUsuario}</h2>
+			<hr></hr>
+			<div class="row">
+				<div class="col-lg-4 ml-auto">
+					<img class="img-fluid" src="img/profile.png" alt=""></img>
+				</div>
+				<div class="col-lg-4 mr-auto">
+
+					<p>Nombre: #{listarPerfilControlador.usuario.nombre}</p>
+					<p>Apellido: #{listarPerfilControlador.usuario.apellidoPaterno}
+						#{listarPerfilControlador.usuario.apellidoMaterno}</p>
+					<p>Correo: #{listarPerfilControlador.usuario.correo}</p>
+					<p>Celular: #{listarPerfilControlador.usuario.celular}</p>
+					<p>Preferencia de dias:</p>
+
+					<h:form>
+						<h:commandLink action="PerfilFinal.xhtml"
+							styleClass="btn btn-primary btn-lg btn-block">
+							<img class="" src="glyphicons/png/glyphicons-151-edit.png" alt=""></img>
+						Modificar
+					</h:commandLink>
+					</h:form>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Reserva Section -->
+	<section class="success" id="reserva">
+		<div class="container">
+			<h2 class="text-center">Reserva</h2>
+			<hr></hr>
+			<div class="row"></div>
+		</div>
+	</section>
+
+	<!-- Historial Section -->
+	<section class="success" id="historial">
+		<div class="container">
+			<h2 class="text-center">Historial de Reservas</h2>
+			<hr></hr>
+			<div class="row">
+				<div class="col-lg-12 ml-auto">
+
+					<p>#{listarReservaControlador.mensaje}</p>
+
+					<h:dataTable value="#{listarReservaControlador.reservas}"
+						var="reserva" styleClass="table table-striped table-inverse">
+
+						<h:column>
+							<f:facet name="header">ID</f:facet>
+									#{reserva.idreserva}
+								</h:column>
+
+						<h:column>
+							<f:facet name="header">Fecha Reserva</f:facet>
+									#{reserva.fechaReserva}
+								</h:column>
+
+						<h:column>
+							<f:facet name="header">Hora</f:facet>
+									#{reserva.hora}
+								</h:column>
+
+						<h:column>
+							<f:facet name="header">Servicio</f:facet>
+									#{reserva.servicio}
+								</h:column>
+
+						<h:column>
+							<f:facet name="header">Sucursal</f:facet>
+									#{reserva.sucursal}
+								</h:column>
+
+
+					</h:dataTable>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="text-center">
+		<div class="footer-above">
+			<div class="container">
+				<div class="row">
+					<div class="footer-col col-md-4">
+						<h3>Ubicacion</h3>
+						<p>
+							<iframe
+								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d53248.34497462993!2d-70.69298608961924!3d-33.47478942491934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5a6a08ffab9%3A0x61461936cbe07d4f!2sAccenture!5e0!3m2!1ses-419!2scl!4v1511240552312"
+								width="400" height="300" frameborder="0" style="border: 0"
+								allowfullscreen=""></iframe>
+						</p>
+
+
+					</div>
+					<div class="footer-col col-md-4">
+						<h3>Redes Sociales</h3>
+						<ul class="list-inline">
+							<li class="list-inline-item"><a
+								class="btn-social btn-outline" href="#"> <i
+									class="fa fa-fw fa-facebook"></i>
+							</a></li>
+							<li class="list-inline-item"><a
+								class="btn-social btn-outline" href="#"> <i
+									class="fa fa-fw fa-google-plus"></i>
+							</a></li>
+							<li class="list-inline-item"><a
+								class="btn-social btn-outline" href="#"> <i
+									class="fa fa-fw fa-twitter"></i>
+							</a></li>
+							<li class="list-inline-item"><a
+								class="btn-social btn-outline" href="#"> <i
+									class="fa fa-fw fa-linkedin"></i>
+							</a></li>
+						</ul>
+					</div>
+					<div class="footer-col col-md-4">
+						<h3>Acerca de Sistema de reservas</h3>
+						<p>blablabla</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-below">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">Copyright Your Website 2017</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+	<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
+	<div class="scroll-top d-lg-none">
+		<a class="btn btn-primary js-scroll-trigger" href="#page-top"> <i
+			class="fa fa-chevron-up"></i>
+		</a>
+	</div>
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="jquery/jquery.min.js"></script>
+	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+
+	<!-- Plugin JavaScript -->
+	<script src="jquery-easing/jquery.easing.min.js"></script>
+
+	<!-- Contact Form JavaScript -->
+	<script src="js/jqBootstrapValidation.js"></script>
+	<script src="js/contact_me.js"></script>
+
+	<!-- Custom scripts for this template -->
+	<script src="js/freelancer.min.js"></script>
+
+</body>
+
+</html>

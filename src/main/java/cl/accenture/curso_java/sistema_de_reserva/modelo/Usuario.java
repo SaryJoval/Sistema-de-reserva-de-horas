@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Usuario {
 
-	private String id;
+	private String nombreUsuario;
 	private String nombre;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
@@ -12,7 +12,6 @@ public class Usuario {
 	private int celular;
 	private int edad;
 	private int estado;
-	private String nombreUsuario;
 	private String password;
 	private Date ultimoIngreso;
 	private int intentosFallidos;
@@ -27,13 +26,23 @@ public class Usuario {
 		this.nombreUsuario = nombreUsuario;
 		this.password = password;
 	}
+	
 
-	public String getId() {
-		return id;
+	public Usuario(String nombreUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
+			int celular, int edad, String password) {
+		super();
+		this.nombreUsuario = nombreUsuario;
+		this.nombre = nombre;
+		this.apellidoPaterno = apellidoPaterno;
+		this.apellidoMaterno = apellidoMaterno;
+		this.correo = correo;
+		this.celular = celular;
+		this.edad = edad;
+		this.password = password;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public int getEstado() {
+		return estado;
 	}
 
 	public String getNombre() {

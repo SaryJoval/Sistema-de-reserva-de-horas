@@ -54,14 +54,15 @@ public class UsuarioDAO {
 
 	public static void insertarUsuario(Usuario usuario) throws SQLException, SinConexionException {
 		PreparedStatement st = Conexion.getInstancia().prepareStatement(
-				"insert into usuario(id, nombre, apellidoPaterno, apellidoMaterno, correo, celular, edad, password) values(?,?,?,?,?,?,?,?,?);");
-		st.setString(1, usuario.getId());
-		st.setString(2, usuario.getNombre());
-		st.setString(3, usuario.getApellidoPaterno());
-		st.setString(4, usuario.getApellidoPaterno());
-		st.setString(5, usuario.getCorreo());
-		st.setInt(6, usuario.getCelular());
-		st.setInt(7, usuario.getEdad());
+				"insert into usuario(nombre, apellidoPaterno, apellidoMaterno, correo, celular, edad, nombreUsuario, password) values(?,?,?,?,?,?,?,?);");
+		
+		st.setString(1, usuario.getNombre());
+		st.setString(2, usuario.getApellidoPaterno());
+		st.setString(3, usuario.getApellidoMaterno());
+		st.setString(4, usuario.getCorreo());
+		st.setInt(5, usuario.getCelular());
+		st.setInt(6, usuario.getEdad());
+		st.setString(7, usuario.getNombreUsuario());
 		st.setString(8, usuario.getPassword());
 
 		st.executeUpdate();

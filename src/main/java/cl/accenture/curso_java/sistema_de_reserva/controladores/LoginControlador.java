@@ -94,7 +94,7 @@ public class LoginControlador implements Serializable {
 			UsuarioDAO.actualizarUltimoIngreso(usuarioLogeado);
 			this.mensaje = "";
 			this.error = false;
-			return "Perfil?faces-redirect=true";
+			return "Cliente?faces-redirect=true";
 		} catch (ObjetoNoEncontradoException e) {
 			this.error = true;
 			this.mensaje = "Usuario y/o Password incorrectos";
@@ -111,7 +111,7 @@ public class LoginControlador implements Serializable {
 		this.usuarioLogeado = null;
 		this.nombreUsuario = null;
 		this.password = null;
-		return "inicioSesion?faces-redirect=true";
+		return "InicioFinal?faces-redirect=true";
 	}
 
 }

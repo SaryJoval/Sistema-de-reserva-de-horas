@@ -21,7 +21,7 @@ public class UsuarioControlador implements Serializable {
 	 */
 	private static final long serialVersionUID = 5485314226149147415L;
 
-	private String id;
+	private String nombreUsuario;
 	private String nombre;
 	private String apellidoPaterno;
 	private String apellidoMaterno;
@@ -39,12 +39,13 @@ public class UsuarioControlador implements Serializable {
 
 	public UsuarioControlador() {
 
+		
 	}
 
-	public UsuarioControlador(String id, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
+	public UsuarioControlador(String nombreUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
 			int celular, int edad, int estado, List<String> preferencias, List<Usuario> usuarios, String password) {
 		super();
-		this.id = id;
+		this.nombreUsuario= nombreUsuario;
 		this.nombre = nombre;
 		this.apellidoPaterno = apellidoPaterno;
 		this.apellidoMaterno = apellidoMaterno;
@@ -57,12 +58,12 @@ public class UsuarioControlador implements Serializable {
 		this.password = password;
 	}
 
-	public String getId() {
-		return id;
+	public String getNombreUsuario() {
+		return nombreUsuario;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setNombreUsuario(String nombreUsuario) {
+		this.nombreUsuario= nombreUsuario;
 	}
 
 	public String getNombre() {
@@ -170,13 +171,13 @@ public class UsuarioControlador implements Serializable {
 		return estado;
 	}
 
-	public void guardar() {
+	public String guardar() {
 
 		Usuario usuario = new Usuario();
-		usuario.setId(this.id);
+		usuario.setNombreUsuario(this.nombreUsuario);
 		usuario.setNombre(this.nombre);
 		usuario.setApellidoPaterno(this.apellidoPaterno);
-		usuario.setApellidoPaterno(this.apellidoPaterno);
+		usuario.setApellidoMaterno(this.apellidoMaterno);
 		usuario.setCorreo(this.correo);
 		usuario.setCelular(this.celular);
 		usuario.setEdad(this.edad);
@@ -186,6 +187,7 @@ public class UsuarioControlador implements Serializable {
 
 		try {
 			dao.insertarUsuario(usuario);
+			return "inicioSesion?faces-redirect=true";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -193,10 +195,11 @@ public class UsuarioControlador implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "";
 	}
 
 	public void limpiar() {
-		this.id = "";
+		this.nombreUsuario = "";
 		this.nombre = "";
 		this.apellidoPaterno = "";
 		this.apellidoMaterno = "";

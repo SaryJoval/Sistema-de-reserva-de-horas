@@ -16,8 +16,8 @@ public class Conexion {
 		this.host = "localhost"; //127.0.0.1
 		this.puerto = 3306;
 		this.baseDeDatos = "proyecto";
-		this.nombre = "root";
-		this.password = "ciro";
+		this.nombre = "alumnos";
+		this.password = "java123";
 	}
 
 	public String getHost() {

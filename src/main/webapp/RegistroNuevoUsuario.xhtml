@@ -5,207 +5,221 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <head>
 
-	<title></title>
-	<meta charset="utf-8"></meta>
-	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-	<link rel="stylesheet"
+<title></title>
+<meta charset="utf-8"></meta>
+<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+<link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
 	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
 	crossorigin="anonymous"></link>
-	<link href="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css" rel="stylesheet"></link>
+<link
+	href="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"
+	rel="stylesheet"></link>
 
-	<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 
 <body>
-<ui:include src="/WEB-INF/navegador.xhtml"></ui:include>
-<div class= "container">
-<h:form id="registrationForm" method="post" class="form-horizontal mitad" action="#">
- 
-			
- 
-				
-				
-				
-				<div class="form-group">
- 
-						<label class="col-lg-3 control-label">Nombre de usuario</label>
- 
-						<div class="col-lg-3">
- 
-							<input type="text" class="form-control" name="nombreUsuario" value="#{usuarioControlador.id}"/>
- 
-						</div>
- 
-					</div>
- 
- 
-					<div class="form-group">
- 
-						<label class="col-lg-3 control-label">Nombre</label>
- 
-						<div class="col-lg-3">
- 
-							<input type="text" class="form-control" name="nombre" value="#{usuarioControlador.nombre}"/>
- 
-						</div>
- 
-					</div>
- 
- 
- 
-					 <div class="form-group">
- 
-						<label class="col-lg-3 control-label">Apellido Paterno</label>
- 
-						<div class="col-lg-3">
- 
-							<input type="text" class="form-control" name="apellidoPaterno" value="#{usuarioControlador.apellidoPaterno}"/>
- 
-						</div>
- 
-					</div>
-					
-					<div class="form-group">
- 
-						<label class="col-lg-3 control-label">Apellido Materno</label>
- 
-						<div class="col-lg-3">
- 
-							<input type="text" class="form-control" name="apellidoMaterno" value="#{usuarioControlador.apellidoMaterno}"/>
- 
-						</div>
- 
-					</div>
-					
-					<div class="form-group">
- 
-						<label class="col-lg-3 control-label">Edad</label>
- 
-						<div class="col-lg-3">
- 
-							<input type="text" class="form-control" name="edad" value="#{usuarioControlador.edad}"/>
- 
-						</div>
- 
-					</div>
- 
- 
-					<div class="form-group">
- 
-						<label class="col-lg-3 control-label">Correo Electrónico</label>
- 
-						<div class="col-lg-3">
- 
-							<input type="text" class="form-control" name="correo" value="#{usuarioControlador.correo}"/>
- 
-						</div>
- 
-	 			 </div>
- 
- 					<div class="form-group">
- 
-						<label class="col-lg-3 control-label">Celular</label>
- 
-						<div class="col-lg-3">
- 
-							<input type="text" class="form-control" name="celular" value="#{usuarioControlador.celular}"/>
- 
-						</div>
- 
-					</div>
- 
-					<div class="form-group">
- 
-						<label class="col-lg-3 control-label">Password</label>
- 
-						<div class="col-lg-3">
- 
-							<input type="password" class="form-control" name="password" value="#{usuarioControlador.password}" />
- 
-						</div>
- 
-					</div>
-					
-					<div class="form-group">
- 
-						<label class="col-lg-3 control-label">Repita su password</label>
- 
-						<div class="col-lg-3">
- 
-							<input type="password" class="form-control" name="confirmPassword" value="#{usuarioControlador.password}" />
- 
-						</div>
-						</div>
-						<br></br>
- 					<div class ="col-lg-offset-3">
- 					<H5>¿Qué días prefieres venir a nuestras sucursales?</H5>
-					
-					<label class="checkbox-inline">
- 					 <input type="checkbox" id="checkboxEnLinea1" value="opcion_1"> </input> Lunes
-					</label>
-					<label class="checkbox-inline">
- 					 <input type="checkbox" id="checkboxEnLinea2" value="opcion_2"></input> Martes
-					</label>
-					<label class="checkbox-inline">
- 					 <input type="checkbox" id="checkboxEnLinea3" value="opcion_3"></input> Miercoles
-					</label>
-					<label class="checkbox-inline">
- 					 <input type="checkbox" id="checkboxEnLinea3" value="opcion_3"></input> Jueves
-					</label>
-					<label class="checkbox-inline">
- 					 <input type="checkbox" id="checkboxEnLinea3" value="opcion_3"></input> Viernes
-					</label>
-					</div>
-					
-		
-			 
- 				<br></br>
-				<br></br>
-				<div class="col-lg-offset-3">
-				<div class="g-recaptcha"
-					data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"></div>
+	<ui:include src="/WEB-INF/navegador.xhtml"></ui:include>
+	<div class="container top">
+		<h:form id="registrationForm" styleClass="form-horizontal mitad" >
+
+
+			<div class="form-group">
+
+				<label class="col-lg-3 control-label">Nombre de usuario</label>
+
+				<div class="col-lg-3">
+
+					<h:inputText styleClass="form-control" id="nombreUsuario"  name="nombreUsuario"
+						value="#{usuarioControlador.nombreUsuario}"  required="true">
+						<f:validateLength minimum="6" maximum="15" ></f:validateLength>
+					</h:inputText>
+					<h:message for="nombreUsuario"></h:message>
+
 				</div>
-				<br></br>
-			 	
-			 	
- 				<div class="form-group">
- 				<div class="col-lg-3 col-lg-offset-3">
-					<h:commandButton styleClass="btn btn-primary btn-block"
-						value="Limpiar" action="#{usuarioControlador.limpiar}"></h:commandButton>
-						</div>
-				</div>
- 
-			 <div class="form-group">
- 					<div class="col-lg-3 col-lg-offset-3">
- 
-							<h:commandButton styleClass="btn btn-primary btn-block"
-							value= "Registrarse" action="#{usuarioControlador.guardar}"></h:commandButton>
-							
- 
-						</div>
- 
-					</div>
- 
-				</h:form>
 
 			</div>
 
-	
 
-		<script
-			src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script
-			src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-			integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-			crossorigin="anonymous"></script>
-			<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
- 
-		<script src="//oss.maxcdn.com/jquery.bootstrapvalidator/3.2.0/js/bootstrapValidator.min.js"></script>
- 
-		<script type="text/javascript" src="validator.js"></script>
+			<div class="form-group">
 
-		
+				<label class="col-lg-3 control-label">Nombre</label>
+
+				<div class="col-lg-3">
+
+					<h:inputText styleClass="form-control" id= "nombre" name="nombre"
+						value="#{usuarioControlador.nombre}" required= "true">
+						<
+						
+						</h:inputText>
+
+				</div>
+
+			</div>
+
+
+
+			<div class="form-group">
+
+				<label class="col-lg-3 control-label">Apellido Paterno</label>
+
+				<div class="col-lg-3">
+
+					<h:inputText type="text" class="form-control"
+						name="apellidoPaterno"
+						value="#{usuarioControlador.apellidoPaterno}"></h:inputText>
+
+				</div>
+
+			</div>
+
+			<div class="form-group">
+
+				<label class="col-lg-3 control-label">Apellido Materno</label>
+
+				<div class="col-lg-3">
+
+					<h:inputText type="text" class="form-control"
+						name="apellidoMaterno"
+						value="#{usuarioControlador.apellidoMaterno}"></h:inputText>
+
+				</div>
+
+			</div>
+
+			<div class="form-group">
+
+				<label class="col-lg-3 control-label">Edad</label>
+
+				<div class="col-lg-3">
+
+					<h:inputText type="text" class="form-control" name="edad"
+						value="#{usuarioControlador.edad}"></h:inputText>
+
+				</div>
+
+			</div>
+
+
+			<div class="form-group">
+
+				<label class="col-lg-3 control-label">Correo Electrónico</label>
+
+				<div class="col-lg-3">
+					<h:inputText type="text" class="form-control" name="correo"
+						value="#{usuarioControlador.correo}"></h:inputText>
+
+				</div>
+
+			</div>
+
+			<div class="form-group">
+
+				<label class="col-lg-3 control-label">Celular</label>
+
+				<div class="col-lg-3">
+
+					<h:inputText type="text" class="form-control" name="celular"
+						value="#{usuarioControlador.celular}"></h:inputText>
+
+				</div>
+
+			</div>
+
+			<div class="form-group">
+
+				<label class="col-lg-3 control-label">Password</label>
+
+				<div class="col-lg-3">
+
+					<h:inputSecret type="password" class="form-control" name="password"
+						value="#{usuarioControlador.password}"></h:inputSecret>
+
+				</div>
+
+			</div>
+
+			<div class="form-group">
+
+				<label class="col-lg-3 control-label">Repita su password</label>
+
+				<div class="col-lg-3">
+
+					<h:inputSecret type="password" class="form-control"
+						name="confirmPassword" value="#{usuarioControlador.password}"></h:inputSecret>
+
+				</div>
+			</div>
+			<br></br>
+			<div class="col-lg-offset-3">
+				<H5>¿Qué días prefieres venir a nuestras sucursales?</H5>
+
+				<label class="checkbox-inline"> <input type="checkbox"
+					id="checkboxEnLinea1" value="opcion_1"> </input> Lunes
+				</label> <label class="checkbox-inline"> <input type="checkbox"
+					id="checkboxEnLinea2" value="opcion_2"></input> Martes
+				</label> <label class="checkbox-inline"> <input type="checkbox"
+					id="checkboxEnLinea3" value="opcion_3"></input> Miercoles
+				</label> <label class="checkbox-inline"> <input type="checkbox"
+					id="checkboxEnLinea3" value="opcion_3"></input> Jueves
+				</label> <label class="checkbox-inline"> <input type="checkbox"
+					id="checkboxEnLinea3" value="opcion_3"></input> Viernes
+				</label>
+			</div>
+
+
+
+			<br></br>
+			<br></br>
+			<div class="col-lg-offset-3">
+				<div class="g-recaptcha"
+					data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"></div>
+			</div>
+			<br></br>
+
+
+			<div class="form-group">
+				<div class="col-lg-3 col-lg-offset-3">
+					<h:commandButton styleClass="btn btn-primary btn-block"
+						value="Limpiar" action="#{usuarioControlador.limpiar}"></h:commandButton>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="col-lg-3 col-lg-offset-3">
+
+					<h:commandButton styleClass="btn btn-primary btn-block"
+						value="Registrarse" action="#{usuarioControlador.guardar}"></h:commandButton>
+
+
+				</div>
+
+			</div>
+			
+			<h:messages></h:messages>
+
+		</h:form>
+
+	</div>
+
+
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+<!-- 	<script -->
+<!-- 		src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+
+	<script
+		src="https://oss.maxcdn.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
+
+	<script type="text/javascript" src="js/validator.js"></script>
+
+
 
 </body>
 </html>
