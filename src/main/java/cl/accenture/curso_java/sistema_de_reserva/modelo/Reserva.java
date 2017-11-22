@@ -1,6 +1,5 @@
 package cl.accenture.curso_java.sistema_de_reserva.modelo;
 
-import java.sql.Time;
 import java.util.Date;
 
 public class Reserva {
@@ -10,14 +9,14 @@ public class Reserva {
 	private String servicio;
 	private String sucursal;
 	private int idusuario;
-	private Time hora;
+	private String hora;
 
 	public Reserva() {
 
 	}
 	
 
-	public Reserva(int idreserva, Date fechaReserva, String servicio, String sucursal, int idusuario, Time hora) {
+	public Reserva(int idreserva, Date fechaReserva, String servicio, String sucursal, int idusuario, String hora) {
 		super();
 		this.idreserva = idreserva;
 		this.fechaReserva = fechaReserva;
@@ -74,11 +73,11 @@ public class Reserva {
 		this.idusuario = idusuario;
 	}
 
-	public Time getHora() {
+	public String getHora() {
 		return hora;
 	}
 
-	public void setHora(Time hora) {
+	public void setHora(String hora) {
 		this.hora = hora;
 	}
 

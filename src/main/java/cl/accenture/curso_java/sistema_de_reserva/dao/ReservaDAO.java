@@ -17,7 +17,10 @@ public class ReservaDAO {
 
 	public static List<Reserva> obtenerReserva(String usuario) throws SQLException, SinConexionException {
 		List<Reserva> reservas = new ArrayList<Reserva>();
-		PreparedStatement st = Conexion.getInstancia().prepareStatement("SELECT * FROM reserva where id_usuario=?;");
+		PreparedStatement st = Conexion.getInstancia().prepareStatement(""
+				+ "SELECT t1.idreserva, t1.fechaReserva, t1.servicio, t1.sucursal, t2.hora"
+				+ " FROM reserva t1 INNER JOIN reserva_hora t2 ON t1.id_reserva_hora = t2.idreserva_hora"
+				+ " where id_usuario=?;");
 		st.setString(1, usuario);
 		ResultSet rs = st.executeQuery();
 		while (rs.next()) {
@@ -27,8 +30,8 @@ public class ReservaDAO {
 			reserva.setIdreserva(rs.getInt("idreserva"));
 			reserva.setFechaReserva(rs.getDate("fechaReserva"));
 			reserva.setServicio(rs.getString("servicio"));
-			reserva.setHora(rs.getTime("hora"));
 			reserva.setSucursal(rs.getString("sucursal"));
+			reserva.setHora(rs.getString("hora"));
 
 			reservas.add(reserva);
 		}
@@ -43,7 +46,7 @@ public class ReservaDAO {
 		st.setDate(1, (Date) reserva.getFechaReserva());
 		st.setString(2, reserva.getServicio());
 		st.setString(3, sucursal.getNombre());
-		st.setTime(4, reserva.getHora());
+		st.setString(4, reserva.getHora());
 		st.setString(5, usuario.getNombreUsuario());
 
 		st.executeUpdate();
