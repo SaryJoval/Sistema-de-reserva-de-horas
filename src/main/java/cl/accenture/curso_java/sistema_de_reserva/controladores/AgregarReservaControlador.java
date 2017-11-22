@@ -3,7 +3,9 @@ package cl.accenture.curso_java.sistema_de_reserva.controladores;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -38,7 +40,7 @@ public class AgregarReservaControlador implements Serializable {
 
 	public AgregarReservaControlador() {
 		obtenerSucursal();
-		obtenerReservasHoras();
+		//obtenerReservasHoras();
 	}
 
 	public void obtenerSucursal() {
@@ -55,16 +57,22 @@ public class AgregarReservaControlador implements Serializable {
 	public void obtenerReservasHoras() {
 
 		try {
-//			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-//			this.date = formato.format(this.fechaReserva);
-			this.reservasHoras = ReservaHoraDAO.obtenerHorasDisponibles("2017-11-12");
+			Calendar cal = GregorianCalendar.getInstance();
+			cal.setTime( this.fechaReserva );
+			cal.add(Calendar.DAY_OF_MONTH, 1);
+			
+			String horaInicio = "10:00:00";
+			String horaFin 	  = "18:00:00";
+			String bloque     = "30";
+			
+			
+
+			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+			this.date = formato.format(cal.getTime());
+			this.reservasHoras = ReservaHoraDAO.obtenerHorasDisponibles(this.date);
 			this.mensaje = "";
 			//
 			System.out.println(this.date);
-			for (ReservaHora reservaHora : reservasHoras) {
-				System.out.println(reservaHora.getHora());
-			}
-
 		} catch (Exception e) {
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las Horas";
 			this.reservasHoras = new ArrayList<ReservaHora>();

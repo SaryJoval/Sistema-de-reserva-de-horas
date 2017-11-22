@@ -17,10 +17,10 @@ public class ReservaHoraDAO {
 		List<ReservaHora> reservasHoras = new ArrayList<ReservaHora>();
 		
 		PreparedStatement st = Conexion.getInstancia().prepareStatement(""
-				+ "select t1.hora, t1.idreserva_hora " + 
-				" from reserva_hora t1 INNER JOIN reserva t2 ON t1.idreserva_hora <> t2.idreserva " + 
-				" where t1.idreserva_hora <> t2.id_reserva_hora " + 
-				" and t2.fechaReserva = ?");
+				+ "select t1.hora, t1.idreserva_hora "
+				+ "from reserva_hora t1 inner join reserva t2 "
+				+ "on t1.idreserva_hora <> t2.id_reserva_hora "
+				+ "where t2.fechaReserva = ?");
 		
 		st.setString(1, fecha);
 		ResultSet rs = st.executeQuery();

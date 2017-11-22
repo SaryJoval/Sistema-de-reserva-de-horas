@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: proyecto
 -- ------------------------------------------------------
--- Server version	5.7.20-0ubuntu0.16.04.1
+-- Server version	5.7.19-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,6 +14,30 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `configuracion`
+--
+
+DROP TABLE IF EXISTS `configuracion`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `configuracion` (
+  `clave` varchar(45) NOT NULL,
+  `valor` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`clave`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `configuracion`
+--
+
+LOCK TABLES `configuracion` WRITE;
+/*!40000 ALTER TABLE `configuracion` DISABLE KEYS */;
+INSERT INTO `configuracion` VALUES ('bloque_atencion','30'),('hora_fin','18:00:00'),('hora_inicio','10:00:00');
+/*!40000 ALTER TABLE `configuracion` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `perfil`
@@ -103,11 +127,13 @@ CREATE TABLE `reserva` (
   `idreserva` int(11) NOT NULL AUTO_INCREMENT,
   `fechaReserva` date DEFAULT NULL,
   `servicio` varchar(45) DEFAULT NULL,
-  `hora` time DEFAULT NULL,
   `sucursal` varchar(45) DEFAULT NULL,
   `id_usuario` varchar(45) DEFAULT NULL,
+  `id_reserva_hora` int(11) DEFAULT NULL,
   PRIMARY KEY (`idreserva`),
   KEY `fk_id_usuario_idx` (`id_usuario`),
+  KEY `fk_id_reserva_hora_idx` (`id_reserva_hora`),
+  CONSTRAINT `fk_id_reserva_hora` FOREIGN KEY (`id_reserva_hora`) REFERENCES `reserva_hora` (`idreserva_hora`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`nombreUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -118,8 +144,32 @@ CREATE TABLE `reserva` (
 
 LOCK TABLES `reserva` WRITE;
 /*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
-INSERT INTO `reserva` VALUES (1,'2011-11-11','otro','11:11:11','santiago','ciro'),(2,'2011-11-11','asd','11:11:11','asd','ciro'),(3,'2001-11-11','asdasd','11:11:11','asd','caca');
+INSERT INTO `reserva` VALUES (1,'2017-11-12','otro','santiago','ciro',1),(2,'2017-11-11','asd','valparaiso','ciro',2);
 /*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `reserva_hora`
+--
+
+DROP TABLE IF EXISTS `reserva_hora`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `reserva_hora` (
+  `idreserva_hora` int(11) NOT NULL,
+  `hora` time DEFAULT NULL,
+  PRIMARY KEY (`idreserva_hora`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `reserva_hora`
+--
+
+LOCK TABLES `reserva_hora` WRITE;
+/*!40000 ALTER TABLE `reserva_hora` DISABLE KEYS */;
+INSERT INTO `reserva_hora` VALUES (1,'09:30:00'),(2,'10:00:00'),(3,'10:30:00'),(4,'11:00:00'),(5,'11:30:00'),(6,'12:00:00');
+/*!40000 ALTER TABLE `reserva_hora` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -178,7 +228,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES ,('Luis','Torres','Cereño','torrescereno@gmail.ocm',234,34,1,'ciro','123','2017-11-19 22:48:30',0,1);
+INSERT INTO `usuario` VALUES ('Luis','Torres','Cereño','torrecereno@gmail.com',123123,24,1,'ciro','123','2017-11-22 12:56:12',0,1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -191,4 +241,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-20  0:17:29
+-- Dump completed on 2017-11-22 12:57:48
