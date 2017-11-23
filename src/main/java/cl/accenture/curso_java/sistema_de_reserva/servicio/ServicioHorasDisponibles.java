@@ -55,8 +55,7 @@ public final class ServicioHorasDisponibles {
 	}
 
 	public static List<String> obtenerHorasDisponibles(List<String> horasReservadas, List<String> horasDisponibles) {
-		
-		w
+	
 		
 		return null;
 	}
