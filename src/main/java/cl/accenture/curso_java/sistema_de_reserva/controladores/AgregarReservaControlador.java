@@ -21,6 +21,7 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Configuracion;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Reserva;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Sucursal;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
+import cl.accenture.curso_java.sistema_de_reserva.servicio.ServicioHorasDisponibles;
 
 @ManagedBean
 @RequestScoped
@@ -38,17 +39,17 @@ public class AgregarReservaControlador implements Serializable {
 	private String horaFin;
 	private String bloque;
 
-	private Calendar hora;
+	private String hora;
 
 	private Date fechaReserva;
 
 	private List<Sucursal> sucursales;
-	private List<Calendar> horas;
+	private List<String> horas;
 	private List<Configuracion> configuraciones;
 
 	public AgregarReservaControlador() {
 		obtenerSucursal();
-		//obtenerHorasDisponibles();
+		obtenerHorasDisponibles();
 
 	}
 
@@ -67,60 +68,25 @@ public class AgregarReservaControlador implements Serializable {
 
 		try {
 
-			// Calendar cal = GregorianCalendar.getInstance();
-			// cal.setTime( this.fechaReserva );
-			// cal.add(Calendar.DAY_OF_MONTH, 1);
-			//
-			// String horaInicio = "10:00:00";
-			// String horaFin = "18:00:00";
-			// String bloque = "30";
-
 			this.configuraciones = ConfiguracionDAO.obtenerConfiguraciones();
 
 			this.bloque = this.configuraciones.get(0).getValor();
 			this.horaFin = this.configuraciones.get(1).getValor();
 			this.horaInicio = this.configuraciones.get(2).getValor();
 			
-//			System.out.println(bloque);
-//			System.out.println(horaFin);
-//			System.out.println(horaInicio);
-
+			int bloqueF = Integer.parseInt(bloque);
 			
-			DateFormat horaformar = new SimpleDateFormat("hh:mm:ss");
+			this.horas = ServicioHorasDisponibles.calcularHorasDisponibles(this.horaInicio,this.horaFin,bloqueF);
 
-			Date bloqueT = horaformar.parse(this.bloque);
-			Date horaFinT = horaformar.parse(this.horaFin);
-			Date horaInicioT = horaformar.parse(this.horaInicio);
-			
-			System.out.println(horaFinT.getTime());
-			System.out.println(horaInicioT.getTime());
-
-			
-
-			Calendar cal = Calendar.getInstance();
-
-			while (cal.getTime().equals(horaFinT)) {
-
-				cal.setTime(horaInicioT);
-				cal.add(Calendar.MINUTE, 30);
-
-				this.hora.setTime(cal.getTime());
-				this.horas.add(this.hora);
-
-			}
-
-			// SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-			// this.date = formato.format(cal.getTime());
-			// this.reservasHoras = ReservaHoraDAO.obtenerHorasDisponibles(this.date);
 			this.mensaje = "";
-			//
-			// System.out.println(this.date);
 		} catch (Exception e) {
+			e.printStackTrace();
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las Horas";
-			// this.reservasHoras = new ArrayList<ReservaHora>();
 			this.configuraciones = new ArrayList<Configuracion>();
+			this.horas = new ArrayList<String>();
 		}
 	}
+
 
 	public void agregarReserva() {
 
@@ -192,19 +158,19 @@ public class AgregarReservaControlador implements Serializable {
 		return serialVersionUID;
 	}
 
-	public List<Calendar> getHoras() {
+	public List<String> getHoras() {
 		return horas;
 	}
 
-	public void setHoras(List<Calendar> horas) {
+	public void setHoras(List<String> horas) {
 		this.horas = horas;
 	}
 
-	public Calendar getHora() {
+	public String getHora() {
 		return hora;
 	}
 
-	public void setHora(Calendar hora) {
+	public void setHora(String hora) {
 		this.hora = hora;
 	}
 

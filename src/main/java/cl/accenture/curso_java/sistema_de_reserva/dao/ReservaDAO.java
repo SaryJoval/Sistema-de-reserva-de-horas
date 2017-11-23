@@ -15,33 +15,29 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 
 public class ReservaDAO {
 
-	public static List<Reserva> obtenerReserva(String usuario) throws SQLException, SinConexionException {
-		List<Reserva> reservas = new ArrayList<Reserva>();
-		PreparedStatement st = Conexion.getInstancia().prepareStatement(""
-				+ "SELECT t1.idreserva, t1.fechaReserva, t1.servicio, t1.sucursal, t2.hora"
-				+ " FROM reserva t1 INNER JOIN reserva_hora t2 ON t1.id_reserva_hora = t2.idreserva_hora"
-				+ " where id_usuario=?;");
-		st.setString(1, usuario);
+	// obtener lista de horas por fecha
+
+	public static List<String> obenerHorasOcupadas(Date fecha) throws SQLException, SinConexionException {
+		List<String> horasOcupadas = new ArrayList<String>();
+		PreparedStatement st = Conexion.getInstancia()
+				.prepareStatement("select hora "
+						+ "from reserva "
+						+ "where fecha = ?");
+		st.setDate(1, fecha);
 		ResultSet rs = st.executeQuery();
 		while (rs.next()) {
-
-			Reserva reserva = new Reserva();
-
-			reserva.setIdreserva(rs.getInt("idreserva"));
-			reserva.setFechaReserva(rs.getDate("fechaReserva"));
-			reserva.setServicio(rs.getString("servicio"));
-			reserva.setSucursal(rs.getString("sucursal"));
-			reserva.setHora(rs.getString("hora"));
-
-			reservas.add(reserva);
+			
+			horasOcupadas.add(rs.getString("hora"));
+			
 		}
-		return reservas;
+		return horasOcupadas;
 	}
 
-	public static void agregarReserva(Reserva reserva, Sucursal sucursal, Usuario usuario) throws SQLException, SinConexionException {
+	public static void agregarReserva(Reserva reserva, Sucursal sucursal, Usuario usuario)
+			throws SQLException, SinConexionException {
 
-		PreparedStatement st = Conexion.getInstancia()
-				.prepareStatement("insert into reserva (fechaReserva,servicio,sucursal,hora,id_usuario) values(?,?,?,?,?);");
+		PreparedStatement st = Conexion.getInstancia().prepareStatement(
+				"insert into reserva (fechaReserva,servicio,sucursal,hora,id_usuario) values(?,?,?,?,?);");
 
 		st.setDate(1, (Date) reserva.getFechaReserva());
 		st.setString(2, reserva.getServicio());
