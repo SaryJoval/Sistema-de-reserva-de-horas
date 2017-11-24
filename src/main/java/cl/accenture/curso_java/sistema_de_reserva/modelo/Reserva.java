@@ -8,7 +8,7 @@ public class Reserva {
 	private Date fechaReserva;
 	private String servicio;
 	private String sucursal;
-	private int idusuario;
+	private String idusuario;
 	private String hora;
 
 	public Reserva() {
@@ -16,7 +16,7 @@ public class Reserva {
 	}
 	
 
-	public Reserva(int idreserva, Date fechaReserva, String servicio, String sucursal, int idusuario, String hora) {
+	public Reserva(int idreserva, Date fechaReserva, String servicio, String sucursal, String idusuario, String hora) {
 		super();
 		this.idreserva = idreserva;
 		this.fechaReserva = fechaReserva;
@@ -65,11 +65,11 @@ public class Reserva {
 		this.sucursal = sucursal;
 	}
 
-	public int getIdusuario() {
+	public String getIdusuario() {
 		return idusuario;
 	}
 
-	public void setIdusuario(int idusuario) {
+	public void setIdusuario(String idusuario) {
 		this.idusuario = idusuario;
 	}
 

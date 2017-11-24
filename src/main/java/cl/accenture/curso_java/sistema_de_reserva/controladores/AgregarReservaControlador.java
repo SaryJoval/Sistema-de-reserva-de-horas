@@ -1,7 +1,7 @@
 package cl.accenture.curso_java.sistema_de_reserva.controladores;
 
+import java.io.IOException;
 import java.io.Serializable;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -9,8 +9,10 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import cl.accenture.curso_java.sistema_de_reserva.dao.ConfiguracionDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
@@ -21,7 +23,7 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 import cl.accenture.curso_java.sistema_de_reserva.servicio.ServicioHorasDisponibles;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class AgregarReservaControlador implements Serializable {
 
 	/**
@@ -50,8 +52,8 @@ public class AgregarReservaControlador implements Serializable {
 	public AgregarReservaControlador() {
 		obtenerSucursal();
 	}
-	
-	//lista de sucursales
+
+	// lista de sucursales
 
 	public void obtenerSucursal() {
 
@@ -63,8 +65,8 @@ public class AgregarReservaControlador implements Serializable {
 			this.sucursales = new ArrayList<Sucursal>();
 		}
 	}
-		
-	//Horas disponibles
+
+	// Horas disponibles
 
 	public void obtenerHorasDisponibles() {
 
@@ -94,22 +96,44 @@ public class AgregarReservaControlador implements Serializable {
 			this.horasReservadas = new ArrayList<String>();
 		}
 	}
-	
-	//agregar una reserva
+
+	// agregar una reserva
 
 	public void agregarReserva() {
+
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+		String fecha = formatoFecha.format(this.fechaReserva);
 
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuario");
 
 		try {
-			ReservaDAO.agregarReserva((java.sql.Date) this.fechaReserva, this.servicio, this.nombre, usuario, this.hora);
-			this.mensaje = "la reserva se agrego correctamente";
+			ReservaDAO.agregarReserva(fecha, this.servicio, this.nombre, usuario, this.hora);
+			limpiar();
+			recargar();
+
 		} catch (Exception e) {
 			this.mensaje = "Ocurrio un error al agregar la reserva";
 			System.err.println(e);
 		}
 
+	}
+
+	private void recargar() {
+		
+		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+		try {
+			ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void limpiar() {
+		this.horasDisponibles = new ArrayList<String>();
+		this.servicio = "";
+		this.fechaReserva = Calendar.getInstance().getTime();
 	}
 
 	public String getMensaje() {

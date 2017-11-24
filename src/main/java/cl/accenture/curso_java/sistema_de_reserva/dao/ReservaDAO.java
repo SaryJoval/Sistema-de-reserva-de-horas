@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.sql.Date;
 import java.util.List;
 
@@ -55,13 +56,13 @@ public class ReservaDAO {
 
 	// agregar Reserva <--
 
-	public static void agregarReserva(Date fechaReserva, String servicio, String sucursal, Usuario usuario, String hora)
+	public static void agregarReserva(String fechaReserva, String servicio, String sucursal, Usuario usuario, String hora)
 			throws SQLException, SinConexionException {
 
 		PreparedStatement st = Conexion.getInstancia().prepareStatement(
 				"insert into reserva (fechaReserva,servicio,sucursal,id_usuario,hora) values(?,?,?,?,?);");
 		
-		st.setDate(1, fechaReserva);
+		st.setString(1, fechaReserva);
 		st.setString(2, servicio);
 		st.setString(3, sucursal);
 		st.setString(4, usuario.getNombreUsuario());

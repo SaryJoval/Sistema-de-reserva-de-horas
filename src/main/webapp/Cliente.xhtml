@@ -72,6 +72,8 @@
 			<hr></hr>
 			<div class="row">
 				<div class="col-lg-4 ml-auto">
+				
+				#{AgregarReservaControlador.mensaje}
 					<h:form styleClass="form-horizontal">
 
 						<div class="form-group">
@@ -101,18 +103,17 @@
 
 							<h:panelGrid columns="2" cellpadding="5">
 
-								<p:calendar styleClass="btn btn-block" id="inline"
+								<p:calendar  styleClass="btn btn-block" id="inline"
 									pattern="yyyy/MM/dd"
 									value="#{agregarReservaControlador.fechaReserva}" mode="inline">
 									<f:convertDateTime pattern="yyyy/MM/dd" />
 								</p:calendar>
 							</h:panelGrid>
-							
-							#{agregarReservaControlador.fechaReserva}
+
 						</div>
 
 						<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
-							value="HORAS DISPONIBLES"
+							value="VER HORAS DISPONIBLES"
 							action="#{agregarReservaControlador.obtenerHorasDisponibles}"></h:commandButton>
 
 					</h:form>
@@ -140,7 +141,7 @@
 							</h:panelGrid>
 						</div>
 
-						<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
+						<h:commandButton  styleClass="btn btn-primary btn-lg btn-block"
 							value="RESERVAR"
 							action="#{agregarReservaControlador.agregarReserva}"></h:commandButton>
 
