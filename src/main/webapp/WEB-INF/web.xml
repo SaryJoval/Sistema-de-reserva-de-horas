@@ -11,7 +11,7 @@
 
 	<context-param>
 		<param-name>primefaces.THEME</param-name>
-		<param-value>omega</param-value>
+		<param-value>aristo</param-value>
 	</context-param>
 
 	<servlet>
@@ -24,7 +24,5 @@
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
-
-
 
 </web-app>

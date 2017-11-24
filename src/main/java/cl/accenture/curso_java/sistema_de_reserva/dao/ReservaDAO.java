@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.sql.Date;
 import java.util.List;
 
@@ -14,6 +15,24 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Sucursal;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 
 public class ReservaDAO {
+
+	// obtener lista de horas por fecha <- -
+
+	public static List<String> obenerHorasReservadas(String fecha) throws SQLException, SinConexionException {
+		List<String> horasOcupadas = new ArrayList<String>();
+		PreparedStatement st = Conexion.getInstancia()
+				.prepareStatement("select hora " + "from reserva " + "where fechaReserva = ?");
+		st.setString(1, fecha);
+		ResultSet rs = st.executeQuery();
+		while (rs.next()) {
+
+			horasOcupadas.add(rs.getString("hora"));
+
+		}
+		return horasOcupadas;
+	}
+
+	// obtener Reservas <--
 
 	public static List<Reserva> obtenerReserva(String usuario) throws SQLException, SinConexionException {
 		List<Reserva> reservas = new ArrayList<Reserva>();
@@ -27,7 +46,7 @@ public class ReservaDAO {
 			reserva.setIdreserva(rs.getInt("idreserva"));
 			reserva.setFechaReserva(rs.getDate("fechaReserva"));
 			reserva.setServicio(rs.getString("servicio"));
-			reserva.setHora(rs.getTime("hora"));
+			reserva.setHora(rs.getString("hora"));
 			reserva.setSucursal(rs.getString("sucursal"));
 
 			reservas.add(reserva);
@@ -35,16 +54,19 @@ public class ReservaDAO {
 		return reservas;
 	}
 
-	public static void agregarReserva(Reserva reserva, Sucursal sucursal, Usuario usuario) throws SQLException, SinConexionException {
+	// agregar Reserva <--
 
-		PreparedStatement st = Conexion.getInstancia()
-				.prepareStatement("insert into reserva (fechaReserva,servicio,sucursal,hora,id_usuario) values(?,?,?,?,?);");
+	public static void agregarReserva(String fechaReserva, String servicio, String sucursal, Usuario usuario, String hora)
+			throws SQLException, SinConexionException {
 
-		st.setDate(1, (Date) reserva.getFechaReserva());
-		st.setString(2, reserva.getServicio());
-		st.setString(3, sucursal.getNombre());
-		st.setTime(4, reserva.getHora());
-		st.setString(5, usuario.getNombreUsuario());
+		PreparedStatement st = Conexion.getInstancia().prepareStatement(
+				"insert into reserva (fechaReserva,servicio,sucursal,id_usuario,hora) values(?,?,?,?,?);");
+		
+		st.setString(1, fechaReserva);
+		st.setString(2, servicio);
+		st.setString(3, sucursal);
+		st.setString(4, usuario.getNombreUsuario());
+		st.setString(5, hora);
 
 		st.executeUpdate();
 	}

@@ -35,7 +35,6 @@ public class UsuarioDAO {
 		this.conexion = conexion;
 	}
 
-
 	public static Usuario validar(Usuario usuario) throws SQLException, SinConexionException {
 		PreparedStatement st = Conexion.getInstancia()
 				.prepareStatement("select * from usuario where " + "nombreUsuario =?  AND " + "password = ?;");
