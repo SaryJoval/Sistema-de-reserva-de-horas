@@ -2,35 +2,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<head>
+<h:head>
 
-<meta charset="ISO-8859-1"></meta>
-<meta charset="utf-8"></meta>
-<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+	<meta charset="ISO-8859-1"></meta>
+	<meta charset="utf-8"></meta>
+	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
-<title>Sistema de Reservas de horas</title>
+	<title>Sistema de Reservas de horas</title>
 
-<!-- Bootstrap core CSS -->
-<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+	<!-- Bootstrap core CSS -->
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
 
-<!-- Custom fonts for this template -->
-<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
-	type="text/css"></link>
-<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
-	rel="stylesheet" type="text/css"></link>
-<link
-	href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
-	rel="stylesheet" type="text/css"></link>
+	<!-- Custom fonts for this template -->
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
+		type="text/css"></link>
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+		rel="stylesheet" type="text/css"></link>
+	<link
+		href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic"
+		rel="stylesheet" type="text/css"></link>
 
-<!-- Custom styles for this template -->
-<link href="css/freelancer.min.css" rel="stylesheet"></link>
+	<!-- Custom styles for this template -->
+	<link href="css/freelancer.min.css" rel="stylesheet"></link>
 
-</head>
+</h:head>
 
-<body id="page-top">
+<h:body id="page-top">
 
 	<!-- Navigation -->
 	<h:form>
@@ -63,18 +63,95 @@
 		</nav>
 
 	</h:form>
+	<hr></hr>
 
-	<!-- Header -->
-	<header class="masthead">
+	<!-- Reserva Section -->
+	<section class="success" id="reserva">
 		<div class="container">
-			<img class="img-fluid" src="img/profile.png" alt=""></img>
-			<div class="intro-text">
-				<span class="name">Sistema de Reservas</span>
-				<hr class="star-light"></hr>
-				<span class="skills">Accenture</span>
+			<h2 class="text-center">Reserva</h2>
+			<hr></hr>
+			<div class="row">
+				<div class="col-lg-4 ml-auto">
+				
+				#{AgregarReservaControlador.mensaje}
+					<h:form styleClass="form-horizontal">
+
+						<div class="form-group">
+							<p>Servicio</p>
+
+							<h:inputText styleClass="form-control"
+								value="#{agregarReservaControlador.servicio}" />
+
+						</div>
+
+						<div class="form-group">
+							<p>Sucursal</p>
+
+							<h:selectOneMenu
+								styleClass="btn btn-default dropdown-toggle btn-block"
+								value="#{agregarReservaControlador.nombre}">
+
+								<f:selectItems value="#{agregarReservaControlador.sucursales}"
+									var="sucursal" itemLabel="#{sucursal.nombre}"
+									itemValue="#{sucursal.nombre}" />
+
+							</h:selectOneMenu>
+						</div>
+
+						<div class="form-group">
+							<p>Fecha</p>
+
+							<h:panelGrid columns="2" cellpadding="5">
+
+								<p:calendar  styleClass="btn btn-block" id="inline"
+									pattern="yyyy/MM/dd"
+									value="#{agregarReservaControlador.fechaReserva}" mode="inline">
+									<f:convertDateTime pattern="yyyy/MM/dd" />
+								</p:calendar>
+							</h:panelGrid>
+
+						</div>
+
+						<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
+							value="VER HORAS DISPONIBLES"
+							action="#{agregarReservaControlador.obtenerHorasDisponibles}"></h:commandButton>
+
+					</h:form>
+				</div>
+
+				<div class="col-lg-4 ml-auto">
+
+					<h:form styleClass="form-horizontal">
+
+						<div class="form-group">
+
+							<p>Hosras disponibles</p>
+
+							<h:panelGrid columns="2" cellpadding="5">
+
+								<p:selectOneListbox id="basic" styleClass=""
+									value="#{agregarReservaControlador.hora}">
+
+									<f:selectItems
+										value="#{agregarReservaControlador.horasDisponibles}"
+										var="hora" itemLabel="#{hora}"
+										itemValue="#{hora}" />
+
+								</p:selectOneListbox>
+							</h:panelGrid>
+						</div>
+
+						<h:commandButton  styleClass="btn btn-primary btn-lg btn-block"
+							value="RESERVAR"
+							action="#{agregarReservaControlador.agregarReserva}"></h:commandButton>
+
+					</h:form>
+
+				</div>
+
 			</div>
 		</div>
-	</header>
+	</section>
 
 	<!-- Perfil Section -->
 	<section class="success" id="perfil">
@@ -107,15 +184,6 @@
 		</div>
 	</section>
 
-	<!-- Reserva Section -->
-	<section class="success" id="reserva">
-		<div class="container">
-			<h2 class="text-center">Reserva</h2>
-			<hr></hr>
-			<div class="row"></div>
-		</div>
-	</section>
-
 	<!-- Historial Section -->
 	<section class="success" id="historial">
 		<div class="container">
@@ -130,7 +198,7 @@
 						var="reserva" styleClass="table table-striped table-inverse">
 
 						<h:column>
-							<f:facet name="header">ID</f:facet>
+							<f:facet name="header">Numero</f:facet>
 									#{reserva.idreserva}
 								</h:column>
 
@@ -222,19 +290,15 @@
 	</div>
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="jquery/jquery.min.js"></script>
+	<!-- <script src="jquery/jquery.min.js"></script> -->
 	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Plugin JavaScript -->
 	<script src="jquery-easing/jquery.easing.min.js"></script>
 
-	<!-- Contact Form JavaScript -->
-	<script src="js/jqBootstrapValidation.js"></script>
-	<script src="js/contact_me.js"></script>
-
 	<!-- Custom scripts for this template -->
 	<script src="js/freelancer.min.js"></script>
 
-</body>
+</h:body>
 
 </html>
