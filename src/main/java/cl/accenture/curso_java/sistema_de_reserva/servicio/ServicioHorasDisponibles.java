@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -25,24 +26,24 @@ public final class ServicioHorasDisponibles {
 	public static List<String> calcularHorasDisponibles(String horaInicio, String horaFinal, int bloque) {
 
 		DateFormat formatoHora = new SimpleDateFormat("hh:mm:ss");
-		List<String> horasDisponibles = new ArrayList<String>();
+		List<String> horas = new ArrayList<String>();
 
 		try {
 			Date horaF = formatoHora.parse(horaFinal);
 			Date horaI = formatoHora.parse(horaInicio);
-			
+
 			while (!horaI.equals(horaF)) {
 
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(horaI);
-				cal.add(Calendar.MINUTE, bloque );
+				cal.add(Calendar.MINUTE, bloque);
 
 				horaI = cal.getTime();
 
-				SimpleDateFormat formato = new SimpleDateFormat("HH:mm");
+				SimpleDateFormat formato = new SimpleDateFormat("HH:mm:ss");
 				String hora = formato.format(cal.getTime());
 
-				horasDisponibles.add(hora);
+				horas.add(hora);
 
 			}
 
@@ -51,12 +52,26 @@ public final class ServicioHorasDisponibles {
 			e.printStackTrace();
 		}
 
-		return horasDisponibles;
+		return horas;
 	}
 
 	public static List<String> obtenerHorasDisponibles(List<String> horasReservadas, List<String> horasDisponibles) {
-	
+
+		Iterator<String> it = horasDisponibles.iterator();
 		
-		return null;
+		while(it.hasNext()) {
+			
+			String hora = it.next();
+			
+			for (String h : horasReservadas) {
+				
+				if (h.equals(hora)) {
+					
+					it.remove();				
+				}				
+			}					
+		}
+		
+		return horasDisponibles;
 	}
 }

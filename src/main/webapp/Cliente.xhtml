@@ -113,7 +113,7 @@
 
 						<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
 							value="HORAS DISPONIBLES"
-							action="#{agregarReservaControlador.obtenerReservasHoras}"></h:commandButton>
+							action="#{agregarReservaControlador.obtenerHorasDisponibles}"></h:commandButton>
 
 					</h:form>
 				</div>
@@ -132,7 +132,7 @@
 									value="#{agregarReservaControlador.hora}">
 
 									<f:selectItems
-										value="#{agregarReservaControlador.horas}"
+										value="#{agregarReservaControlador.horasDisponibles}"
 										var="hora" itemLabel="#{hora}"
 										itemValue="#{hora}" />
 

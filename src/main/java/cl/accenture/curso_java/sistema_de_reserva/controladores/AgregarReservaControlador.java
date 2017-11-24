@@ -6,8 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -18,7 +16,6 @@ import cl.accenture.curso_java.sistema_de_reserva.dao.ConfiguracionDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.SucursalDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Configuracion;
-import cl.accenture.curso_java.sistema_de_reserva.modelo.Reserva;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Sucursal;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 import cl.accenture.curso_java.sistema_de_reserva.servicio.ServicioHorasDisponibles;
@@ -38,6 +35,7 @@ public class AgregarReservaControlador implements Serializable {
 	private String horaInicio;
 	private String horaFin;
 	private String bloque;
+	private int idsucursal;
 
 	private String hora;
 
@@ -45,13 +43,15 @@ public class AgregarReservaControlador implements Serializable {
 
 	private List<Sucursal> sucursales;
 	private List<String> horas;
+	private List<String> horasReservadas;
+	private List<String> horasDisponibles;
 	private List<Configuracion> configuraciones;
 
 	public AgregarReservaControlador() {
 		obtenerSucursal();
-		obtenerHorasDisponibles();
-
 	}
+	
+	//lista de sucursales
 
 	public void obtenerSucursal() {
 
@@ -63,6 +63,8 @@ public class AgregarReservaControlador implements Serializable {
 			this.sucursales = new ArrayList<Sucursal>();
 		}
 	}
+		
+	//Horas disponibles
 
 	public void obtenerHorasDisponibles() {
 
@@ -73,44 +75,40 @@ public class AgregarReservaControlador implements Serializable {
 			this.bloque = this.configuraciones.get(0).getValor();
 			this.horaFin = this.configuraciones.get(1).getValor();
 			this.horaInicio = this.configuraciones.get(2).getValor();
-			
+
 			int bloqueF = Integer.parseInt(bloque);
-			
-			this.horas = ServicioHorasDisponibles.calcularHorasDisponibles(this.horaInicio,this.horaFin,bloqueF);
+
+			SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+			String fecha = formatoFecha.format(this.fechaReserva);
+
+			this.horas = ServicioHorasDisponibles.calcularHorasDisponibles(this.horaInicio, this.horaFin, bloqueF);
+			this.horasReservadas = ReservaDAO.obenerHorasReservadas(fecha);
+			this.horasDisponibles = ServicioHorasDisponibles.obtenerHorasDisponibles(this.horasReservadas, this.horas);
 
 			this.mensaje = "";
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las Horas";
 			this.configuraciones = new ArrayList<Configuracion>();
-			this.horas = new ArrayList<String>();
+			this.horasDisponibles = new ArrayList<String>();
+			this.horasReservadas = new ArrayList<String>();
 		}
 	}
-
+	
+	//agregar una reserva
 
 	public void agregarReserva() {
 
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuario");
-		Reserva reserva = new Reserva();
-		Sucursal sucursal = new Sucursal();
-
-		reserva.setServicio(this.servicio);
-		reserva.setSucursal(this.nombre);
-		reserva.setFechaReserva(this.fechaReserva);
 
 		try {
-			ReservaDAO.agregarReserva(reserva, sucursal, usuario);
+			ReservaDAO.agregarReserva((java.sql.Date) this.fechaReserva, this.servicio, this.nombre, usuario, this.hora);
 			this.mensaje = "la reserva se agrego correctamente";
-			System.err.println(this.nombre);
 		} catch (Exception e) {
 			this.mensaje = "Ocurrio un error al agregar la reserva";
 			System.err.println(e);
 		}
-
-	}
-
-	public void mostrar() {
 
 	}
 
@@ -158,14 +156,6 @@ public class AgregarReservaControlador implements Serializable {
 		return serialVersionUID;
 	}
 
-	public List<String> getHoras() {
-		return horas;
-	}
-
-	public void setHoras(List<String> horas) {
-		this.horas = horas;
-	}
-
 	public String getHora() {
 		return hora;
 	}
@@ -204,6 +194,38 @@ public class AgregarReservaControlador implements Serializable {
 
 	public void setBloque(String bloque) {
 		this.bloque = bloque;
+	}
+
+	public List<String> getHorasDisponibles() {
+		return horasDisponibles;
+	}
+
+	public void setHorasDisponibles(List<String> horasDisponibles) {
+		this.horasDisponibles = horasDisponibles;
+	}
+
+	public List<String> getHorasReservadas() {
+		return horasReservadas;
+	}
+
+	public void setHorasReservadas(List<String> horasReservadas) {
+		this.horasReservadas = horasReservadas;
+	}
+
+	public List<String> getHoras() {
+		return horas;
+	}
+
+	public void setHoras(List<String> horas) {
+		this.horas = horas;
+	}
+
+	public int getIdsucursal() {
+		return idsucursal;
+	}
+
+	public void setIdsucursal(int idsucursal) {
+		this.idsucursal = idsucursal;
 	}
 
 }
