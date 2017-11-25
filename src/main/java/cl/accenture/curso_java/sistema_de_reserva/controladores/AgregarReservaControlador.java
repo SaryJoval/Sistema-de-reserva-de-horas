@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import cl.accenture.curso_java.sistema_de_reserva.dao.ConfiguracionDAO;
+import cl.accenture.curso_java.sistema_de_reserva.dao.DiaFeriadoDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.SucursalDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Configuracion;
@@ -37,12 +38,14 @@ public class AgregarReservaControlador implements Serializable {
 	private String horaInicio;
 	private String horaFin;
 	private String bloque;
-	private int idsucursal;
-
 	private String hora;
-
+	private String verFecha;
+	
 	private Date fechaReserva;
 
+	private int idsucursal;
+
+	private List<String> diasFeriados;
 	private List<Sucursal> sucursales;
 	private List<String> horas;
 	private List<String> horasReservadas;
@@ -51,7 +54,28 @@ public class AgregarReservaControlador implements Serializable {
 
 	public AgregarReservaControlador() {
 		obtenerSucursal();
+		obtenerFeriados();
+		limpiar();
+		
 	}
+	
+	//Listar dias Feriados
+	
+	public void obtenerFeriados() {
+		
+		try {		
+			this.setDiasFeriados(DiaFeriadoDAO.obtenerFeriados());
+			this.mensaje = "";
+		}catch (Exception e) {
+			// TODO: handle exception
+			this.mensaje = "Lo sentimos ocurrio un error en listar los dias feriados";
+			this.setDiasFeriados(new ArrayList<String>());
+		}
+		
+	}
+	
+	
+	
 
 	// lista de sucursales
 
@@ -80,13 +104,23 @@ public class AgregarReservaControlador implements Serializable {
 
 			int bloqueF = Integer.parseInt(bloque);
 
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(this.fechaReserva);
+			cal.add(Calendar.DAY_OF_MONTH, 1);
+			this.fechaReserva = cal.getTime();
+
 			SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 			String fecha = formatoFecha.format(this.fechaReserva);
-
+				
 			this.horas = ServicioHorasDisponibles.calcularHorasDisponibles(this.horaInicio, this.horaFin, bloqueF);
 			this.horasReservadas = ReservaDAO.obenerHorasReservadas(fecha);
 			this.horasDisponibles = ServicioHorasDisponibles.obtenerHorasDisponibles(this.horasReservadas, this.horas);
 
+			//Cambiar la fecha para la vista
+			SimpleDateFormat formatoFechaMes = new SimpleDateFormat("EEEEEEEEE dd 'de'   MMMMM 'de' yyyy");
+			String fechaMostrar = formatoFechaMes.format(this.fechaReserva);
+			this.verFecha = fechaMostrar;
+			
 			this.mensaje = "";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -112,6 +146,8 @@ public class AgregarReservaControlador implements Serializable {
 			limpiar();
 			recargar();
 
+			this.mensaje = "Se cargo la reserva correctamente";
+
 		} catch (Exception e) {
 			this.mensaje = "Ocurrio un error al agregar la reserva";
 			System.err.println(e);
@@ -120,7 +156,7 @@ public class AgregarReservaControlador implements Serializable {
 	}
 
 	private void recargar() {
-		
+
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		try {
 			ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
@@ -133,7 +169,9 @@ public class AgregarReservaControlador implements Serializable {
 	private void limpiar() {
 		this.horasDisponibles = new ArrayList<String>();
 		this.servicio = "";
+		this.verFecha = "";
 		this.fechaReserva = Calendar.getInstance().getTime();
+		
 	}
 
 	public String getMensaje() {
@@ -250,6 +288,22 @@ public class AgregarReservaControlador implements Serializable {
 
 	public void setIdsucursal(int idsucursal) {
 		this.idsucursal = idsucursal;
+	}
+
+	public String getVerFecha() {
+		return verFecha;
+	}
+
+	public void setVerFecha(String verFecha) {
+		this.verFecha = verFecha;
+	}
+
+	public List<String> getDiasFeriados() {
+		return diasFeriados;
+	}
+
+	public void setDiasFeriados(List<String> diasFeriados) {
+		this.diasFeriados = diasFeriados;
 	}
 
 }

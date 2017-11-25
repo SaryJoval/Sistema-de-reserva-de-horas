@@ -31,7 +31,6 @@
 </h:head>
 
 <h:body id="page-top">
-
 	<!-- Navigation -->
 	<h:form>
 		<nav class="navbar navbar-expand-lg navbar-light fixed-top"
@@ -72,8 +71,8 @@
 			<hr></hr>
 			<div class="row">
 				<div class="col-lg-4 ml-auto">
-				
-				#{AgregarReservaControlador.mensaje}
+
+					#{AgregarReservaControlador.mensaje}
 					<h:form styleClass="form-horizontal">
 
 						<div class="form-group">
@@ -99,18 +98,22 @@
 						</div>
 
 						<div class="form-group">
-							<p>Fecha</p>
+							<p>Selecciona una fecha</p>
 
 							<h:panelGrid columns="2" cellpadding="5">
 
-								<p:calendar  styleClass="btn btn-block" id="inline"
-									pattern="yyyy/MM/dd"
+								<p:calendar mindate="agregarReservaControlador.fechaReserva"
+									showOn="button"  disabledWeekends="true" required="true"
+									requiredMessage="Fecha obligatoria" styleClass="btn btn-block"
+									id="inline" locale="es" pattern="yyyy/MM/dd"
 									value="#{agregarReservaControlador.fechaReserva}" mode="inline">
 									<f:convertDateTime pattern="yyyy/MM/dd" />
 								</p:calendar>
 							</h:panelGrid>
 
 						</div>
+
+
 
 						<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
 							value="VER HORAS DISPONIBLES"
@@ -125,7 +128,8 @@
 
 						<div class="form-group">
 
-							<p>Hosras disponibles</p>
+							<p>Horas disponibles para el dia:</p>
+							<p>#{agregarReservaControlador.verFecha}</p>
 
 							<h:panelGrid columns="2" cellpadding="5">
 
@@ -134,14 +138,13 @@
 
 									<f:selectItems
 										value="#{agregarReservaControlador.horasDisponibles}"
-										var="hora" itemLabel="#{hora}"
-										itemValue="#{hora}" />
+										var="hora" itemLabel="#{hora}" itemValue="#{hora}" />
 
 								</p:selectOneListbox>
 							</h:panelGrid>
 						</div>
 
-						<h:commandButton  styleClass="btn btn-primary btn-lg btn-block"
+						<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
 							value="RESERVAR"
 							action="#{agregarReservaControlador.agregarReserva}"></h:commandButton>
 
@@ -198,7 +201,7 @@
 						var="reserva" styleClass="table table-striped table-inverse">
 
 						<h:column>
-							<f:facet name="header">Numero</f:facet>
+							<f:facet name="header">Numero de Reserva</f:facet>
 									#{reserva.idreserva}
 								</h:column>
 
@@ -298,6 +301,8 @@
 
 	<!-- Custom scripts for this template -->
 	<script src="js/freelancer.min.js"></script>
+	<script src="js/calendar_es.js"></script>
+	<script src="js/diasferiados.js"></script>
 
 </h:body>
 
