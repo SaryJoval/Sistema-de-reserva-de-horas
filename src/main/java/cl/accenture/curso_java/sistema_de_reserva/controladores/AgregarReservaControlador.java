@@ -28,7 +28,8 @@ import cl.accenture.curso_java.sistema_de_reserva.servicio.ServicioHorasDisponib
 public class AgregarReservaControlador implements Serializable {
 
 	/**
-	 * 
+	 * @author Luis Torres
+	 *
 	 */
 	private static final long serialVersionUID = 2545746997175419045L;
 
@@ -40,7 +41,8 @@ public class AgregarReservaControlador implements Serializable {
 	private String bloque;
 	private String hora;
 	private String verFecha;
-	
+	private String sinHoras;
+
 	private Date fechaReserva;
 
 	private int idsucursal;
@@ -55,27 +57,24 @@ public class AgregarReservaControlador implements Serializable {
 	public AgregarReservaControlador() {
 		obtenerSucursal();
 		obtenerFeriados();
-		limpiar();
-		
+		recargar();
+		obtenerHorasDisponibles();
+
 	}
-	
-	//Listar dias Feriados
-	
+
+	// Listar dias Feriados
+
 	public void obtenerFeriados() {
-		
-		try {		
+
+		try {
 			this.setDiasFeriados(DiaFeriadoDAO.obtenerFeriados());
-			this.mensaje = "";
-		}catch (Exception e) {
+		} catch (Exception e) {
 			// TODO: handle exception
 			this.mensaje = "Lo sentimos ocurrio un error en listar los dias feriados";
 			this.setDiasFeriados(new ArrayList<String>());
 		}
-		
+
 	}
-	
-	
-	
 
 	// lista de sucursales
 
@@ -83,7 +82,6 @@ public class AgregarReservaControlador implements Serializable {
 
 		try {
 			this.sucursales = SucursalDAO.obtenerSucursal();
-			this.mensaje = "";
 		} catch (Exception e) {
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener la Sucursal";
 			this.sucursales = new ArrayList<Sucursal>();
@@ -111,17 +109,35 @@ public class AgregarReservaControlador implements Serializable {
 
 			SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 			String fecha = formatoFecha.format(this.fechaReserva);
-				
 			this.horas = ServicioHorasDisponibles.calcularHorasDisponibles(this.horaInicio, this.horaFin, bloqueF);
 			this.horasReservadas = ReservaDAO.obenerHorasReservadas(fecha);
 			this.horasDisponibles = ServicioHorasDisponibles.obtenerHorasDisponibles(this.horasReservadas, this.horas);
 
-			//Cambiar la fecha para la vista
+			// Dias Feriados
+			for (String feriado : this.diasFeriados) {
+
+				if (fecha.equals(feriado)) {
+
+					this.horasDisponibles = new ArrayList<String>();
+					this.sinHoras = "No hay horas disponibles";
+
+				}
+			}
+
+			// Cambiar la fecha para la vista
 			SimpleDateFormat formatoFechaMes = new SimpleDateFormat("EEEEEEEEE dd 'de'   MMMMM 'de' yyyy");
 			String fechaMostrar = formatoFechaMes.format(this.fechaReserva);
 			this.verFecha = fechaMostrar;
-			
+			this.sinHoras = "";
 			this.mensaje = "";
+
+			// Sin horas Disponibles
+			if (this.horasDisponibles.size() == 0) {
+
+				this.sinHoras = "No hay horas disponibles";
+
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las Horas";
@@ -143,10 +159,10 @@ public class AgregarReservaControlador implements Serializable {
 
 		try {
 			ReservaDAO.agregarReserva(fecha, this.servicio, this.nombre, usuario, this.hora);
-			limpiar();
 			recargar();
+			obtenerHorasDisponibles();
 
-			this.mensaje = "Se cargo la reserva correctamente";
+			this.mensaje = "Reserva agregada con exito";
 
 		} catch (Exception e) {
 			this.mensaje = "Ocurrio un error al agregar la reserva";
@@ -160,18 +176,17 @@ public class AgregarReservaControlador implements Serializable {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		try {
 			ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DAY_OF_MONTH, 1);
+
+			this.horasDisponibles = new ArrayList<String>();
+			this.servicio = "";
+			this.verFecha = "";
+			this.fechaReserva = cal.getTime();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	private void limpiar() {
-		this.horasDisponibles = new ArrayList<String>();
-		this.servicio = "";
-		this.verFecha = "";
-		this.fechaReserva = Calendar.getInstance().getTime();
-		
 	}
 
 	public String getMensaje() {
@@ -304,6 +319,14 @@ public class AgregarReservaControlador implements Serializable {
 
 	public void setDiasFeriados(List<String> diasFeriados) {
 		this.diasFeriados = diasFeriados;
+	}
+
+	public String getSinHoras() {
+		return sinHoras;
+	}
+
+	public void setSinHoras(String sinHoras) {
+		this.sinHoras = sinHoras;
 	}
 
 }
