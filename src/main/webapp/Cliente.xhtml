@@ -81,20 +81,19 @@
 						<div class="form-group">
 							<p>Servicio</p>
 
-							<h:selectOneRadio styleClass="myRadioCtrl"
+							<h:selectOneRadio id="Servicio"  required="true"
+								styleClass="radio radio-success radio-inline"
 								value="#{agregarReservaControlador.servicio}">
-								<span><f:selectItem itemLabel="Venta" itemValue="Venta" /></span>
-								<span><f:selectItem itemLabel="Posventa"
-										itemValue="Posventa" /></span>
+
+								<f:selectItem itemValue="Venta" itemLabel="Venta" />
+								<f:selectItem itemValue="Posventa" itemLabel="Posveta" />
 
 							</h:selectOneRadio>
 
+							<p>
+								<h:message for="Servicio" style="color:red" />
+							</p>
 
-							<!-- 
-							<h:selectOneRadio value="#{agregarReservaControlador.servicio}">
-								
-								
-							</h:selectOneRadio> -->
 
 						</div>
 
