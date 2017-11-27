@@ -2,224 +2,131 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
-<head>
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
 
-<title></title>
-<meta charset="utf-8"></meta>
-<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous"></link>
-<link
-	href="//oss.maxcdn.com/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"
-	rel="stylesheet"></link>
+	<meta charset="utf-8"></meta>
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no"></meta>
+	<meta name="description" content=""></meta>
+	<meta name="author" content=""></meta>
+	<title>Shop Item - Start Bootstrap Template</title>
 
-<script src='https://www.google.com/recaptcha/api.js'></script>
-</head>
+	<!-- Bootstrap core CSS -->
+	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+	<link href="css/shop-item.css" rel="stylesheet"></link>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+</h:head>
 
-<body>
-	<ui:include src="/WEB-INF/navegador.xhtml"></ui:include>
-	<div class="container top">
-		<h:form id="registrationForm" styleClass="form-horizontal mitad" >
+<h:body>
 
 
-			<div class="form-group">
+	<div class="container">
+		<h:form>
+			<p:panel header="Registro nuevo usuario">
 
-				<label class="col-lg-3 control-label">Nombre de usuario</label>
+				<h:panelGrid id="grid" columns="3" cellpadding="5">
 
-				<div class="col-lg-3">
+					<h:outputLabel for="nombreUsuario" value="Nombre de usuario:"
+						style="font-weight:bold" />
+					<p:inputText id="nombreUsuario"
+						value="#{usuarioControlador.nombreUsuario}" required="true"
+						label="Nombre Usuario" />
+					<p:message for="nombreUsuario" />
 
-					<h:inputText styleClass="form-control" id="nombreUsuario"  name="nombreUsuario"
-						value="#{usuarioControlador.nombreUsuario}"  required="true">
-						<f:validateLength minimum="6" maximum="15" ></f:validateLength>
-					</h:inputText>
-					<h:message for="nombreUsuario"></h:message>
+					<h:outputLabel for="nombre" value="Nombre:"
+						style="font-weight:bold" />
+					<p:inputText id="nombre" value="#{usuarioControlador.nombre}"
+						required="true" label="Nombre" />
+					<p:message for="nombre" />
 
+					<h:outputLabel for="apellidoPaterno" value="Apellido paterno:"
+						style="font-weight:bold" />
+					<p:inputText id="apellidoPaterno"
+						value="#{usuarioControlador.apellidoPaterno}" required="true"
+						label="Apellido Paterno" />
+					<p:message for="apellidoPaterno" />
+
+					<h:outputLabel for="apellidoMaterno" value="Apellido materno:"
+						style="font-weight:bold" />
+					<p:inputText id="apellidoMaterno"
+						value="#{usuarioControlador.apellidoMaterno}" required="true"
+						label="Apellido Materno" />
+					<p:message for="apellidoMaterno" />
+
+					<h:outputLabel for="edad" value="Edad:" style="font-weight:bold" />
+					<p:inputText id="edad" value="#{usuarioControlador.edad}"
+						label="Number">
+						<f:validateDoubleRange minimum="18" maximum="120" />
+					</p:inputText>
+					<p:message for="edad" />
+
+					<h:outputLabel for="celular" value="Celular:"
+						style="font-weight:bold" />
+					<p:inputText id="celular" value="#{usuarioControlador.edad}"
+						label="Number">
+						<f:validateDoubleRange minimum="8" maximum="8" />
+					</p:inputText>
+					<p:message for="celular" />
+
+					<h:outputLabel for="email1" value="Email: "
+						style="font-weight:bold" />
+					<p:inputText id="email1" value="#{usuarioControlador.correo}"
+						label="Email" required="true"
+						validatorMessage="Email no es valido">
+						<f:validateRegex
+							pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					</p:inputText>
+					<p:message for="email1" />
+
+					<h:outputLabel for="pwd1" value="Ingrese su contraseña"
+						style="font-weight:bold" />
+					<p:password id="pwd1" value="#{usuarioControlador.password}"
+						match="pwd2" label="Password 1" required="true" />
+					<h:outputLabel value="" />
+
+					<h:outputLabel for="pwd2" value="Repita su contraseña"
+						style="font-weight:bold" />
+					<p:password id="pwd2" value="#{usuarioControlador.password}"
+						label="Password 2" required="true" />
+					<p:message for="pwd2"></p:message>
+
+					<h:form>
+						<h6 style="margin-top: 10px">¿Qué días prefieres ser
+							atendido/a en nuestras sucursales?</h6>
+						<p:selectManyCheckbox id="basic"
+							value="#{usuarioControlador.preferenciasSeleccionadas}">
+							<f:selectItem itemLabel="Lunes" itemValue="Lunes" />
+							<f:selectItem itemLabel="Martes" itemValue="Martes" />
+							<f:selectItem itemLabel="Miércoles" itemValue="Miércoles" />
+							<f:selectItem itemLabel="Jueves" itemValue="Jueves" />
+							<f:selectItem itemLabel="Viernes" itemValue="Viernes" />
+						</p:selectManyCheckbox>
+					</h:form>
+				</h:panelGrid>
+
+				<div class="col-lg-offset-3">
+					<div class="g-recaptcha"
+						data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"
+						required="true"></div>
 				</div>
 
-			</div>
+				<p:commandButton value="Registrarse"
+					actionListener="#{usuarioControlador.guardar}" ajax="false"
+					icon="ui-icon-check" validateClient="true"
+					style="margin-right:10px" />
+				<p:commandButton value="Limpiar" id="ajax"
+					actionListener="#{usuarioControlador.limpiar}"
+					styleClass="ui-priority-primary" />
 
-
-			<div class="form-group">
-
-				<label class="col-lg-3 control-label">Nombre</label>
-
-				<div class="col-lg-3">
-
-					<h:inputText styleClass="form-control" id= "nombre" name="nombre"
-						value="#{usuarioControlador.nombre}" required= "true">
-						<
-						
-						</h:inputText>
-
-				</div>
-
-			</div>
-
-
-
-			<div class="form-group">
-
-				<label class="col-lg-3 control-label">Apellido Paterno</label>
-
-				<div class="col-lg-3">
-
-					<h:inputText type="text" class="form-control"
-						name="apellidoPaterno"
-						value="#{usuarioControlador.apellidoPaterno}"></h:inputText>
-
-				</div>
-
-			</div>
-
-			<div class="form-group">
-
-				<label class="col-lg-3 control-label">Apellido Materno</label>
-
-				<div class="col-lg-3">
-
-					<h:inputText type="text" class="form-control"
-						name="apellidoMaterno"
-						value="#{usuarioControlador.apellidoMaterno}"></h:inputText>
-
-				</div>
-
-			</div>
-
-			<div class="form-group">
-
-				<label class="col-lg-3 control-label">Edad</label>
-
-				<div class="col-lg-3">
-
-					<h:inputText type="text" class="form-control" name="edad"
-						value="#{usuarioControlador.edad}"></h:inputText>
-
-				</div>
-
-			</div>
-
-
-			<div class="form-group">
-
-				<label class="col-lg-3 control-label">Correo Electrónico</label>
-
-				<div class="col-lg-3">
-					<h:inputText type="text" class="form-control" name="correo"
-						value="#{usuarioControlador.correo}"></h:inputText>
-
-				</div>
-
-			</div>
-
-			<div class="form-group">
-
-				<label class="col-lg-3 control-label">Celular</label>
-
-				<div class="col-lg-3">
-
-					<h:inputText type="text" class="form-control" name="celular"
-						value="#{usuarioControlador.celular}"></h:inputText>
-
-				</div>
-
-			</div>
-
-			<div class="form-group">
-
-				<label class="col-lg-3 control-label">Password</label>
-
-				<div class="col-lg-3">
-
-					<h:inputSecret type="password" class="form-control" name="password"
-						value="#{usuarioControlador.password}"></h:inputSecret>
-
-				</div>
-
-			</div>
-
-			<div class="form-group">
-
-				<label class="col-lg-3 control-label">Repita su password</label>
-
-				<div class="col-lg-3">
-
-					<h:inputSecret type="password" class="form-control"
-						name="confirmPassword" value="#{usuarioControlador.password}"></h:inputSecret>
-
-				</div>
-			</div>
-			<br></br>
-			<div class="col-lg-offset-3">
-				<H5>¿Qué días prefieres venir a nuestras sucursales?</H5>
-
-				<label class="checkbox-inline"> <input type="checkbox"
-					id="checkboxEnLinea1" value="opcion_1"> </input> Lunes
-				</label> <label class="checkbox-inline"> <input type="checkbox"
-					id="checkboxEnLinea2" value="opcion_2"></input> Martes
-				</label> <label class="checkbox-inline"> <input type="checkbox"
-					id="checkboxEnLinea3" value="opcion_3"></input> Miercoles
-				</label> <label class="checkbox-inline"> <input type="checkbox"
-					id="checkboxEnLinea3" value="opcion_3"></input> Jueves
-				</label> <label class="checkbox-inline"> <input type="checkbox"
-					id="checkboxEnLinea3" value="opcion_3"></input> Viernes
-				</label>
-			</div>
-
-
-
-			<br></br>
-			<br></br>
-			<div class="col-lg-offset-3">
-				<div class="g-recaptcha"
-					data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"></div>
-			</div>
-			<br></br>
-
-
-			<div class="form-group">
-				<div class="col-lg-3 col-lg-offset-3">
-					<h:commandButton styleClass="btn btn-primary btn-block"
-						value="Limpiar" action="#{usuarioControlador.limpiar}"></h:commandButton>
-				</div>
-			</div>
-
-			<div class="form-group">
-				<div class="col-lg-3 col-lg-offset-3">
-
-					<h:commandButton styleClass="btn btn-primary btn-block"
-						value="Registrarse" action="#{usuarioControlador.guardar}"></h:commandButton>
-
-
-				</div>
-
-			</div>
-			
-			<h:messages></h:messages>
-
+			</p:panel>
 		</h:form>
 
 	</div>
 
 
 
-	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script
-		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
-		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-		crossorigin="anonymous"></script>
-<!-- 	<script -->
-<!-- 		src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script> -->
+</h:body>
 
-	<script
-		src="https://oss.maxcdn.com/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"></script>
-
-	<script type="text/javascript" src="js/validator.js"></script>
-
-
-
-</body>
 </html>

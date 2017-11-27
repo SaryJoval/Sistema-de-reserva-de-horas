@@ -9,6 +9,7 @@
 	<meta charset="utf-8"></meta>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
 	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<title>Login y Registro</title>
 
 	<!-- CSS -->
@@ -52,8 +53,7 @@
 			<div class="row">
 				<div class="col-sm-12 col-sm-offset-2 show-forms registro">
 					<span class="show-register-form active">Registro</span> <span
-						class="show-forms-divider">/</span>
-					<span class="show-login-form">Login</span>
+						class="show-forms-divider">/</span> <span class="show-login-form">Login</span>
 				</div>
 			</div>
 
@@ -70,6 +70,14 @@
 							<p:password type="password" name="l-form-password"
 								styleClass="l-form-password form-control" id="l-form-password"
 								value="#{loginControlador.password}" placeholder="Password"></p:password>
+
+							<!-- 						Link para recuperar contraseña		 -->
+							<BR />
+							<p:link outcome="RecuperarContrasena.xhtml"
+								value="¿Olvidaste tu contraseña?">
+								<f:param name="productId" value="10" />
+							</p:link>
+
 						</div>
 						<h:commandButton value="Ingresar"
 							action="#{loginControlador.iniciarSesion}"
@@ -82,62 +90,140 @@
 
 			<div class="row register-form  registro">
 
-				<div class="col-md-offset-4 col-md-4 registro">
+				<div class="container">
+					<h:form>
 
-					<h:form role="form" action="" method="post" class="r-form">
-						<div class="form-group">
-							<label class="sr-only" for="r-form-first-name">First name</label>
-							<input type="text" name="r-form-first-name"
-								placeholder="First name..."
-								class="r-form-first-name form-control" id="r-form-first-name"></input>
-						</div>
-						<div class="form-group">
-							<label class="sr-only" for="r-form-last-name">Last name</label> <input
-								type="text" name="r-form-last-name" placeholder="Last name..."
-								class="r-form-last-name form-control" id="r-form-last-name"></input>
-						</div>
-						<div class="form-group">
-							<label class="sr-only" for="r-form-email">Email</label> <input
-								type="text" name="r-form-email" placeholder="Email..."
-								class="r-form-email form-control" id="r-form-email"></input>
-						</div>
-						<div class="form-group">
-							<label class="sr-only" for="r-form-about-yourself">About
-								yourself</label>
-							<textarea name="r-form-about-yourself"
-								placeholder="About yourself..."
-								class="r-form-about-yourself form-control"
-								id="r-form-about-yourself"></textarea>
-						</div>
-						<button type="submit" class="btn btn-success btn-block">Registrar</button>
+						<br></br>
+							<br></br>
+								<br></br>
+						<h:panelGrid id="grid" columns="3" cellpadding="5">
+
+							<h:outputLabel for="nombreUsuario" value="Nombre usuario"
+								style="font-weight:bold" />
+							<p:inputText id="nombreUsuario"
+								value="#{usuarioControlador.nombreUsuario}" required="true"
+								label="Nombre Usuario" validatorMessage="El campo nombre de usuario es obligatorio"/>
+							<p:message for="nombreUsuario" />
+
+							<h:outputLabel for="nombre" value="Nombre:"
+								style="font-weight:bold" />
+							<p:inputText id="nombre" value="#{usuarioControlador.nombre}"
+								required="true" label="Nombre" />
+							<p:message for="nombre" />
+
+							<h:outputLabel for="apellidoPaterno" value="Apellido paterno:"
+								style="font-weight:bold" />
+							<p:inputText id="apellidoPaterno"
+								value="#{usuarioControlador.apellidoPaterno}" required="true"
+								label="Apellido Paterno" />
+							<p:message for="apellidoPaterno" />
+
+							<h:outputLabel for="apellidoMaterno" value="Apellido materno:"
+								style="font-weight:bold" />
+							<p:inputText id="apellidoMaterno"
+								value="#{usuarioControlador.apellidoMaterno}" required="true"
+								label="Apellido Materno" />
+							<p:message for="apellidoMaterno" />
+
+							<h:outputLabel for="edad" value="Edad:" style="font-weight:bold" />
+							<p:inputText id="edad" value="#{usuarioControlador.edad}"
+								label="Number" validatorMessage="El campo edad sólo acepta hasta tres digitos">
+								<f:validateLength maximum="3"></f:validateLength>
+							</p:inputText>
+							<p:message for="edad" />
+
+							<h:outputLabel for="celular" value="Celular:"
+								style="font-weight:bold" />
+							<p:inputText id="celular" value="#{usuarioControlador.edad}"
+								label="Number"
+								validatorMessage="El celular debe tener 8 digitos">
+								<f:validateLength minimum= "8" maximum="8"></f:validateLength>
+							</p:inputText>
+							<p:message for="celular" />
+
+							<h:outputLabel for="email1" value="E-mail: "
+								style="font-weight:bold" />
+							<p:inputText id="email1" value="#{usuarioControlador.correo}"
+								label="Email" required="true"
+								validatorMessage="E-mail no es valido">
+								<f:validateRegex
+									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+							</p:inputText>
+							<p:message for="email1" />
+
+							<h:outputLabel for="pwd1" value="Ingrese su contraseña"
+								style="font-weight:bold" />
+							<p:password id="pwd1" value="#{usuarioControlador.password}"
+								match="pwd2" label="Password 1" required="true" />
+							<h:outputLabel value="" />
+
+							<h:outputLabel for="pwd2" value="Repita su contraseña"
+								style="font-weight:bold" />
+							<p:password id="pwd2" value="#{usuarioControlador.password}"
+								label="Password 2" required="true" />
+							<p:message for="pwd2"></p:message>
+
+
+							<h6 style="margin-top: 10px">¿Qué días prefieres ser
+								atendido/a en nuestras sucursales?</h6>
+							<p:selectManyCheckbox id="basic"
+								value="#{usuarioControlador.preferenciasSeleccionadas}">
+								<f:selectItem itemLabel="Lunes" itemValue="Lunes" />
+								<f:selectItem itemLabel="Martes" itemValue="Martes" />
+								<f:selectItem itemLabel="Miércoles" itemValue="Miércoles" />
+								<f:selectItem itemLabel="Jueves" itemValue="Jueves" />
+								<f:selectItem itemLabel="Viernes" itemValue="Viernes" />
+							</p:selectManyCheckbox>
+							<p:message for="basic"/>
+
+							<div class="col-md-offset-4 col-md-4 registro">
+
+								<div>
+									<div class="g-recaptcha"
+										data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"
+										required="true"></div>
+								</div>
+								</div>
+							<DIV class="col-md-offset-4 col-md-4 registro">
+								<p:commandButton value="Registrarse"
+									actionListener="#{usuarioControlador.guardar}" ajax="false"
+									icon="ui-icon-check" validateClient="true"
+									style="margin-right:10px" />
+								<p:commandButton value="Limpiar" id="ajax"
+									actionListener="#{usuarioControlador.limpiar}"
+									styleClass="ui-priority-primary" />
+
+							</DIV>
+
+						</h:panelGrid>
+
 					</h:form>
 
 				</div>
 			</div>
 		</div>
-	</div>
 
-	<!-- Footer -->
-	<footer>
-		<div class="container">
-			<div class="row">
+		<!-- Footer -->
+		<footer>
+			<div class="container">
+				<div class="row">
 
-				<div class="col-sm-12 col-sm-offset-2">
-					<div class="footer-border"></div>
-					<p>
-						<a href="https://www.accenture.com/cl-es" target="_blank">Accenture</a>.
-					</p>
+					<div class="col-sm-12 col-sm-offset-2">
+						<div class="footer-border"></div>
+						<p>
+							<a href="https://www.accenture.com/cl-es" target="_blank">Accenture</a>.
+						</p>
+					</div>
+
 				</div>
-
 			</div>
-		</div>
-	</footer>
+		</footer>
 
-	<!-- Javascript -->
-	<script src="js/jquery-1.11.1.min.js"></script>
-	<script src="bootstrap/js/bootstrap.min.js"></script>
-	<script src="js/jquery.backstretch.min.js"></script>
-	<script src="js/scripts.js"></script>
-	
+		<!-- Javascript -->
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+		<script src="js/jquery.backstretch.min.js"></script>
+		<script src="js/scripts.js"></script>
+	</div>
 </h:body>
 </html>

@@ -32,18 +32,21 @@ public class UsuarioControlador implements Serializable {
 	private String password;
 	
 	private List<String> preferencias;
+	private List<String> preferenciasSeleccionadas;
+	
+
 	private List<Usuario> usuarios;
 
 	private boolean errorNuevo;
 	private String mensajeNuevoUsuario;
 
 	public UsuarioControlador() {
-
+	
 		
 	}
 
 	public UsuarioControlador(String nombreUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
-			int celular, int edad, int estado, List<String> preferencias, List<Usuario> usuarios, String password) {
+			int celular, int edad, int estado,List<Usuario> usuarios, String password) {
 		super();
 		this.nombreUsuario= nombreUsuario;
 		this.nombre = nombre;
@@ -53,9 +56,21 @@ public class UsuarioControlador implements Serializable {
 		this.celular = celular;
 		this.edad = edad;
 		this.estado = estado;
-		this.preferencias = preferencias;
+		this.preferencias = new ArrayList<String>();
+		preferencias.add("Lunes");
+		preferencias.add("Martes");
+		preferencias.add("Miércoles");
+		preferencias.add("Jueves");
+		preferencias.add("Viernes");
 		this.usuarios = usuarios;
 		this.password = password;
+	}
+	public List<String> getPreferenciasSeleccionadas() {
+		return preferenciasSeleccionadas;
+	}
+
+	public void setPreferenciasSeleccionadas(List<String> preferenciasSeleccionadas) {
+		this.preferenciasSeleccionadas = preferenciasSeleccionadas;
 	}
 
 	public String getNombreUsuario() {
@@ -210,9 +225,7 @@ public class UsuarioControlador implements Serializable {
 
 	}
 
-	public void enlistarPreferencias() {
-
-	}
+	
 	
 
 }
