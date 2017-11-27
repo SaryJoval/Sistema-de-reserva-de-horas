@@ -30,10 +30,9 @@ public class UsuarioControlador implements Serializable {
 	private int edad;
 	private int estado;
 	private String password;
-	
+
 	private List<String> preferencias;
 	private List<String> preferenciasSeleccionadas;
-	
 
 	private List<Usuario> usuarios;
 
@@ -41,14 +40,15 @@ public class UsuarioControlador implements Serializable {
 	private String mensajeNuevoUsuario;
 
 	public UsuarioControlador() {
-	
 		
+		limpiar();
+
 	}
 
-	public UsuarioControlador(String nombreUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
-			int celular, int edad, int estado,List<Usuario> usuarios, String password) {
+	public UsuarioControlador(String nombreUsuario, String nombre, String apellidoPaterno, String apellidoMaterno,
+			String correo, int celular, int edad, int estado, List<Usuario> usuarios, String password) {
 		super();
-		this.nombreUsuario= nombreUsuario;
+		this.nombreUsuario = nombreUsuario;
 		this.nombre = nombre;
 		this.apellidoPaterno = apellidoPaterno;
 		this.apellidoMaterno = apellidoMaterno;
@@ -57,14 +57,10 @@ public class UsuarioControlador implements Serializable {
 		this.edad = edad;
 		this.estado = estado;
 		this.preferencias = new ArrayList<String>();
-		preferencias.add("Lunes");
-		preferencias.add("Martes");
-		preferencias.add("Miércoles");
-		preferencias.add("Jueves");
-		preferencias.add("Viernes");
 		this.usuarios = usuarios;
 		this.password = password;
 	}
+
 	public List<String> getPreferenciasSeleccionadas() {
 		return preferenciasSeleccionadas;
 	}
@@ -78,7 +74,7 @@ public class UsuarioControlador implements Serializable {
 	}
 
 	public void setNombreUsuario(String nombreUsuario) {
-		this.nombreUsuario= nombreUsuario;
+		this.nombreUsuario = nombreUsuario;
 	}
 
 	public String getNombre() {
@@ -172,7 +168,6 @@ public class UsuarioControlador implements Serializable {
 	public void setMensajeNuevoUsuario(String mensajeNuevoUsuario) {
 		this.mensajeNuevoUsuario = mensajeNuevoUsuario;
 	}
-	
 
 	public String getPassword() {
 		return password;
@@ -198,11 +193,9 @@ public class UsuarioControlador implements Serializable {
 		usuario.setEdad(this.edad);
 		usuario.setPassword(this.password);
 
-		UsuarioDAO dao = new UsuarioDAO();
-
 		try {
-			dao.insertarUsuario(usuario);
-			return "inicioSesion?faces-redirect=true";
+			UsuarioDAO.insertarUsuario(usuario);
+			return "inicioSesionFinal?faces-redirect=true";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -224,8 +217,5 @@ public class UsuarioControlador implements Serializable {
 		this.preferencias = new ArrayList<String>();
 
 	}
-
-	
-	
 
 }

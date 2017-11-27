@@ -114,22 +114,24 @@
 						<div class="form-group">
 							<p>Selecciona una fecha</p>
 
+						
 							<h:panelGrid columns="2" cellpadding="5">
 
-								<p:calendar mindate="agregarReservaControlador.fechaReserva"
+								<p:calendar
+									mindate="#{agregarReservaControlador.fechaActual}"
 									showOn="button" disabledWeekends="true" required="true"
 									requiredMessage="Fecha obligatoria" styleClass="btn btn-block"
 									id="inline" locale="es" pattern="yyyy/MM/dd"
 									value="#{agregarReservaControlador.fechaReserva}" mode="inline">
 									<f:convertDateTime pattern="yyyy/MM/dd" />
+
+									<p:ajax event="dateSelect"
+										listener="#{agregarReservaControlador.obtenerHorasDisponibles}" />
+
 								</p:calendar>
 							</h:panelGrid>
 
 						</div>
-
-						<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
-							value="VER HORAS DISPONIBLES"
-							action="#{agregarReservaControlador.obtenerHorasDisponibles}"></h:commandButton>
 
 					</h:form>
 				</div>
