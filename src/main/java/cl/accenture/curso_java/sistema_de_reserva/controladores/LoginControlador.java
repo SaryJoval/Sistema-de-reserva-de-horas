@@ -86,7 +86,7 @@ public class LoginControlador implements Serializable {
 	// inicio de sesion
 
 	public String iniciarSesion() {
-		
+
 		try {
 			Usuario usuario = UsuarioDAO.validar(new Usuario(this.nombreUsuario, this.password));
 			usuarioLogeado = usuario;
@@ -94,7 +94,17 @@ public class LoginControlador implements Serializable {
 			UsuarioDAO.actualizarUltimoIngreso(usuarioLogeado);
 			this.mensaje = "";
 			this.error = false;
-			return "Cliente?faces-redirect=true";
+
+			if (usuario.getPerfil().getId() == 1) {
+				return "Cliente?faces-redirect=true";
+			} else if (usuario.getPerfil().getId() == 2) {
+				return "Ejecutivo?faces-redirect=true";
+			} else if (usuario.getPerfil().getId() == 3) {
+				return "Admin?faces-redirect=true";
+			}
+			
+			return "";
+
 		} catch (ObjetoNoEncontradoException e) {
 			this.error = true;
 			this.mensaje = "Usuario y/o Password incorrectos";
@@ -107,7 +117,7 @@ public class LoginControlador implements Serializable {
 	}
 
 	public String cerrarSesion() {
-		
+
 		this.usuarioLogeado = null;
 		this.nombreUsuario = null;
 		this.password = null;

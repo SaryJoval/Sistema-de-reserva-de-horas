@@ -18,9 +18,11 @@ import cl.accenture.curso_java.sistema_de_reserva.dao.ConfiguracionDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.DiaFeriadoDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.SucursalDAO;
+import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Configuracion;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Sucursal;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
+import cl.accenture.curso_java.sistema_de_reserva.servicio.SendEmailUsingGMailSMTP;
 import cl.accenture.curso_java.sistema_de_reserva.servicio.ServicioHorasDisponibles;
 
 @ManagedBean
@@ -42,6 +44,9 @@ public class AgregarReservaControlador implements Serializable {
 	private String hora;
 	private String verFecha;
 	private String sinHoras;
+	private String nombreU;
+	private String email;
+	
 
 	private Date fechaReserva;
 
@@ -156,13 +161,44 @@ public class AgregarReservaControlador implements Serializable {
 
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuario");
-
+		
 		try {
 			ReservaDAO.agregarReserva(fecha, this.servicio, this.nombre, usuario, this.hora);
+			
+			Usuario u = UsuarioDAO.obtenerUsuario(usuario.getNombreUsuario());
+			this.email = u.getCorreo();
+			SendEmailUsingGMailSMTP.envioMail(this.email, fecha);
+			
 			recargar();
 			obtenerHorasDisponibles();
 
 			this.mensaje = "Reserva agregada con exito";
+
+		} catch (Exception e) {
+			this.mensaje = "Ocurrio un error al agregar la reserva";
+			System.err.println(e);
+		}
+
+	}
+
+	// agregar Reserva por nombre usaurio
+
+	public void agregarReservaUsuario() {
+
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+		String fecha = formatoFecha.format(this.fechaReserva);
+
+		Usuario u = new Usuario();
+
+		u.setNombreUsuario(this.nombreU);
+
+		try {
+			ReservaDAO.agregarReserva(fecha, this.servicio, this.nombre, u, this.hora);
+			recargar();
+			obtenerHorasDisponibles();
+
+			this.mensaje = "Reserva agregada con exito";
+			this.nombreU = "";
 
 		} catch (Exception e) {
 			this.mensaje = "Ocurrio un error al agregar la reserva";
@@ -182,7 +218,9 @@ public class AgregarReservaControlador implements Serializable {
 			this.horasDisponibles = new ArrayList<String>();
 			this.servicio = "";
 			this.verFecha = "";
+			this.mensaje = "";
 			this.fechaReserva = cal.getTime();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -327,6 +365,22 @@ public class AgregarReservaControlador implements Serializable {
 
 	public void setSinHoras(String sinHoras) {
 		this.sinHoras = sinHoras;
+	}
+
+	public String getNombreU() {
+		return nombreU;
+	}
+
+	public void setNombreU(String nombreU) {
+		this.nombreU = nombreU;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }
