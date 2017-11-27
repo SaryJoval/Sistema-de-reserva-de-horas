@@ -93,110 +93,138 @@
 				<div class="container">
 					<h:form>
 
-						<br></br>
-							<br></br>
+						<div class="col-md-offset-4 col-md-4 registro">
+							<h:form styleClass="l-form">
 								<br></br>
-						<h:panelGrid id="grid" columns="3" cellpadding="5">
+								<div class="form-group">
 
-							<h:outputLabel for="nombreUsuario" value="Nombre usuario"
-								style="font-weight:bold" />
-							<p:inputText id="nombreUsuario"
-								value="#{usuarioControlador.nombreUsuario}" required="true"
-								label="Nombre Usuario" validatorMessage="El campo nombre de usuario es obligatorio"/>
-							<p:message for="nombreUsuario" />
-
-							<h:outputLabel for="nombre" value="Nombre:"
-								style="font-weight:bold" />
-							<p:inputText id="nombre" value="#{usuarioControlador.nombre}"
-								required="true" label="Nombre" />
-							<p:message for="nombre" />
-
-							<h:outputLabel for="apellidoPaterno" value="Apellido paterno:"
-								style="font-weight:bold" />
-							<p:inputText id="apellidoPaterno"
-								value="#{usuarioControlador.apellidoPaterno}" required="true"
-								label="Apellido Paterno" />
-							<p:message for="apellidoPaterno" />
-
-							<h:outputLabel for="apellidoMaterno" value="Apellido materno:"
-								style="font-weight:bold" />
-							<p:inputText id="apellidoMaterno"
-								value="#{usuarioControlador.apellidoMaterno}" required="true"
-								label="Apellido Materno" />
-							<p:message for="apellidoMaterno" />
-
-							<h:outputLabel for="edad" value="Edad:" style="font-weight:bold" />
-							<p:inputText id="edad" value="#{usuarioControlador.edad}"
-								label="Number" validatorMessage="El campo edad sólo acepta hasta tres digitos">
-								<f:validateLength maximum="3"></f:validateLength>
-							</p:inputText>
-							<p:message for="edad" />
-
-							<h:outputLabel for="celular" value="Celular:"
-								style="font-weight:bold" />
-							<p:inputText id="celular" value="#{usuarioControlador.edad}"
-								label="Number"
-								validatorMessage="El celular debe tener 8 digitos">
-								<f:validateLength minimum= "8" maximum="8"></f:validateLength>
-							</p:inputText>
-							<p:message for="celular" />
-
-							<h:outputLabel for="email1" value="E-mail: "
-								style="font-weight:bold" />
-							<p:inputText id="email1" value="#{usuarioControlador.correo}"
-								label="Email" required="true"
-								validatorMessage="E-mail no es valido">
-								<f:validateRegex
-									pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-							</p:inputText>
-							<p:message for="email1" />
-
-							<h:outputLabel for="pwd1" value="Ingrese su contraseña"
-								style="font-weight:bold" />
-							<p:password id="pwd1" value="#{usuarioControlador.password}"
-								match="pwd2" label="Password 1" required="true" />
-							<h:outputLabel value="" />
-
-							<h:outputLabel for="pwd2" value="Repita su contraseña"
-								style="font-weight:bold" />
-							<p:password id="pwd2" value="#{usuarioControlador.password}"
-								label="Password 2" required="true" />
-							<p:message for="pwd2"></p:message>
-
-
-							<h6 style="margin-top: 10px">¿Qué días prefieres ser
-								atendido/a en nuestras sucursales?</h6>
-							<p:selectManyCheckbox id="basic"
-								value="#{usuarioControlador.preferenciasSeleccionadas}">
-								<f:selectItem itemLabel="Lunes" itemValue="Lunes" />
-								<f:selectItem itemLabel="Martes" itemValue="Martes" />
-								<f:selectItem itemLabel="Miércoles" itemValue="Miércoles" />
-								<f:selectItem itemLabel="Jueves" itemValue="Jueves" />
-								<f:selectItem itemLabel="Viernes" itemValue="Viernes" />
-							</p:selectManyCheckbox>
-							<p:message for="basic"/>
-
-							<div class="col-md-offset-4 col-md-4 registro">
-
-								<div>
-									<div class="g-recaptcha"
-										data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"
-										required="true"></div>
+									<p:inputText id="nombreUsuario"
+										styleClass="l-form-username form-control"
+										value="#{usuarioControlador.nombreUsuario}" required="true"
+										label="Nombre Usuario" placeholder="Nombre Usuario"
+										validatorMessage="El campo nombre de usuario es obligatorio" />
+									<p:message for="nombreUsuario" />
 								</div>
+
+								<div class="form-group">
+
+									<p:inputText styleClass="l-form-username form-control"
+										id="nombre" value="#{usuarioControlador.nombre}"
+										required="true" label="Nombre" placeholder="Nombre" />
+									<p:message for="nombre" />
 								</div>
-							<DIV class="col-md-offset-4 col-md-4 registro">
-								<p:commandButton value="Registrarse"
-									actionListener="#{usuarioControlador.guardar}" ajax="false"
-									icon="ui-icon-check" validateClient="true"
-									style="margin-right:10px" />
-								<p:commandButton value="Limpiar" id="ajax"
-									actionListener="#{usuarioControlador.limpiar}"
-									styleClass="ui-priority-primary" />
 
-							</DIV>
+								<div class="form-group">
 
-						</h:panelGrid>
+									<p:inputText id="apellidoPaterno"
+										styleClass="l-form-username form-control"
+										value="#{usuarioControlador.apellidoPaterno}" required="true"
+										label="Apellido Paterno" placeholder="Apellido Paterno" />
+									<p:message for="apellidoPaterno" />
 
+								</div>
+
+								<div class="form-group">
+
+									<p:inputText id="apellidoMaterno"
+										styleClass="l-form-username form-control"
+										value="#{usuarioControlador.apellidoMaterno}" required="true"
+										label="Apellido Materno" placeholder="Apellido Materno" />
+									<p:message for="apellidoMaterno" />
+								</div>
+
+								<div class="form-group">
+
+									<p:inputText id="edad" value="#{usuarioControlador.edad}"
+										label="Number" styleClass="l-form-username form-control"
+										placeholder="Edad"
+										validatorMessage="El campo edad sólo acepta hasta tres digitos">
+										<f:validateLength maximum="3"></f:validateLength>
+									</p:inputText>
+									<p:message for="edad" />
+
+								</div>
+								<div class="form-group">
+
+									<p:inputText id="celular" value="#{usuarioControlador.celular}"
+										label="Number" styleClass="l-form-username form-control"
+										placeholder="Celular"
+										validatorMessage="El celular debe tener 8 digitos">
+										<f:validateLength minimum="8" maximum="8"></f:validateLength>
+									</p:inputText>
+									<p:message for="celular" />
+
+								</div>
+								<div class="form-group">
+
+									<p:inputText id="email1" value="#{usuarioControlador.correo}"
+										label="Email" required="true"
+										styleClass="l-form-username form-control" placeholder="E-Mail"
+										validatorMessage="E-mail no es valido">
+										<f:validateRegex
+											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+									</p:inputText>
+									<p:message for="email1" />
+
+								</div>
+								<div class="form-group">
+
+									<p:password id="pwd1" value="#{usuarioControlador.password}"
+										styleClass="l-form-password form-control" match="pwd2"
+										placeholder="Password" label="Password 1" required="true" />
+									<h:outputLabel value="" />
+
+								</div>
+								<div class="form-group">
+
+									<p:password id="pwd2" value="#{usuarioControlador.password}"
+										styleClass="l-form-password form-control" label="Password 2"
+										placeholder="Repita su Password" required="true" />
+									<p:message for="pwd2"></p:message>
+
+								</div>
+	<!-- 							<div class="form-group">
+
+									<h5>¿Qué días prefieres ser atendido/a en nuestras
+										sucursales?</h5>
+
+									<h:selectOneMenu required="true" id="basic"
+										styleClass="btn btn-default dropdown-toggle btn-block"
+										value="#{usuarioControlador.preferenciasSeleccionadas}">
+
+										<f:selectItem itemLabel="Lunes" itemValue="Lunes" />
+										<f:selectItem itemLabel="Martes" itemValue="Martes" />
+										<f:selectItem itemLabel="Miércoles" itemValue="Miércoles" />
+										<f:selectItem itemLabel="Jueves" itemValue="Jueves" />
+										<f:selectItem itemLabel="Viernes" itemValue="Viernes" />
+
+									</h:selectOneMenu>
+									<p:message for="basic" />
+
+
+								</div> -->
+								<div class="form-group">
+									<div>
+										<div class="g-recaptcha l-form-username form-control"
+											data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"
+											required="true"></div>
+									</div>
+
+								</div>
+								<div class="form-group">
+
+									<p:commandButton value="Registrarse"
+										actionListener="#{usuarioControlador.guardar}" ajax="false"
+										validateClient="true" style="margin-right:10px"
+										styleClass="btn btn-success btn-block btn-lg" />
+
+									<p:commandButton value="Limpiar" id="ajax"
+										actionListener="#{usuarioControlador.limpiar}"
+										styleClass="btn btn-success btn-block btn-lg" />
+								</div>
+							</h:form>
+
+						</div>
 					</h:form>
 
 				</div>

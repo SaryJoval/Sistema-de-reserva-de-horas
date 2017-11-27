@@ -47,7 +47,7 @@ public final class SendEmailUsingGMailSMTP {
 			message.setSubject("Reserva de Hora");
 
 			// Now set the actual message
-			message.setText("Hola haz reservado una hora para el dia: " + fecha + " "
+			message.setText("Hola has reservado una hora para el dia: " + fecha + " "
 					+ "En los proximos dias te llamaremos para confirmar la reserva. Gracias");
 
 			// Send message

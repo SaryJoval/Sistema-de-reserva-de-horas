@@ -46,8 +46,8 @@ public class AgregarReservaControlador implements Serializable {
 	private String sinHoras;
 	private String nombreU;
 	private String email;
-	
 
+	private Date fechaActual;
 	private Date fechaReserva;
 
 	private int idsucursal;
@@ -62,8 +62,7 @@ public class AgregarReservaControlador implements Serializable {
 	public AgregarReservaControlador() {
 		obtenerSucursal();
 		obtenerFeriados();
-		recargar();
-		obtenerHorasDisponibles();
+		recargarFecha();
 
 	}
 
@@ -99,6 +98,8 @@ public class AgregarReservaControlador implements Serializable {
 
 		try {
 
+			recargar();
+
 			this.configuraciones = ConfiguracionDAO.obtenerConfiguraciones();
 
 			this.bloque = this.configuraciones.get(0).getValor();
@@ -130,7 +131,7 @@ public class AgregarReservaControlador implements Serializable {
 			}
 
 			// Cambiar la fecha para la vista
-			SimpleDateFormat formatoFechaMes = new SimpleDateFormat("EEEEEEEEE dd 'de'   MMMMM 'de' yyyy");
+			SimpleDateFormat formatoFechaMes = new SimpleDateFormat("dd-MM-yyyy");
 			String fechaMostrar = formatoFechaMes.format(this.fechaReserva);
 			this.verFecha = fechaMostrar;
 			this.sinHoras = "";
@@ -142,6 +143,10 @@ public class AgregarReservaControlador implements Serializable {
 				this.sinHoras = "No hay horas disponibles";
 
 			}
+
+			cal.setTime(this.fechaReserva);
+			cal.add(Calendar.DAY_OF_MONTH, -1);
+			this.fechaReserva = cal.getTime();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -161,14 +166,14 @@ public class AgregarReservaControlador implements Serializable {
 
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuario");
-		
+
 		try {
 			ReservaDAO.agregarReserva(fecha, this.servicio, this.nombre, usuario, this.hora);
-			
+
 			Usuario u = UsuarioDAO.obtenerUsuario(usuario.getNombreUsuario());
 			this.email = u.getCorreo();
 			SendEmailUsingGMailSMTP.envioMail(this.email, fecha);
-			
+
 			recargar();
 			obtenerHorasDisponibles();
 
@@ -212,19 +217,21 @@ public class AgregarReservaControlador implements Serializable {
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		try {
 			ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
-			Calendar cal = Calendar.getInstance();
-			cal.add(Calendar.DAY_OF_MONTH, 1);
 
-			this.horasDisponibles = new ArrayList<String>();
-			this.servicio = "";
-			this.verFecha = "";
 			this.mensaje = "";
-			this.fechaReserva = cal.getTime();
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void recargarFecha() {
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, 3);
+		this.setFechaActual(cal.getTime());
+
 	}
 
 	public String getMensaje() {
@@ -381,6 +388,14 @@ public class AgregarReservaControlador implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Date getFechaActual() {
+		return fechaActual;
+	}
+
+	public void setFechaActual(Date fechaActual) {
+		this.fechaActual = fechaActual;
 	}
 
 }
