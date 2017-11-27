@@ -50,7 +50,29 @@ public class UsuarioDAO {
 		}
 		throw new ObjetoNoEncontradoException("Usuario y/o password incorrectos");
 	}
-
+	
+	public static boolean nombreUsuario_existe(Usuario usuario) throws SQLException, SinConexionException {
+		PreparedStatement ps = Conexion.getInstancia().prepareStatement("select from nombreUsuario from usuario.proyecto where nombreUsuario =?");
+		ps.setString(1, usuario.getNombreUsuario());
+		ResultSet rs = ps.executeQuery();
+		boolean nombreUsuario_existe = false;
+		if(rs.next()) {
+			nombreUsuario_existe = true;
+		}
+		return nombreUsuario_existe;
+	}
+	
+	public static boolean correo_existe(Usuario usuario) throws SQLException, SinConexionException {
+		PreparedStatement ps = Conexion.getInstancia().prepareStatement("select from correo from usuario.proyecto where correo =?");
+		ps.setString(1, usuario.getCorreo());
+		ResultSet rs = ps.executeQuery();
+		boolean correo_existe = false;
+		if(rs.next()) {
+			correo_existe = true;
+		}
+		return correo_existe;
+	}
+	
 	public static void insertarUsuario(Usuario usuario) throws SQLException, SinConexionException {
 		PreparedStatement st = Conexion.getInstancia().prepareStatement(
 				"insert into usuario(nombre, apellidoPaterno, apellidoMaterno, correo, celular, edad, nombreUsuario, password) values(?,?,?,?,?,?,?,?);");
