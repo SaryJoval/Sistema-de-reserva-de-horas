@@ -72,7 +72,7 @@ CREATE TABLE `perfil` (
   `idperfil` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`idperfil`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,7 +81,7 @@ CREATE TABLE `perfil` (
 
 LOCK TABLES `perfil` WRITE;
 /*!40000 ALTER TABLE `perfil` DISABLE KEYS */;
-INSERT INTO `perfil` VALUES (1,'cliente');
+INSERT INTO `perfil` VALUES (1,'cliente'),(2,'ejecutivo'),(3,'admin');
 /*!40000 ALTER TABLE `perfil` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -155,7 +155,7 @@ CREATE TABLE `reserva` (
   PRIMARY KEY (`idreserva`),
   KEY `fk_id_usuario_idx` (`id_usuario`),
   CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`nombreUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,7 +164,7 @@ CREATE TABLE `reserva` (
 
 LOCK TABLES `reserva` WRITE;
 /*!40000 ALTER TABLE `reserva` DISABLE KEYS */;
-INSERT INTO `reserva` VALUES (16,'2017-11-27','posventa','Santiago','ciro','10:30:00'),(17,'2017-11-30','posventa','Santiago','ciro','10:30:00'),(18,'2017-11-30','venta','Santiago','ciro','13:00:00'),(19,'2017-11-27','posventa','Santiago','ciro','11:00:00'),(20,'2017-11-29','asd','Puerto Montt','ciro','11:00:00'),(21,'2017-11-28','asd','Concepcion','ciro','13:00:00'),(22,'2017-11-29','asd','Santiago','ciro','12:00:00'),(23,'2017-11-28','aaaaaaaaaaaaaaaaaaaaaaaaaaa','Santiago','ciro','10:30:00'),(24,'2017-11-30','asd','Concepcion','ciro','12:00:00'),(25,'2017-11-30','sdf','Valparaiso','ciro','11:30:00'),(26,'2017-11-27','asd','Puerto Montt','ciro','13:30:00'),(27,'2017-11-27','asdasdasdasdasdasd','Santiago','ciro','11:30:00'),(28,'2017-11-29','asd','Rancagua','ciro','10:30:00'),(29,'2017-11-30','asd','Rancagua','ciro','12:30:00'),(30,'2017-11-27','asd','Valparaiso','ciro','14:00:00'),(31,'2017-11-29','asd','Valparaiso','ciro','12:30:00'),(32,'2017-11-27','asd','Valparaiso','ciro','12:00:00'),(33,'2017-11-30','asd','Puerto Montt','ciro','11:00:00'),(34,'2017-11-29','asd','Concepcion','ciro','14:30:00'),(35,'2017-12-08','venta','Valparaiso','ciro','15:00:00'),(36,'2017-11-28','',NULL,'ciro','15:30:00'),(37,'2017-11-30','posventa','Valparaiso','ciro','16:00:00'),(38,'2017-11-28','',NULL,'ciro','13:30:00'),(39,'2017-12-01','penultima','Santiago','ciro','11:30:00'),(40,'2017-11-30','','Santiago','ciro','13:30:00'),(41,'2017-11-30','','Santiago','ciro','14:00:00'),(42,'2017-11-30','asd','Santiago','ciro','14:30:00'),(43,'2017-11-30','sd','Santiago','ciro','15:00:00'),(44,'2017-11-30','asdasd','Santiago','ciro','15:30:00'),(45,'2017-11-30','asd','Santiago','ciro','16:30:00'),(46,'2017-11-30','asdasd','Concepcion','ciro','17:00:00'),(47,'2017-11-30','asdasd','Concepcion','ciro','17:30:00'),(48,'2017-11-30','asdasd','Concepcion','ciro','18:00:00'),(49,'2017-12-27','Venta','Arica','ciro','11:00:00'),(50,'2017-11-29','Venta','Puerto Montt','ciro','13:30:00');
+INSERT INTO `reserva` VALUES (17,'2017-11-30','posventa','Santiago','ciro','10:30:00'),(18,'2017-11-30','venta','Santiago','ciro','13:00:00'),(22,'2017-11-29','asd','Santiago','ciro','12:00:00'),(24,'2017-11-30','asd','Concepcion','ciro','12:00:00'),(25,'2017-11-30','sdf','Valparaiso','ciro','11:30:00'),(29,'2017-11-30','asd','Rancagua','ciro','12:30:00'),(31,'2017-11-29','asd','Valparaiso','ciro','12:30:00'),(33,'2017-11-30','asd','Puerto Montt','ciro','11:00:00'),(34,'2017-11-29','asd','Concepcion','ciro','14:30:00'),(35,'2017-12-08','venta','Valparaiso','ciro','15:00:00'),(37,'2017-11-30','posventa','Valparaiso','ciro','16:00:00'),(39,'2017-12-01','penultima','Santiago','ciro','11:30:00'),(40,'2017-11-30','','Santiago','ciro','13:30:00'),(41,'2017-11-30','','Santiago','ciro','14:00:00'),(42,'2017-11-30','asd','Santiago','ciro','14:30:00'),(43,'2017-11-30','sd','Santiago','ciro','15:00:00'),(44,'2017-11-30','asdasd','Santiago','ciro','15:30:00'),(45,'2017-11-30','asd','Santiago','ciro','16:30:00'),(46,'2017-11-30','asdasd','Concepcion','ciro','17:00:00'),(47,'2017-11-30','asdasd','Concepcion','ciro','17:30:00'),(48,'2017-11-30','asdasd','Concepcion','ciro','18:00:00'),(49,'2017-12-27','Venta','Arica','ciro','11:00:00'),(50,'2017-11-29','Venta','Puerto Montt','ciro','13:30:00'),(56,'2017-11-29','Posventa','Santiago','ciro','11:30:00'),(59,'2017-12-01','Venta','Santiago','pepe','10:30:00'),(60,'2017-11-29','Venta','Valparaiso','ciro','10:30:00'),(61,'2017-11-28','Venta','Puerto Montt','ciro','18:00:00'),(62,'2017-11-29','Venta','Antofagasta','ciro','11:00:00'),(63,'2017-12-26','Venta','Puerto Montt','ciro','10:30:00'),(64,'2017-11-29','Posventa','Valparaiso','ciro','13:00:00'),(65,'2017-11-29','Posventa','Concepcion','ciro','14:00:00'),(66,'2017-11-29','Posventa','Concepcion','ciro','15:00:00'),(67,'2017-11-29','Posventa','Santiago','ciro','15:30:00'),(68,'2017-11-29','Posventa','Rancagua','ciro','16:00:00'),(69,'2017-11-28','Venta','Valparaiso','ciro','10:30:00'),(70,'2017-12-07','Venta','Valparaiso','ciro','10:30:00');
 /*!40000 ALTER TABLE `reserva` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -224,7 +224,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES ('Luis','Torres','Cereño','torrecereno@gmail.com',123123,24,1,'ciro','123','2017-11-26 04:44:12',0,1);
+INSERT INTO `usuario` VALUES ('Luis','Torres','Cereño','torrescereno@gmail.com',12312312,24,1,'ciro','123','2017-11-27 03:25:21',0,1),('Gabriel','Torres','Ledezma','gabotorres@gmail.com',12312312,99,1,'gabo','123','2017-11-27 03:25:40',0,2),('Pepe','Torres','Cereño','pepe@gmail.com',12312312,28,1,'pepe','123','2017-11-27 00:23:43',0,1);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -237,4 +237,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-26 12:45:56
+-- Dump completed on 2017-11-27  3:34:26
