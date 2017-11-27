@@ -11,7 +11,7 @@
 	<meta charset="utf-8"></meta>
 	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
-	<title>Sistema de Reservas de horas</title>
+	<title>Reservar Hora</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
@@ -49,13 +49,12 @@
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 
 					<ul class="navbar-nav ml-auto">
-
-						<li class="nav-item"><a class="nav-link js-scroll-trigger"
-							href="#reserva">Reserva</a></li>
-						<li class="nav-item"><a class="nav-link js-scroll-trigger"
-							href="#historial">Historial</a></li>
 						<li class="nav-item"><a class="nav-link js-scroll-trigger"
 							href="#perfil">#{listarPerfilControlador.usuario.nombreUsuario}</a></li>
+						<li class="nav-item"><a class="nav-link js-scroll-trigger"
+							href="#reserva">Reserva</a></li>
+							<li class="nav-item"><a class="nav-link js-scroll-trigger"
+							href="Ejecutivo.xhtml">Volver</a></li>
 						<li class="nav-item"><h:commandLink styleClass="nav-link"
 								action="#{loginControlador.cerrarSesion}">Cerrar</h:commandLink></li>
 					</ul>
@@ -78,6 +77,14 @@
 					<p>#{agregarReservaControlador.mensaje}</p>
 
 					<h:form styleClass="form-horizontal">
+
+						<div class="form-group">
+						
+							<p>Nombre de usuario</p>
+							<h:inputText styleClass="form-control" required="true"
+								value="#{agregarReservaControlador.nombreU}"></h:inputText>
+
+						</div>
 
 						<div class="form-group">
 							<p>Servicio</p>
@@ -159,89 +166,13 @@
 
 						<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
 							value="RESERVAR"
-							action="#{agregarReservaControlador.agregarReserva}"></h:commandButton>
+							action="#{agregarReservaControlador.agregarReservaUsuario}"></h:commandButton>
 
 
 					</h:form>
 
 				</div>
 
-			</div>
-		</div>
-	</section>
-
-	<!-- Historial Section -->
-	<section class="success" id="historial">
-		<div class="container">
-			<h2 class="text-center">Historial de Reservas</h2>
-			<hr></hr>
-			<div class="row">
-				<div class="col-lg-12 ml-auto">
-
-					<p>#{listarReservaControlador.mensaje}</p>
-
-					<h:dataTable value="#{listarReservaControlador.reservas}"
-						var="reserva" styleClass="table table-striped table-inverse">
-
-						<h:column>
-							<f:facet name="header">Numero de Reserva</f:facet>
-									#{reserva.idreserva}
-								</h:column>
-
-						<h:column>
-							<f:facet name="header">Fecha Reserva</f:facet>
-									#{reserva.fechaReserva}
-								</h:column>
-
-						<h:column>
-							<f:facet name="header">Hora</f:facet>
-									#{reserva.hora}
-								</h:column>
-
-						<h:column>
-							<f:facet name="header">Servicio</f:facet>
-									#{reserva.servicio}
-								</h:column>
-
-						<h:column>
-							<f:facet name="header">Sucursal</f:facet>
-									#{reserva.sucursal}
-								</h:column>
-
-
-					</h:dataTable>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Perfil Section -->
-	<section class="success" id="perfil">
-		<div class="container">
-			<h2 class="text-center">#{listarPerfilControlador.usuario.nombreUsuario}</h2>
-			<hr></hr>
-			<div class="row">
-				<div class="col-lg-4 ml-auto">
-					<img class="img-fluid" src="img/profile.png" alt=""></img>
-				</div>
-				<div class="col-lg-4 mr-auto">
-
-					<p>Nombre: #{listarPerfilControlador.usuario.nombre}</p>
-					<p>Apellido: #{listarPerfilControlador.usuario.apellidoPaterno}
-						#{listarPerfilControlador.usuario.apellidoMaterno}</p>
-					<p>Correo: #{listarPerfilControlador.usuario.correo}</p>
-					<p>Celular: #{listarPerfilControlador.usuario.celular}</p>
-					<p>Preferencia de dias:</p>
-
-					<h:form>
-						<h:commandLink action="PerfilFinal.xhtml"
-							styleClass="btn btn-primary btn-lg btn-block">
-							<img class="" src="glyphicons/png/glyphicons-151-edit.png" alt=""></img>
-						Modificar
-					</h:commandLink>
-					</h:form>
-
-				</div>
 			</div>
 		</div>
 	</section>

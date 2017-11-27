@@ -11,12 +11,17 @@ public class Reserva {
 	private String idusuario;
 	private String hora;
 
+	private String nombre;
+	private String apellidoPaterno;
+	private String correo;
+	private int celular;
+
 	public Reserva() {
 
 	}
-	
 
-	public Reserva(int idreserva, Date fechaReserva, String servicio, String sucursal, String idusuario, String hora) {
+	public Reserva(int idreserva, Date fechaReserva, String servicio, String sucursal, String idusuario, String hora,
+			String nombre, String apellidoPaterno, String correo, int celular) {
 		super();
 		this.idreserva = idreserva;
 		this.fechaReserva = fechaReserva;
@@ -24,11 +29,14 @@ public class Reserva {
 		this.sucursal = sucursal;
 		this.idusuario = idusuario;
 		this.hora = hora;
+		this.nombre = nombre;
+		this.apellidoPaterno = apellidoPaterno;
+		this.correo = correo;
+		this.celular = celular;
 	}
 
-
 	public Reserva(int idreserva) {
-		
+
 		this.idreserva = idreserva;
 
 	}
@@ -79,6 +87,38 @@ public class Reserva {
 
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellidoPaterno() {
+		return apellidoPaterno;
+	}
+
+	public void setApellidoPaterno(String apellidoPaterno) {
+		this.apellidoPaterno = apellidoPaterno;
+	}
+
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+
+	public int getCelular() {
+		return celular;
+	}
+
+	public void setCelular(int celular) {
+		this.celular = celular;
 	}
 
 }

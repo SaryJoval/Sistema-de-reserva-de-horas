@@ -3,7 +3,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
 
@@ -11,11 +12,10 @@
 	<meta charset="utf-8"></meta>
 	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
-	<title>Sistema de Reservas de horas</title>
+	<title>Ejecutivo</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
-
 	<!-- Custom fonts for this template -->
 	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet"
 		type="text/css"></link>
@@ -27,7 +27,7 @@
 
 	<!-- Custom styles for this template -->
 	<link href="css/freelancer.min.css" rel="stylesheet"></link>
-	<link href="css/estilo_radio.css" rel="stylesheet"></link>
+	<link href="css/estilo.css" rel="stylesheet"></link>
 
 </h:head>
 
@@ -49,11 +49,10 @@
 				<div class="collapse navbar-collapse" id="navbarResponsive">
 
 					<ul class="navbar-nav ml-auto">
-
 						<li class="nav-item"><a class="nav-link js-scroll-trigger"
 							href="#reserva">Reserva</a></li>
 						<li class="nav-item"><a class="nav-link js-scroll-trigger"
-							href="#historial">Historial</a></li>
+							href="#cliente">Cliente</a></li>
 						<li class="nav-item"><a class="nav-link js-scroll-trigger"
 							href="#perfil">#{listarPerfilControlador.usuario.nombreUsuario}</a></li>
 						<li class="nav-item"><h:commandLink styleClass="nav-link"
@@ -65,122 +64,57 @@
 		</nav>
 
 	</h:form>
+
+
+	<!-- Listar Reserva Section -->
 	<hr></hr>
-	<!-- Reserva Section -->
 	<section class="success" id="reserva">
 		<div class="container">
-			<h2 class="text-center">Reserva</h2>
-
+			<h2 class="text-center">Lista de reservas pendientes</h2>
 			<hr></hr>
 			<div class="row">
 
-				<div class="col-lg-4 ml-auto">
-					<p>#{agregarReservaControlador.mensaje}</p>
-
-					<h:form styleClass="form-horizontal">
-
-						<div class="form-group">
-							<p>Servicio</p>
-							<h:selectOneRadio id="Servicio" required="true"
-								styleClass="radio radio-success radio-inline"
-								value="#{agregarReservaControlador.servicio}">
-
-								<f:selectItem itemValue="Venta" itemLabel="Venta" />
-								<f:selectItem itemValue="Posventa" itemLabel="Posveta" />
-
-							</h:selectOneRadio>
-
-							<p>
-								<h:message for="Servicio" style="color:red" />
-							</p>
-
-
-						</div>
-
-						<div class="form-group">
-							<p>Sucursal</p>
-
-							<h:selectOneMenu required="true"
-								styleClass="btn btn-default dropdown-toggle btn-block"
-								value="#{agregarReservaControlador.nombre}">
-
-								<f:selectItems value="#{agregarReservaControlador.sucursales}"
-									var="sucursal" itemLabel="#{sucursal.nombre}"
-									itemValue="#{sucursal.nombre}" />
-
-							</h:selectOneMenu>
-						</div>
-
-						<div class="form-group">
-							<p>Selecciona una fecha</p>
-
-							<h:panelGrid columns="2" cellpadding="5">
-
-								<p:calendar mindate="agregarReservaControlador.fechaReserva"
-									showOn="button" disabledWeekends="true" required="true"
-									requiredMessage="Fecha obligatoria" styleClass="btn btn-block"
-									id="inline" locale="es" pattern="yyyy/MM/dd"
-									value="#{agregarReservaControlador.fechaReserva}" mode="inline">
-									<f:convertDateTime pattern="yyyy/MM/dd" />
-								</p:calendar>
-							</h:panelGrid>
-
-						</div>
-
-						<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
-							value="VER HORAS DISPONIBLES"
-							action="#{agregarReservaControlador.obtenerHorasDisponibles}"></h:commandButton>
-
-					</h:form>
+				<div class="col-lg-6 col-lg-offset-6">
+					<p>#{ejecutivoControlador.mensaje}</p>
 				</div>
+				<div class="col-lg-6 col-lg-offset-6">
+					<div class="row">
+						<div class="col-lg-6 col-lg-offset-6">
+							<div id="imaginary_container">
+								<h:form
+									styleClass="input-group stylish-input-group input-append">
+									<h:inputText value="#{ejecutivoControlador.idReserva}"
+										maxlength="36" styleClass="form-control"></h:inputText>
+									<h:commandButton
+										action="#{ejecutivoControlador.obtenerReservaID}"
+										image="ico/search.svg" styleClass="btn btn-primary"></h:commandButton>
 
-				<div class="col-lg-4 ml-auto">
-
-					<h:form styleClass="form-horizontal">
-
-						<div class="form-group">
-
-							<p>Horas disponibles para el dia:</p>
-							<p>#{agregarReservaControlador.verFecha}</p>
-							<p>#{agregarReservaControlador.sinHoras}</p>
-
-							<h:panelGrid columns="1" cellpadding="5">
-
-								<p:selectOneListbox required="true" id="basic" styleClass=""
-									value="#{agregarReservaControlador.hora}">
-
-									<f:selectItems
-										value="#{agregarReservaControlador.horasDisponibles}"
-										var="hora" itemLabel="#{hora}" itemValue="#{hora}" />
-
-								</p:selectOneListbox>
-							</h:panelGrid>
+								</h:form>
+							</div>
 						</div>
 
-						<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
-							value="RESERVAR"
-							action="#{agregarReservaControlador.agregarReserva}"></h:commandButton>
+						<div class="col-lg-6 col-lg-offset-6">
+							<h:form>
+
+								<h:commandButton
+									action="#{ejecutivoControlador.obtenerReseravsTotales}"
+									value="Listar Todo" styleClass="btn btn-primary"></h:commandButton>
+							</h:form>
+						</div>
 
 
-					</h:form>
+					</div>
+
 
 				</div>
-
 			</div>
-		</div>
-	</section>
 
-	<!-- Historial Section -->
-	<section class="success" id="historial">
-		<div class="container">
-			<h2 class="text-center">Historial de Reservas</h2>
 			<hr></hr>
+
 			<div class="row">
-				<div class="col-lg-12 ml-auto">
+				<div class="col-lg-12 ml-auto " id="table">
 
-					<p>#{listarReservaControlador.mensaje}</p>
-
-					<h:dataTable value="#{listarReservaControlador.reservas}"
+					<h:dataTable value="#{ejecutivoControlador.reservasTotales}"
 						var="reserva" styleClass="table table-striped table-inverse">
 
 						<h:column>
@@ -208,9 +142,80 @@
 									#{reserva.sucursal}
 								</h:column>
 
+						<h:column>
+							<f:facet name="header">Nombre</f:facet>
+									#{reserva.nombre} #{reserva.apellidoPaterno}
+								</h:column>
+
+						<h:column>
+							<f:facet name="header">Email</f:facet>
+									#{reserva.correo}
+								</h:column>
+
+						<h:column>
+							<f:facet name="header">Celular</f:facet>
+									#{reserva.celular}
+								</h:column>
+
+						<h:column>
+							<f:facet name="header">Accion</f:facet>
+							<h:form>
+								<h:commandButton
+									action="#{ejecutivoControlador.eliminar( reserva )}"
+									image="ico/delete.svg" value="" styleClass="btn btn-danger">
+								</h:commandButton>
+							</h:form>
+						</h:column>
 
 					</h:dataTable>
 				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+
+	<!-- Cliente Section -->
+	<section class="success" id="cliente">
+		<div class="container">
+			<h2 class="text-center">Cliente</h2>
+			<hr></hr>
+			<div class="row" style="margin: auto; text-align: center;">
+
+				<div class="col-lg-6 col-lg-offset-6">
+					<p>
+						<IMG width="300px" height="300px" alt="Agregar" src="img/user.svg" />
+					</p>
+
+					<p>
+						<h:commandButton styleClass="btn btn-primary btn-lg"
+							value="AGREGAR"></h:commandButton>
+					</p>
+
+
+				</div>
+				<div class="col-lg-6 col-lg-offset-6">
+
+					<p>
+						<IMG width="300px" height="300px" alt="Reservar hora"
+							src="img/reservar.svg" />
+					</p>
+
+					<p>
+
+						<a class="btn btn-primary btn-lg" href="ReservarHora.xhtml">RESERVAR
+							HORA</a>
+						<!-- <h:form>
+							<h:commandLink action="ReservarHora.xhtml"
+								styleClass="btn btn-primary btn-lg" value="RESERVAR HORA"></h:commandLink>
+						</h:form> -->
+
+					</p>
+
+
+				</div>
+
 			</div>
 		</div>
 	</section>
@@ -231,7 +236,6 @@
 						#{listarPerfilControlador.usuario.apellidoMaterno}</p>
 					<p>Correo: #{listarPerfilControlador.usuario.correo}</p>
 					<p>Celular: #{listarPerfilControlador.usuario.celular}</p>
-					<p>Preferencia de dias:</p>
 
 					<h:form>
 						<h:commandLink action="PerfilFinal.xhtml"
@@ -246,11 +250,13 @@
 		</div>
 	</section>
 
+
 	<!-- Footer -->
 	<footer class="text-center">
 		<div class="footer-above">
 			<div class="container">
 				<div class="row">
+
 					<div class="footer-col col-md-4">
 						<h3>Ubicacion</h3>
 						<p>
@@ -259,9 +265,8 @@
 								width="400" height="300" frameborder="0" style="border: 0"
 								allowfullscreen=""></iframe>
 						</p>
-
-
 					</div>
+
 					<div class="footer-col col-md-4">
 						<h3>Redes Sociales</h3>
 						<ul class="list-inline">
@@ -307,7 +312,7 @@
 	</div>
 
 	<!-- Bootstrap core JavaScript -->
-	<!-- <script src="jquery/jquery.min.js"></script> -->
+	<script src="jquery/jquery.min.js"></script>
 	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Plugin JavaScript -->
@@ -316,6 +321,7 @@
 	<!-- Custom scripts for this template -->
 	<script src="js/freelancer.min.js"></script>
 	<script src="js/calendar_es.js"></script>
+	<script src="js/hidden.js"></script>
 	<!-- 	<script src="js/diasferiados.js"></script> -->
 
 </h:body>

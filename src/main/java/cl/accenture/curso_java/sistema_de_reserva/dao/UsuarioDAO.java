@@ -128,6 +128,7 @@ public class UsuarioDAO {
 			u.setCorreo(rs.getString("correo"));
 			u.setEdad(rs.getInt("edad"));
 			u.setNombreUsuario(rs.getString("nombreUsuario"));
+			u.setCelular(rs.getInt("celular"));
 			
 			return u;
 		}

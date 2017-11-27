@@ -11,7 +11,7 @@ public class PreferenciaDAO {
 	public static void insertarPreferencias (String valor) throws SQLException, SinConexionException {
 		PreparedStatement ps = Conexion.getInstancia().prepareStatement("insert into preferencia (nombreUsuario, valor)values(?,?)");
 		
-		ps.set
+		
 	}
 
 }

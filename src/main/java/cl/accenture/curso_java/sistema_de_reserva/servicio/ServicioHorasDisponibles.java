@@ -13,7 +13,7 @@ import java.util.Iterator;
 import java.util.List;
 
 /**
- * @author Luis
+ * @author Luis Torres
  *
  */
 public final class ServicioHorasDisponibles {
@@ -59,14 +59,10 @@ public final class ServicioHorasDisponibles {
 
 		Iterator<String> it = horasDisponibles.iterator();
 		
-		while(it.hasNext()) {
-			
-			String hora = it.next();
-			
-			for (String h : horasReservadas) {
-				
-				if (h.equals(hora)) {
-					
+		while(it.hasNext()) {		
+			String hora = it.next();			
+			for (String h : horasReservadas) {			
+				if (h.equals(hora)) {				
 					it.remove();				
 				}				
 			}					
@@ -74,4 +70,6 @@ public final class ServicioHorasDisponibles {
 		
 		return horasDisponibles;
 	}
+	
+	
 }

@@ -15,11 +15,14 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import cl.accenture.curso_java.sistema_de_reserva.dao.ConfiguracionDAO;
+import cl.accenture.curso_java.sistema_de_reserva.dao.DiaFeriadoDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.SucursalDAO;
+import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Configuracion;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Sucursal;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
+import cl.accenture.curso_java.sistema_de_reserva.servicio.SendEmailUsingGMailSMTP;
 import cl.accenture.curso_java.sistema_de_reserva.servicio.ServicioHorasDisponibles;
 
 @ManagedBean
@@ -27,7 +30,8 @@ import cl.accenture.curso_java.sistema_de_reserva.servicio.ServicioHorasDisponib
 public class AgregarReservaControlador implements Serializable {
 
 	/**
-	 * 
+	 * @author Luis Torres
+	 *
 	 */
 	private static final long serialVersionUID = 2545746997175419045L;
 
@@ -37,12 +41,18 @@ public class AgregarReservaControlador implements Serializable {
 	private String horaInicio;
 	private String horaFin;
 	private String bloque;
-	private int idsucursal;
-
 	private String hora;
+	private String verFecha;
+	private String sinHoras;
+	private String nombreU;
+	private String email;
+	
 
 	private Date fechaReserva;
 
+	private int idsucursal;
+
+	private List<String> diasFeriados;
 	private List<Sucursal> sucursales;
 	private List<String> horas;
 	private List<String> horasReservadas;
@@ -51,6 +61,24 @@ public class AgregarReservaControlador implements Serializable {
 
 	public AgregarReservaControlador() {
 		obtenerSucursal();
+		obtenerFeriados();
+		recargar();
+		obtenerHorasDisponibles();
+
+	}
+
+	// Listar dias Feriados
+
+	public void obtenerFeriados() {
+
+		try {
+			this.setDiasFeriados(DiaFeriadoDAO.obtenerFeriados());
+		} catch (Exception e) {
+			// TODO: handle exception
+			this.mensaje = "Lo sentimos ocurrio un error en listar los dias feriados";
+			this.setDiasFeriados(new ArrayList<String>());
+		}
+
 	}
 
 	// lista de sucursales
@@ -59,7 +87,6 @@ public class AgregarReservaControlador implements Serializable {
 
 		try {
 			this.sucursales = SucursalDAO.obtenerSucursal();
-			this.mensaje = "";
 		} catch (Exception e) {
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener la Sucursal";
 			this.sucursales = new ArrayList<Sucursal>();
@@ -80,14 +107,42 @@ public class AgregarReservaControlador implements Serializable {
 
 			int bloqueF = Integer.parseInt(bloque);
 
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(this.fechaReserva);
+			cal.add(Calendar.DAY_OF_MONTH, 1);
+			this.fechaReserva = cal.getTime();
+
 			SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 			String fecha = formatoFecha.format(this.fechaReserva);
-
 			this.horas = ServicioHorasDisponibles.calcularHorasDisponibles(this.horaInicio, this.horaFin, bloqueF);
 			this.horasReservadas = ReservaDAO.obenerHorasReservadas(fecha);
 			this.horasDisponibles = ServicioHorasDisponibles.obtenerHorasDisponibles(this.horasReservadas, this.horas);
 
+			// Dias Feriados
+			for (String feriado : this.diasFeriados) {
+
+				if (fecha.equals(feriado)) {
+
+					this.horasDisponibles = new ArrayList<String>();
+					this.sinHoras = "No hay horas disponibles";
+
+				}
+			}
+
+			// Cambiar la fecha para la vista
+			SimpleDateFormat formatoFechaMes = new SimpleDateFormat("EEEEEEEEE dd 'de'   MMMMM 'de' yyyy");
+			String fechaMostrar = formatoFechaMes.format(this.fechaReserva);
+			this.verFecha = fechaMostrar;
+			this.sinHoras = "";
 			this.mensaje = "";
+
+			// Sin horas Disponibles
+			if (this.horasDisponibles.size() == 0) {
+
+				this.sinHoras = "No hay horas disponibles";
+
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las Horas";
@@ -106,11 +161,44 @@ public class AgregarReservaControlador implements Serializable {
 
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuario");
-
+		
 		try {
 			ReservaDAO.agregarReserva(fecha, this.servicio, this.nombre, usuario, this.hora);
-			limpiar();
+			
+			Usuario u = UsuarioDAO.obtenerUsuario(usuario.getNombreUsuario());
+			this.email = u.getCorreo();
+			SendEmailUsingGMailSMTP.envioMail(this.email, fecha);
+			
 			recargar();
+			obtenerHorasDisponibles();
+
+			this.mensaje = "Reserva agregada con exito";
+
+		} catch (Exception e) {
+			this.mensaje = "Ocurrio un error al agregar la reserva";
+			System.err.println(e);
+		}
+
+	}
+
+	// agregar Reserva por nombre usaurio
+
+	public void agregarReservaUsuario() {
+
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+		String fecha = formatoFecha.format(this.fechaReserva);
+
+		Usuario u = new Usuario();
+
+		u.setNombreUsuario(this.nombreU);
+
+		try {
+			ReservaDAO.agregarReserva(fecha, this.servicio, this.nombre, u, this.hora);
+			recargar();
+			obtenerHorasDisponibles();
+
+			this.mensaje = "Reserva agregada con exito";
+			this.nombreU = "";
 
 		} catch (Exception e) {
 			this.mensaje = "Ocurrio un error al agregar la reserva";
@@ -120,20 +208,23 @@ public class AgregarReservaControlador implements Serializable {
 	}
 
 	private void recargar() {
-		
+
 		ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
 		try {
 			ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.DAY_OF_MONTH, 1);
+
+			this.horasDisponibles = new ArrayList<String>();
+			this.servicio = "";
+			this.verFecha = "";
+			this.mensaje = "";
+			this.fechaReserva = cal.getTime();
+
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	private void limpiar() {
-		this.horasDisponibles = new ArrayList<String>();
-		this.servicio = "";
-		this.fechaReserva = Calendar.getInstance().getTime();
 	}
 
 	public String getMensaje() {
@@ -250,6 +341,46 @@ public class AgregarReservaControlador implements Serializable {
 
 	public void setIdsucursal(int idsucursal) {
 		this.idsucursal = idsucursal;
+	}
+
+	public String getVerFecha() {
+		return verFecha;
+	}
+
+	public void setVerFecha(String verFecha) {
+		this.verFecha = verFecha;
+	}
+
+	public List<String> getDiasFeriados() {
+		return diasFeriados;
+	}
+
+	public void setDiasFeriados(List<String> diasFeriados) {
+		this.diasFeriados = diasFeriados;
+	}
+
+	public String getSinHoras() {
+		return sinHoras;
+	}
+
+	public void setSinHoras(String sinHoras) {
+		this.sinHoras = sinHoras;
+	}
+
+	public String getNombreU() {
+		return nombreU;
+	}
+
+	public void setNombreU(String nombreU) {
+		this.nombreU = nombreU;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }
