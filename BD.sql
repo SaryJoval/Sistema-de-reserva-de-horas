@@ -40,25 +40,28 @@ INSERT INTO `configuracion` VALUES ('bloque_atencion','30'),('hora_fin','18:00:0
 UNLOCK TABLES;
 
 --
--- Table structure for table `dias_feriados`
+-- Table structure for table `feriado`
 --
 
-DROP TABLE IF EXISTS `dias_feriados`;
+DROP TABLE IF EXISTS `feriado`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dias_feriados` (
-  `fecha` varchar(45) DEFAULT NULL
+CREATE TABLE `feriado` (
+  `idferiado` int(11) NOT NULL,
+  `fecha` varchar(45) DEFAULT NULL,
+  `descripcion` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idferiado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `dias_feriados`
+-- Dumping data for table `feriado`
 --
 
-LOCK TABLES `dias_feriados` WRITE;
-/*!40000 ALTER TABLE `dias_feriados` DISABLE KEYS */;
-INSERT INTO `dias_feriados` VALUES ('2017-12-19'),('2017-12-25');
-/*!40000 ALTER TABLE `dias_feriados` ENABLE KEYS */;
+LOCK TABLES `feriado` WRITE;
+/*!40000 ALTER TABLE `feriado` DISABLE KEYS */;
+INSERT INTO `feriado` VALUES (1,'2017-12-19','Elecciones '),(2,'2017-12-25','Navidad');
+/*!40000 ALTER TABLE `feriado` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -136,6 +139,32 @@ LOCK TABLES `permiso` WRITE;
 /*!40000 ALTER TABLE `permiso` DISABLE KEYS */;
 INSERT INTO `permiso` VALUES ('1','nombre');
 /*!40000 ALTER TABLE `permiso` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `preferencia`
+--
+
+DROP TABLE IF EXISTS `preferencia`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `preferencia` (
+  `idpreferencia` int(11) NOT NULL AUTO_INCREMENT,
+  `id_usuario` varchar(45) DEFAULT NULL,
+  `fecha` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`idpreferencia`),
+  KEY `fk_preferencia_id_usuario_idx` (`id_usuario`),
+  CONSTRAINT `fk_preferencia_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`nombreUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `preferencia`
+--
+
+LOCK TABLES `preferencia` WRITE;
+/*!40000 ALTER TABLE `preferencia` DISABLE KEYS */;
+/*!40000 ALTER TABLE `preferencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -237,4 +266,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-27  3:34:26
+-- Dump completed on 2017-11-28  3:22:46

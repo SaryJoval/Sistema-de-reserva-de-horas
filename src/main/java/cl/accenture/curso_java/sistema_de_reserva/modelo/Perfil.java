@@ -12,11 +12,9 @@ public class Perfil {
 		
 	}
 
-	public Perfil(int id, String nombre, List<Permiso> permisos) {
+	public Perfil(int id) {
 		super();
 		this.id = id;
-		this.nombre = nombre;
-		this.permisos = permisos;
 	}
 
 	public int getId() {

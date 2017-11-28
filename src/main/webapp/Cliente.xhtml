@@ -26,7 +26,7 @@
 		rel="stylesheet" type="text/css"></link>
 
 	<!-- Custom styles for this template -->
-	<link href="css/freelancer.min.css" rel="stylesheet"></link>
+	<link href="css/freelancer.css" rel="stylesheet"></link>
 	<link href="css/estilo_radio.css" rel="stylesheet"></link>
 
 </h:head>
@@ -94,7 +94,6 @@
 								<h:message for="Servicio" style="color:red" />
 							</p>
 
-
 						</div>
 
 						<div class="form-group">
@@ -114,11 +113,10 @@
 						<div class="form-group">
 							<p>Selecciona una fecha</p>
 
-						
+
 							<h:panelGrid columns="2" cellpadding="5">
 
-								<p:calendar
-									mindate="#{agregarReservaControlador.fechaActual}"
+								<p:calendar mindate="#{agregarReservaControlador.fechaActual}"
 									showOn="button" disabledWeekends="true" required="true"
 									requiredMessage="Fecha obligatoria" styleClass="btn btn-block"
 									id="inline" locale="es" pattern="yyyy/MM/dd"

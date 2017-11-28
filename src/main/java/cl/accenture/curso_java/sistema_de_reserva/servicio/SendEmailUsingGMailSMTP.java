@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 
 public final class SendEmailUsingGMailSMTP {
 
-	public static void envioMail(String email, String fecha) {
+	public static void envioMail(String email, String fecha, String asunto, String texto) {
 
 		// Recipient's email ID needs to be mentioned.
 		String to = email;// change accordingly
@@ -44,11 +44,10 @@ public final class SendEmailUsingGMailSMTP {
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
 			// Set Subject: header field
-			message.setSubject("Reserva de Hora");
+			message.setSubject(asunto);
 
 			// Now set the actual message
-			message.setText("Hola has reservado una hora para el dia: " + fecha + " "
-					+ "En los proximos dias te llamaremos para confirmar la reserva. Gracias");
+			message.setText(texto);
 
 			// Send message
 			Transport.send(message);

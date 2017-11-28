@@ -26,39 +26,115 @@ public class UsuarioControlador implements Serializable {
 	private String apellidoPaterno;
 	private String apellidoMaterno;
 	private String correo;
+	private String password;
+	private String mensajeNuevoUsuario;
+	private String mensaje;
+	private String preferencia;
+	private String errorEdad;
+	private String errorEmail;
+
 	private int celular;
 	private int edad;
 	private int estado;
-	private String password;
+
+	private boolean errorNuevo;
 
 	private List<String> preferencias;
 	private List<String> preferenciasSeleccionadas;
-
 	private List<Usuario> usuarios;
 
-	private boolean errorNuevo;
-	private String mensajeNuevoUsuario;
-
 	public UsuarioControlador() {
-		
+
 		limpiar();
 
 	}
 
-	public UsuarioControlador(String nombreUsuario, String nombre, String apellidoPaterno, String apellidoMaterno,
-			String correo, int celular, int edad, int estado, List<Usuario> usuarios, String password) {
-		super();
-		this.nombreUsuario = nombreUsuario;
-		this.nombre = nombre;
-		this.apellidoPaterno = apellidoPaterno;
-		this.apellidoMaterno = apellidoMaterno;
-		this.correo = correo;
-		this.celular = celular;
-		this.edad = edad;
-		this.estado = estado;
+	public String guardar() {
+
+		Usuario usuario = new Usuario();
+		usuario.setNombreUsuario(this.nombreUsuario);
+		usuario.setNombre(this.nombre);
+		usuario.setApellidoPaterno(this.apellidoPaterno);
+		usuario.setApellidoMaterno(this.apellidoMaterno);
+		usuario.setCorreo(this.correo);
+		usuario.setCelular(this.celular);
+		usuario.setEdad(this.edad);
+		usuario.setPassword(this.password);
+		usuario.setPreferencia(this.preferencia);
+
+		try {
+			
+			if (validarEdad()) {
+				this.errorEdad = "Debes ser mayor de edad";
+			}
+			else if(!validarUsuario()) {
+				UsuarioDAO.insertarUsuario(usuario);
+				return "inicioSesionFinal?faces-redirect=true";
+			}else {
+				this.mensaje = "El usuario ya esta en uso";
+			}
+		
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SinConexionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
+	}
+
+	// validar edad
+
+	public boolean validarEdad() {
+
+		if (this.edad < 18) {
+			this.mensaje = "Debes ser mayor de edad";
+			return true;
+		} else {
+			this.mensaje = "";
+			return false;
+		}
+
+	}
+
+	public boolean validarUsuario() {
+		
+		try {
+			this.errorNuevo = UsuarioDAO.nombreUsuario_existe(this.nombreUsuario);
+			if (errorNuevo) {
+				this.mensaje = "Ya existe";
+				return true;
+			} else {
+				this.mensaje = "Perfecto";
+				return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SinConexionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+
+	}
+	
+	//validar email
+
+	public void limpiar() {
+		this.nombreUsuario = "";
+		this.nombre = "";
+		this.apellidoPaterno = "";
+		this.apellidoMaterno = "";
+		this.correo = "";
+		this.celular = 0;
+		this.edad = 0;
 		this.preferencias = new ArrayList<String>();
-		this.usuarios = usuarios;
-		this.password = password;
+		this.mensaje = "";
+
 	}
 
 	public List<String> getPreferenciasSeleccionadas() {
@@ -181,41 +257,28 @@ public class UsuarioControlador implements Serializable {
 		return estado;
 	}
 
-	public String guardar() {
-
-		Usuario usuario = new Usuario();
-		usuario.setNombreUsuario(this.nombreUsuario);
-		usuario.setNombre(this.nombre);
-		usuario.setApellidoPaterno(this.apellidoPaterno);
-		usuario.setApellidoMaterno(this.apellidoMaterno);
-		usuario.setCorreo(this.correo);
-		usuario.setCelular(this.celular);
-		usuario.setEdad(this.edad);
-		usuario.setPassword(this.password);
-
-		try {
-			UsuarioDAO.insertarUsuario(usuario);
-			return "inicioSesionFinal?faces-redirect=true";
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SinConexionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "";
+	public String getMensaje() {
+		return mensaje;
 	}
 
-	public void limpiar() {
-		this.nombreUsuario = "";
-		this.nombre = "";
-		this.apellidoPaterno = "";
-		this.apellidoMaterno = "";
-		this.correo = "";
-		this.celular = 0;
-		this.edad = 0;
-		this.preferencias = new ArrayList<String>();
+	public void setMensaje(String mensaje) {
+		this.mensaje = mensaje;
+	}
 
+	public String getPreferencia() {
+		return preferencia;
+	}
+
+	public void setPreferencia(String preferencia) {
+		this.preferencia = preferencia;
+	}
+
+	public String getErrorEdad() {
+		return errorEdad;
+	}
+
+	public void setErrorEdad(String errorEdad) {
+		this.errorEdad = errorEdad;
 	}
 
 }

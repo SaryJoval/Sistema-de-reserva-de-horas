@@ -1,0 +1,228 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta charset="utf-8"></meta>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
+	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+	<title>Login y Registro</title>
+
+	<!-- CSS -->
+	<link href="bootstrap-3.3.7-dist/css/bootstrap.min.css"
+		rel="stylesheet" type="text/css"></link>
+
+</h:head>
+
+<h:body>
+	<div class="container">
+
+		<div class="modal-dialog">
+			<div class="row">
+				<div class="col-lg-10 col-lg-offset-1">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="text-center">Registro</h1>
+						</div>
+						<div class="modal-body">
+
+							<h:form>
+
+								<div class="row">
+
+									<div class="col-md-6">
+
+										<div class="form-group">
+
+											<p:inputText id="nombreUsuario"
+												styleClass="form-control input-md"
+												value="#{usuarioControlador.nombreUsuario}" required="true"
+												requiredMessage="Por favor introduce tu usaurio."
+												label="Usuario" placeholder="Usuario">
+
+												<p:ajax event="keyup" update="salida"
+													listener="#{usuarioControlador.validarUsuario}" />
+
+											</p:inputText>
+
+											<h:message style="color:red" for="nombreUsuario" />
+
+										</div>
+
+									</div>
+
+									<div class="col-md-6">
+									
+										<div class="form-group">
+										
+											<h:outputText id="salida"
+												value="#{usuarioControlador.mensaje}" />
+										</div>
+
+									</div>
+
+								</div>
+								
+								<div class="form-group">
+
+									<p:inputText styleClass="form-control input-md" id="nombre"
+										value="#{usuarioControlador.nombre}" required="true"
+										requiredMessage="Por favor introduce tu nombre" label="Nombre"
+										placeholder="Nombre" />
+									<h:message style="color:red" for="nombre" />
+								</div>
+
+								<div class="form-group">
+
+									<p:inputText id="apellidoPaterno"
+										styleClass="form-control input-md"
+										value="#{usuarioControlador.apellidoPaterno}" required="true"
+										requiredMessage="Por favor introduce tu apellido patenro"
+										label="Apellido Paterno" placeholder="Apellido Paterno" />
+									<h:message style="color:red" for="apellidoPaterno" />
+
+								</div>
+
+								<div class="form-group">
+
+									<p:inputText id="apellidoMaterno"
+										styleClass="form-control input-md"
+										value="#{usuarioControlador.apellidoMaterno}" required="true"
+										requiredMessage="Por favor introduce tu apellido materno"
+										label="Apellido Materno" placeholder="Apellido Materno" />
+									<h:message style="color:red" for="apellidoMaterno" />
+								</div>
+
+								<div class="row">
+
+									<div class="col-md-6">
+
+										<div class="form-group">
+
+											<label>Edad:</label>
+
+											<p:inputText id="edad" value="#{usuarioControlador.edad}"
+												required="true" label="Number"
+												requiredMessage="Por favor introduce tu edad"
+												styleClass="form-control input-md"
+												converterMessage="Por favor solo digitos" placeholder="Edad"
+												validatorMessage="El campo edad sólo acepta hasta tres digitos">
+
+												<p:ajax event="keyup" update="out"
+													listener="#{usuarioControlador.validarEdad}" />
+
+												<f:validateLength maximum="3"></f:validateLength>
+
+
+											</p:inputText>
+											<h:message style="color:red" for="edad" />
+											<h:outputText id="out" value="#{usuarioControlador.mensaje}" />
+										
+
+										</div>
+
+									</div>
+
+									<div class="col-md-6">
+
+										<div class="form-group">
+											<label>Celular:</label>
+											<p:inputText id="celular"
+												value="#{usuarioControlador.celular}" label="Number"
+												styleClass="form-control input-md" required="true"
+												requiredMessage="Por favor introduce tu celular"
+												converterMessage="Por favor solo digitos"
+												placeholder="Celular"
+												validatorMessage="El celular debe tener 8 digitos">
+												<f:validateLength minimum="8" maximum="8"></f:validateLength>
+											</p:inputText>
+											<h:message style="color:red" for="celular" />
+
+										</div>
+									</div>
+
+
+								</div>
+
+								<div class="form-group">
+
+									<p:inputText id="email1" value="#{usuarioControlador.correo}"
+										label="Email" required="true"
+										requiredMessage="Por favor introduce tu email"
+										styleClass="form-control input-md" placeholder="E-Mail"
+										validatorMessage="E-mail no es valido">
+										<f:validateRegex
+											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+									</p:inputText>
+									<h:message style="color:red" for="email1" />
+
+								</div>
+								<div class="form-group">
+
+									<p:password id="pwd1" value="#{usuarioControlador.password}"
+										styleClass="form-control input-md" match="pwd2"
+										placeholder="Password" label="Password 1" required="true"
+										requiredMessage="Por favor introduce tu contraseña" />
+									<h:message style="color:red" for="pwd1" />
+
+								</div>
+								<div class="form-group">
+
+									<p:password id="pwd2" value="#{usuarioControlador.password}"
+										styleClass="form-control input-md" label="Password 2"
+										placeholder="Repita su Password" required="true"
+										requiredMessage="Por favor introduce tu contraseña" />
+									<h:message style="color:red" for="pwd2" />
+
+								</div>
+
+								<div class="form-group">
+
+									<label>¿Qué días prefieres ser atendido/a en nuestras
+										sucursales?</label>
+
+									<h:selectOneMenu required="true" id="basic"
+										styleClass="btn btn-default dropdown-toggle btn-block"
+										value="#{usuarioControlador.preferencia}"
+										requiredMessage="Por favor elige un dia">
+
+										<f:selectItem itemLabel="Lunes" itemValue="Lunes" />
+										<f:selectItem itemLabel="Martes" itemValue="Martes" />
+										<f:selectItem itemLabel="Miércoles" itemValue="Miércoles" />
+										<f:selectItem itemLabel="Jueves" itemValue="Jueves" />
+										<f:selectItem itemLabel="Viernes" itemValue="Viernes" />
+
+									</h:selectOneMenu>
+									<h:message style="color:red" for="basic" />
+
+								</div>
+
+<!-- 								<div class="form-group">
+									<div class="g-recaptcha"
+										data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"
+										required="true"></div>
+								</div> -->
+								<div class="form-group">
+
+									<p:commandButton value="Registrarse"
+										actionListener="#{usuarioControlador.guardar}" ajax="false"
+										validateClient="true" style="margin-right:10px"
+										styleClass="btn btn-block btn-md btn-success" />
+
+								</div>
+							</h:form>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</h:body>
+</html>
