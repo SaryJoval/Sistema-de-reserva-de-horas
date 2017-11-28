@@ -118,10 +118,11 @@
 
 												<f:validateLength maximum="3"></f:validateLength>
 
-											</p:inputText>
 
+											</p:inputText>
 											<h:message style="color:red" for="edad" />
 											<h:outputText id="out" value="#{usuarioControlador.mensaje}" />
+										
 
 										</div>
 
@@ -187,7 +188,7 @@
 
 									<h:selectOneMenu required="true" id="basic"
 										styleClass="btn btn-default dropdown-toggle btn-block"
-										value="#{usuarioControlador.preferenciasSeleccionadas}"
+										value="#{usuarioControlador.preferencia}"
 										requiredMessage="Por favor elige un dia">
 
 										<f:selectItem itemLabel="Lunes" itemValue="Lunes" />
@@ -201,11 +202,11 @@
 
 								</div>
 
-								<div class="form-group">
+<!-- 								<div class="form-group">
 									<div class="g-recaptcha"
 										data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"
 										required="true"></div>
-								</div>
+								</div> -->
 								<div class="form-group">
 
 									<p:commandButton value="Registrarse"

@@ -29,6 +29,9 @@ public class UsuarioControlador implements Serializable {
 	private String password;
 	private String mensajeNuevoUsuario;
 	private String mensaje;
+	private String preferencia;
+	private String errorEdad;
+	private String errorEmail;
 
 	private int celular;
 	private int edad;
@@ -57,10 +60,21 @@ public class UsuarioControlador implements Serializable {
 		usuario.setCelular(this.celular);
 		usuario.setEdad(this.edad);
 		usuario.setPassword(this.password);
+		usuario.setPreferencia(this.preferencia);
 
 		try {
-			UsuarioDAO.insertarUsuario(usuario);
-			return "inicioSesionFinal?faces-redirect=true";
+			
+			if (validarEdad()) {
+				this.errorEdad = "Debes ser mayor de edad";
+			}
+			else if(!validarUsuario()) {
+				UsuarioDAO.insertarUsuario(usuario);
+				return "inicioSesionFinal?faces-redirect=true";
+			}else {
+				this.mensaje = "El usuario ya esta en uso";
+			}
+		
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -73,24 +87,28 @@ public class UsuarioControlador implements Serializable {
 
 	// validar edad
 
-	public void validarEdad() {
+	public boolean validarEdad() {
 
 		if (this.edad < 18) {
 			this.mensaje = "Debes ser mayor de edad";
+			return true;
 		} else {
 			this.mensaje = "";
+			return false;
 		}
 
 	}
 
-	public void validarUsuario() {
+	public boolean validarUsuario() {
 		
 		try {
 			this.errorNuevo = UsuarioDAO.nombreUsuario_existe(this.nombreUsuario);
 			if (errorNuevo) {
 				this.mensaje = "Ya existe";
+				return true;
 			} else {
 				this.mensaje = "Perfecto";
+				return false;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -100,9 +118,11 @@ public class UsuarioControlador implements Serializable {
 			e.printStackTrace();
 		}
 
-		
+		return false;
 
 	}
+	
+	//validar email
 
 	public void limpiar() {
 		this.nombreUsuario = "";
@@ -243,6 +263,22 @@ public class UsuarioControlador implements Serializable {
 
 	public void setMensaje(String mensaje) {
 		this.mensaje = mensaje;
+	}
+
+	public String getPreferencia() {
+		return preferencia;
+	}
+
+	public void setPreferencia(String preferencia) {
+		this.preferencia = preferencia;
+	}
+
+	public String getErrorEdad() {
+		return errorEdad;
+	}
+
+	public void setErrorEdad(String errorEdad) {
+		this.errorEdad = errorEdad;
 	}
 
 }

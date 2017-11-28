@@ -9,12 +9,16 @@ public class Usuario {
 	private String apellidoPaterno;
 	private String apellidoMaterno;
 	private String correo;
+	private String password;
+	private String preferencia;
+	
+	private Date ultimoIngreso;
+	
 	private int celular;
 	private int edad;
 	private int estado;
-	private String password;
-	private Date ultimoIngreso;
 	private int intentosFallidos;
+	
 	private Perfil perfil;
 
 	public Usuario() {
@@ -126,6 +130,14 @@ public class Usuario {
 
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
+	}
+
+	public String getPreferencia() {
+		return preferencia;
+	}
+
+	public void setPreferencia(String preferencia) {
+		this.preferencia = preferencia;
 	}
 
 }
