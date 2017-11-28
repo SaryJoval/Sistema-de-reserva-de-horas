@@ -29,15 +29,13 @@ public class UsuarioControlador implements Serializable {
 	private String password;
 	private String mensajeNuevoUsuario;
 	private String mensaje;
-	private String preferencia;
+	private String errorUser;
 	private String errorEdad;
 	private String errorEmail;
 
 	private int celular;
 	private int edad;
 	private int estado;
-
-	private boolean errorNuevo;
 
 	private List<String> preferencias;
 	private List<String> preferenciasSeleccionadas;
@@ -60,21 +58,20 @@ public class UsuarioControlador implements Serializable {
 		usuario.setCelular(this.celular);
 		usuario.setEdad(this.edad);
 		usuario.setPassword(this.password);
-		usuario.setPreferencia(this.preferencia);
 
 		try {
-			
-			if (validarEdad()) {
+
+			if (validarUsuario()) {
+				this.errorUser = "El usuario ya existe";
+			} else if (validarEdad()) {
 				this.errorEdad = "Debes ser mayor de edad";
-			}
-			else if(!validarUsuario()) {
+			} else if (validarCorreo()) {
+				this.errorEmail = "El correo ya existe";
+			} else {
 				UsuarioDAO.insertarUsuario(usuario);
 				return "inicioSesionFinal?faces-redirect=true";
-			}else {
-				this.mensaje = "El usuario ya esta en uso";
 			}
-		
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -90,24 +87,27 @@ public class UsuarioControlador implements Serializable {
 	public boolean validarEdad() {
 
 		if (this.edad < 18) {
-			this.mensaje = "Debes ser mayor de edad";
+			this.errorEdad = "Debes ser mayor de edad";
 			return true;
 		} else {
-			this.mensaje = "";
+			this.errorEdad = "";
 			return false;
 		}
 
 	}
 
 	public boolean validarUsuario() {
-		
+
 		try {
-			this.errorNuevo = UsuarioDAO.nombreUsuario_existe(this.nombreUsuario);
-			if (errorNuevo) {
-				this.mensaje = "Ya existe";
+
+			boolean errorU = false;
+
+			errorU = UsuarioDAO.nombreUsuario_existe(this.nombreUsuario);
+			if (errorU) {
+				this.errorUser = "Ya existe";
 				return true;
 			} else {
-				this.mensaje = "Perfecto";
+				this.errorUser = "Perfecto";
 				return false;
 			}
 		} catch (SQLException e) {
@@ -121,8 +121,35 @@ public class UsuarioControlador implements Serializable {
 		return false;
 
 	}
-	
-	//validar email
+
+	// validar email
+
+	public boolean validarCorreo() {
+
+		try {
+
+			boolean errorC = false;
+
+			errorC = UsuarioDAO.correo_existe(this.correo);
+
+			if (errorC) {
+				this.errorEmail = "Ya existe";
+				return true;
+			} else {
+				this.errorEmail = "Perfecto";
+				return false;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SinConexionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return false;
+
+	}
 
 	public void limpiar() {
 		this.nombreUsuario = "";
@@ -229,14 +256,6 @@ public class UsuarioControlador implements Serializable {
 		return serialVersionUID;
 	}
 
-	public boolean isErrorNuevo() {
-		return errorNuevo;
-	}
-
-	public void setErrorNuevo(boolean errorNuevo) {
-		this.errorNuevo = errorNuevo;
-	}
-
 	public String getMensajeNuevoUsuario() {
 		return mensajeNuevoUsuario;
 	}
@@ -265,20 +284,28 @@ public class UsuarioControlador implements Serializable {
 		this.mensaje = mensaje;
 	}
 
-	public String getPreferencia() {
-		return preferencia;
-	}
-
-	public void setPreferencia(String preferencia) {
-		this.preferencia = preferencia;
-	}
-
 	public String getErrorEdad() {
 		return errorEdad;
 	}
 
 	public void setErrorEdad(String errorEdad) {
 		this.errorEdad = errorEdad;
+	}
+
+	public String getErrorUser() {
+		return errorUser;
+	}
+
+	public void setErrorUser(String errorUser) {
+		this.errorUser = errorUser;
+	}
+
+	public String getErrorEmail() {
+		return errorEmail;
+	}
+
+	public void setErrorEmail(String errorEmail) {
+		this.errorEmail = errorEmail;
 	}
 
 }

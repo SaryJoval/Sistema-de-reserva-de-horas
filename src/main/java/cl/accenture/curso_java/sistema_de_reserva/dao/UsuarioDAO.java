@@ -51,9 +51,9 @@ public class UsuarioDAO {
 		return nombreUsuario_existe;
 	}
 	
-	public static boolean correo_existe(Usuario usuario) throws SQLException, SinConexionException {
-		PreparedStatement ps = Conexion.getInstancia().prepareStatement("select from correo from usuario.proyecto where correo =?");
-		ps.setString(1, usuario.getCorreo());
+	public static boolean correo_existe(String email) throws SQLException, SinConexionException {
+		PreparedStatement ps = Conexion.getInstancia().prepareStatement("select * from usuario where correo =?");
+		ps.setString(1, email);
 		ResultSet rs = ps.executeQuery();
 		boolean correo_existe = false;
 		if(rs.next()) {

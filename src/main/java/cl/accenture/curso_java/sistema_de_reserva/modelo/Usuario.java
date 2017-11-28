@@ -10,7 +10,6 @@ public class Usuario {
 	private String apellidoMaterno;
 	private String correo;
 	private String password;
-	private String preferencia;
 	
 	private Date ultimoIngreso;
 	
@@ -132,12 +131,5 @@ public class Usuario {
 		this.perfil = perfil;
 	}
 
-	public String getPreferencia() {
-		return preferencia;
-	}
-
-	public void setPreferencia(String preferencia) {
-		this.preferencia = preferencia;
-	}
 
 }

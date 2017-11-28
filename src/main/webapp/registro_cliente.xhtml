@@ -24,7 +24,7 @@
 
 		<div class="modal-dialog">
 			<div class="row">
-				<div class="col-lg-10 col-lg-offset-1">
+				<div class="col-lg-9 col-lg-offset-2">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h1 class="text-center">Registro</h1>
@@ -57,17 +57,17 @@
 									</div>
 
 									<div class="col-md-6">
-									
+
 										<div class="form-group">
-										
+
 											<h:outputText id="salida"
-												value="#{usuarioControlador.mensaje}" />
+												value="#{usuarioControlador.errorUser}" />
 										</div>
 
 									</div>
 
 								</div>
-								
+
 								<div class="form-group">
 
 									<p:inputText styleClass="form-control input-md" id="nombre"
@@ -121,8 +121,9 @@
 
 											</p:inputText>
 											<h:message style="color:red" for="edad" />
-											<h:outputText id="out" value="#{usuarioControlador.mensaje}" />
-										
+											<h:outputText id="out"
+												value="#{usuarioControlador.errorEdad}" />
+
 
 										</div>
 
@@ -156,9 +157,14 @@
 										requiredMessage="Por favor introduce tu email"
 										styleClass="form-control input-md" placeholder="E-Mail"
 										validatorMessage="E-mail no es valido">
+										<p:ajax event="keyup" update="correo"
+											listener="#{usuarioControlador.validarUsuario}" />
 										<f:validateRegex
 											pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 									</p:inputText>
+
+									<h:outputText id="correo"
+										value="#{usuarioControlador.errorEmail}" />
 									<h:message style="color:red" for="email1" />
 
 								</div>
@@ -182,31 +188,22 @@
 								</div>
 
 								<div class="form-group">
+								
+								<label>Elige dias de preferencia</label>
 
-									<label>¿Qué días prefieres ser atendido/a en nuestras
-										sucursales?</label>
-
-									<h:selectOneMenu required="true" id="basic"
-										styleClass="btn btn-default dropdown-toggle btn-block"
-										value="#{usuarioControlador.preferencia}"
-										requiredMessage="Por favor elige un dia">
-
-										<f:selectItem itemLabel="Lunes" itemValue="Lunes" />
-										<f:selectItem itemLabel="Martes" itemValue="Martes" />
-										<f:selectItem itemLabel="Miércoles" itemValue="Miércoles" />
-										<f:selectItem itemLabel="Jueves" itemValue="Jueves" />
-										<f:selectItem itemLabel="Viernes" itemValue="Viernes" />
-
-									</h:selectOneMenu>
-									<h:message style="color:red" for="basic" />
+									<p:selectCheckboxMenu id="menu"
+										value="#{usuarioControlador.preferencias}"
+										label="Dias" filter="true"
+										filterMatchMode="startsWith" styleClass="form-control ">
+										<f:selectItem itemLabel="Lunes" itemValue="Xbox One" />
+										<f:selectItem itemLabel="Martes" itemValue="PS4" />
+										<f:selectItem itemLabel="Miercoles" itemValue="Wii U" />
+										<f:selectItem itemLabel="Jueves" itemValue="Xbox One" />
+										<f:selectItem itemLabel="Viernes" itemValue="PS4" />
+									</p:selectCheckboxMenu>
 
 								</div>
 
-<!-- 								<div class="form-group">
-									<div class="g-recaptcha"
-										data-sitekey="6Le-yjgUAAAAAO3hKhM9ZZq95uH3jad7T8pF8mCG"
-										required="true"></div>
-								</div> -->
 								<div class="form-group">
 
 									<p:commandButton value="Registrarse"
