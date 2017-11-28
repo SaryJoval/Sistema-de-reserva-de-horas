@@ -40,9 +40,9 @@ public class UsuarioDAO {
 		throw new ObjetoNoEncontradoException("Usuario y/o password incorrectos");
 	}
 	
-	public static boolean nombreUsuario_existe(Usuario usuario) throws SQLException, SinConexionException {
-		PreparedStatement ps = Conexion.getInstancia().prepareStatement("select from nombreUsuario from usuario.proyecto where nombreUsuario =?");
-		ps.setString(1, usuario.getNombreUsuario());
+	public static boolean nombreUsuario_existe(String nombre) throws SQLException, SinConexionException {
+		PreparedStatement ps = Conexion.getInstancia().prepareStatement("select * from usuario where nombreUsuario =?");
+		ps.setString(1, nombre);
 		ResultSet rs = ps.executeQuery();
 		boolean nombreUsuario_existe = false;
 		if(rs.next()) {
