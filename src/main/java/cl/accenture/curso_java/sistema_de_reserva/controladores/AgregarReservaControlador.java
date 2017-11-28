@@ -15,7 +15,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import cl.accenture.curso_java.sistema_de_reserva.dao.ConfiguracionDAO;
-import cl.accenture.curso_java.sistema_de_reserva.dao.DiaFeriadoDAO;
+import cl.accenture.curso_java.sistema_de_reserva.dao.FeriadoDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.SucursalDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
@@ -28,6 +28,11 @@ import cl.accenture.curso_java.sistema_de_reserva.servicio.ServicioHorasDisponib
 @ManagedBean
 @SessionScoped
 public class AgregarReservaControlador implements Serializable {
+	
+	
+	
+//	"Hola has reservado una hora para el dia: " + fecha + " "
+//			+ "En los proximos dias te llamaremos para confirmar la reserva. Gracias"
 
 	/**
 	 * @author Luis Torres
@@ -46,6 +51,8 @@ public class AgregarReservaControlador implements Serializable {
 	private String sinHoras;
 	private String nombreU;
 	private String email;
+	private String asunto;
+	private String texto;
 
 	private Date fechaActual;
 	private Date fechaReserva;
@@ -71,7 +78,7 @@ public class AgregarReservaControlador implements Serializable {
 	public void obtenerFeriados() {
 
 		try {
-			this.setDiasFeriados(DiaFeriadoDAO.obtenerFeriados());
+			this.setDiasFeriados(FeriadoDAO.obtenerFeriados());
 		} catch (Exception e) {
 			// TODO: handle exception
 			this.mensaje = "Lo sentimos ocurrio un error en listar los dias feriados";
@@ -163,6 +170,12 @@ public class AgregarReservaControlador implements Serializable {
 
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
 		String fecha = formatoFecha.format(this.fechaReserva);
+		
+		this.asunto = "Reserva de hora";
+		this.texto = "Reserva de hora para el dia: " + fecha + " a las: " +this.hora+  ""
+				+ " Resivira una llamada en los proximos dias para confirmar la cita"
+				+ " Gracias "
+				+ " Accentue";
 
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuario");
@@ -172,7 +185,7 @@ public class AgregarReservaControlador implements Serializable {
 
 			Usuario u = UsuarioDAO.obtenerUsuario(usuario.getNombreUsuario());
 			this.email = u.getCorreo();
-			SendEmailUsingGMailSMTP.envioMail(this.email, fecha);
+			SendEmailUsingGMailSMTP.envioMail(this.email, fecha, this.asunto, this.texto);
 
 			recargar();
 			obtenerHorasDisponibles();

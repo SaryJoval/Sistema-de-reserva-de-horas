@@ -21,31 +21,20 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
  */
 public class UsuarioDAO {
 
-	private Conexion conexion;
-
-	public UsuarioDAO() {
-
-	}
-
-	public Conexion getConexion() {
-		return conexion;
-	}
-
-	public void setConexion(Conexion conexion) {
-		this.conexion = conexion;
-	}
 
 	public static Usuario validar(Usuario usuario) throws SQLException, SinConexionException {
-		PreparedStatement st = Conexion.getInstancia()
-				.prepareStatement("select * from usuario where " + "nombreUsuario =?  AND " + "password = ?;");
-		st.setString(1, usuario.getNombreUsuario());
-		st.setString(2, usuario.getPassword());
+		PreparedStatement st = Conexion.getInstancia().prepareStatement(
+				"select * from usuario where "+
+				"nombreUsuario =?  AND "+  
+				"password = ?;");
+		st.setString(1,  usuario.getNombreUsuario() );
+		st.setString(2,  usuario.getPassword() );
 		ResultSet rs = st.executeQuery();
-		if (rs.next()) {
-			Perfil perfil = PerfilDAO.obtenerPerfil(rs.getInt("id_perfil"));
+		if( rs.next() ){
+			Perfil perfil =PerfilDAO.obtenerPerfil( rs.getInt("id_perfil") ) ;
 			usuario.setPerfil(perfil);
-			usuario.setUltimoIngreso(rs.getDate("ultimoIngreso"));
-			usuario.setIntentosFallidos(rs.getInt("intentosFallidos"));
+			usuario.setUltimoIngreso( rs.getDate("ultimoIngreso") );
+			usuario.setIntentosFallidos(  rs.getInt("intentosFallidos" ) );
 			return usuario;
 		}
 		throw new ObjetoNoEncontradoException("Usuario y/o password incorrectos");

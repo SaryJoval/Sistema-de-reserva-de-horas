@@ -28,19 +28,6 @@ public class Usuario {
 	}
 	
 
-	public Usuario(String nombreUsuario, String nombre, String apellidoPaterno, String apellidoMaterno, String correo,
-			int celular, int edad, String password) {
-		super();
-		this.nombreUsuario = nombreUsuario;
-		this.nombre = nombre;
-		this.apellidoPaterno = apellidoPaterno;
-		this.apellidoMaterno = apellidoMaterno;
-		this.correo = correo;
-		this.celular = celular;
-		this.edad = edad;
-		this.password = password;
-	}
-
 	public int getEstado() {
 		return estado;
 	}
