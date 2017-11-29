@@ -13,6 +13,8 @@ public class Preferencia {
 	private int idPreferencia;
 	private String nombreUsuario;
 	private int valor;
+	private String dia;
+	private String nombreDia;
 
 	public Preferencia() {
 
@@ -40,6 +42,22 @@ public class Preferencia {
 
 	public void setValor(int valor) {
 		this.valor = valor;
+	}
+
+	public String getDia() {
+		return dia;
+	}
+
+	public void setDia(String dia) {
+		this.dia = dia;
+	}
+
+	public String getNombreDia() {
+		return nombreDia;
+	}
+
+	public void setNombreDia(String nombreDia) {
+		this.nombreDia = nombreDia;
 	}
 
 }

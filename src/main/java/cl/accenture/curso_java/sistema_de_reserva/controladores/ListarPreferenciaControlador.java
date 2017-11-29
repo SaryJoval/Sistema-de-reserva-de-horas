@@ -32,7 +32,7 @@ public class ListarPreferenciaControlador implements Serializable {
 	private static final long serialVersionUID = -6770267643578042348L;
 
 	private List<Preferencia> preferencias;
-	private List<String> diasDelMes;
+	private List<Preferencia> diasDelMes;
 
 	private String mensaje;
 	private String fechaFin;
@@ -97,15 +97,7 @@ public class ListarPreferenciaControlador implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-
-	public List<String> getDiasDelMes() {
-		return diasDelMes;
-	}
-
-	public void setDiasDelMes(List<String> diasDelMes) {
-		this.diasDelMes = diasDelMes;
-	}
-
+	
 	public String getFechaFin() {
 		return fechaFin;
 	}
@@ -113,5 +105,14 @@ public class ListarPreferenciaControlador implements Serializable {
 	public void setFechaFin(String fechaFin) {
 		this.fechaFin = fechaFin;
 	}
+
+	public List<Preferencia> getDiasDelMes() {
+		return diasDelMes;
+	}
+
+	public void setDiasDelMes(List<Preferencia> diasDelMes) {
+		this.diasDelMes = diasDelMes;
+	}
+	
 
 }
