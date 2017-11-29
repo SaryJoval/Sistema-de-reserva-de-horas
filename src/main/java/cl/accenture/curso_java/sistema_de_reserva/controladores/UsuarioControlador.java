@@ -2,15 +2,20 @@ package cl.accenture.curso_java.sistema_de_reserva.controladores;
 
 import java.io.Serializable;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
+import cl.accenture.curso_java.sistema_de_reserva.dao.PreferenciaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
+import cl.accenture.curso_java.sistema_de_reserva.modelo.Perfil;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.SinConexionException;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
+import cl.accenture.curso_java.sistema_de_reserva.servicio.SendEmailUsingGMailSMTP;
 
 @ManagedBean
 @RequestScoped
@@ -32,54 +37,19 @@ public class UsuarioControlador implements Serializable {
 	private String errorUser;
 	private String errorEdad;
 	private String errorEmail;
+	private int idPerfil;
 
 	private int celular;
 	private int edad;
 	private int estado;
 
-	private List<String> preferencias;
-	private List<String> preferenciasSeleccionadas;
+	private List<Integer> preferencias;
 	private List<Usuario> usuarios;
 
 	public UsuarioControlador() {
+		
+		this.idPerfil = 1;
 
-		limpiar();
-
-	}
-
-	public String guardar() {
-
-		Usuario usuario = new Usuario();
-		usuario.setNombreUsuario(this.nombreUsuario);
-		usuario.setNombre(this.nombre);
-		usuario.setApellidoPaterno(this.apellidoPaterno);
-		usuario.setApellidoMaterno(this.apellidoMaterno);
-		usuario.setCorreo(this.correo);
-		usuario.setCelular(this.celular);
-		usuario.setEdad(this.edad);
-		usuario.setPassword(this.password);
-
-		try {
-
-			if (validarUsuario()) {
-				this.errorUser = "El usuario ya existe";
-			} else if (validarEdad()) {
-				this.errorEdad = "Debes ser mayor de edad";
-			} else if (validarCorreo()) {
-				this.errorEmail = "El correo ya existe";
-			} else {
-				UsuarioDAO.insertarUsuario(usuario);
-				return "inicioSesionFinal?faces-redirect=true";
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SinConexionException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return "";
 	}
 
 	// validar edad
@@ -151,25 +121,63 @@ public class UsuarioControlador implements Serializable {
 
 	}
 
-	public void limpiar() {
-		this.nombreUsuario = "";
-		this.nombre = "";
-		this.apellidoPaterno = "";
-		this.apellidoMaterno = "";
-		this.correo = "";
-		this.celular = 0;
-		this.edad = 0;
-		this.preferencias = new ArrayList<String>();
-		this.mensaje = "";
+	public String guardar() {
+		
+		
+		
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.getTime();
 
-	}
+		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+		String fecha = formatoFecha.format(cal.getTime());
 
-	public List<String> getPreferenciasSeleccionadas() {
-		return preferenciasSeleccionadas;
-	}
+		String asunto = "Registro sistema reservas de horas";
+		String texto = " Registro ñññññññ  ISO-8859-1";
 
-	public void setPreferenciasSeleccionadas(List<String> preferenciasSeleccionadas) {
-		this.preferenciasSeleccionadas = preferenciasSeleccionadas;
+		Usuario usuario = new Usuario();
+		Perfil perfil = new Perfil();
+		
+		usuario.setNombreUsuario(this.nombreUsuario);
+		usuario.setNombre(this.nombre);
+		usuario.setApellidoPaterno(this.apellidoPaterno);
+		usuario.setApellidoMaterno(this.apellidoMaterno);
+		usuario.setCorreo(this.correo);
+		usuario.setCelular(this.celular);
+		usuario.setEdad(this.edad);
+		usuario.setPassword(this.password);
+		usuario.setEstado(1);
+		perfil.setId(idPerfil);
+
+		try {
+
+			if (validarUsuario()) {
+				this.errorUser = "El usuario ya existe";
+			} else if (validarEdad()) {
+				this.errorEdad = "Debes ser mayor de edad";
+			} else if (validarCorreo()) {
+				this.errorEmail = "El correo ya existe";
+			} else {
+
+				UsuarioDAO.insertarUsuario(usuario,perfil);
+
+				for (int p : preferencias) {
+					PreferenciaDAO.agregarPreferencia(this.nombreUsuario, p);
+				}
+
+				// envio email Registro
+				SendEmailUsingGMailSMTP.envioMail(correo, fecha, asunto, texto);
+
+				return "InicioFinal?faces-redirect=true";
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SinConexionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "";
 	}
 
 	public String getNombreUsuario() {
@@ -236,14 +244,6 @@ public class UsuarioControlador implements Serializable {
 		this.estado = estado;
 	}
 
-	public List<String> getPreferencias() {
-		return preferencias;
-	}
-
-	public void setPreferencias(List<String> preferencias) {
-		this.preferencias = preferencias;
-	}
-
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
@@ -307,5 +307,22 @@ public class UsuarioControlador implements Serializable {
 	public void setErrorEmail(String errorEmail) {
 		this.errorEmail = errorEmail;
 	}
+
+	public int getIdPerfil() {
+		return idPerfil;
+	}
+
+	public void setIdPerfil(int idPerfil) {
+		this.idPerfil = idPerfil;
+	}
+
+	public List<Integer> getPreferencias() {
+		return preferencias;
+	}
+
+	public void setPreferencias(List<Integer> preferencias) {
+		this.preferencias = preferencias;
+	}
+	
 
 }

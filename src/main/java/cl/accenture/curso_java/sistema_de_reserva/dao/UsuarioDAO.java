@@ -16,17 +16,21 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.SinConexionException;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 
 /**
- * @author Administrador
+ * @author Sara
 
  */
 public class UsuarioDAO {
-
+	
+	private static int intentos = 0;
 
 	public static Usuario validar(Usuario usuario) throws SQLException, SinConexionException {
+		
+		intentos ++;
+		
 		PreparedStatement st = Conexion.getInstancia().prepareStatement(
 				"select * from usuario where "+
 				"nombreUsuario =?  AND "+  
-				"password = ?;");
+				"password = ?");
 		st.setString(1,  usuario.getNombreUsuario() );
 		st.setString(2,  usuario.getPassword() );
 		ResultSet rs = st.executeQuery();
@@ -35,8 +39,11 @@ public class UsuarioDAO {
 			usuario.setPerfil(perfil);
 			usuario.setUltimoIngreso( rs.getDate("ultimoIngreso") );
 			usuario.setIntentosFallidos(  rs.getInt("intentosFallidos" ) );
+			usuario.setEstado(rs.getInt("estado"));
 			return usuario;
 		}
+		
+		usuario.setIntentosFallidos(intentos);	
 		throw new ObjetoNoEncontradoException("Usuario y/o password incorrectos");
 	}
 	
@@ -62,9 +69,9 @@ public class UsuarioDAO {
 		return correo_existe;
 	}
 	
-	public static void insertarUsuario(Usuario usuario) throws SQLException, SinConexionException {
+	public static void insertarUsuario(Usuario usuario,  Perfil perfil) throws SQLException, SinConexionException {
 		PreparedStatement st = Conexion.getInstancia().prepareStatement(
-				"insert into usuario(nombre, apellidoPaterno, apellidoMaterno, correo, celular, edad, nombreUsuario, password,id_perfil) values(?,?,?,?,?,?,?,?,?);");
+				"insert into usuario(nombre, apellidoPaterno, apellidoMaterno, correo, celular, edad,estado,nombreUsuario, password,id_perfil) values(?,?,?,?,?,?,?,?,?,?);");
 		
 		st.setString(1, usuario.getNombre());
 		st.setString(2, usuario.getApellidoPaterno());
@@ -72,9 +79,10 @@ public class UsuarioDAO {
 		st.setString(4, usuario.getCorreo());
 		st.setInt(5, usuario.getCelular());
 		st.setInt(6, usuario.getEdad());
-		st.setString(7, usuario.getNombreUsuario());
-		st.setString(8, usuario.getPassword());
-		st.setInt(9, 1);
+		st.setInt(5, 1);
+		st.setString(8, usuario.getNombreUsuario());
+		st.setString(9, usuario.getPassword());
+		st.setInt(10, perfil.getId());
 
 		st.executeUpdate();
 	}

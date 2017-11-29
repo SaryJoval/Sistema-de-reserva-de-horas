@@ -8,18 +8,20 @@
 
 <h:head>
 	<meta charset="utf-8"></meta>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
 	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
-	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<title>Login y Registro</title>
 
 	<!-- CSS -->
 	<link href="bootstrap-3.3.7-dist/css/bootstrap.min.css"
 		rel="stylesheet" type="text/css"></link>
 
+
 </h:head>
 
 <h:body>
+
 	<div class="container">
 
 		<div class="modal-dialog">
@@ -36,6 +38,8 @@
 								<div class="row">
 
 									<div class="col-md-6">
+									
+						
 
 										<div class="form-group">
 
@@ -47,6 +51,8 @@
 
 												<p:ajax event="keyup" update="salida"
 													listener="#{usuarioControlador.validarUsuario}" />
+
+												<f:validateLength minimum="4"></f:validateLength>
 
 											</p:inputText>
 
@@ -168,38 +174,38 @@
 									<h:message style="color:red" for="email1" />
 
 								</div>
+
 								<div class="form-group">
 
-									<p:password id="pwd1" value="#{usuarioControlador.password}"
-										styleClass="form-control input-md" match="pwd2"
-										placeholder="Password" label="Password 1" required="true"
-										requiredMessage="Por favor introduce tu contraseña" />
-									<h:message style="color:red" for="pwd1" />
+									<p:password id="pwd" value="#{usuarioControlador.password}"
+										styleClass="form-control input-md" placeholder="Password"
+										required="true"
+										requiredMessage="Por favor introduce tu contraseña"
+										validatorMessage="minimo 1 minuscula y 1 numero ">
+										<f:validateRegex
+											pattern="^(?=(?:.*\d){2})(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){2})\S{8,}$"
+											for="invalido" />
+										<f:validateLength minimum="8">
+										</f:validateLength>
+									</p:password>
+									<h:message style="color:red" for="pwd" />
+
 
 								</div>
-								<div class="form-group">
-
-									<p:password id="pwd2" value="#{usuarioControlador.password}"
-										styleClass="form-control input-md" label="Password 2"
-										placeholder="Repita su Password" required="true"
-										requiredMessage="Por favor introduce tu contraseña" />
-									<h:message style="color:red" for="pwd2" />
-
-								</div>
 
 								<div class="form-group">
-								
-								<label>Elige dias de preferencia</label>
+
+									<label>Elige dias de preferencia</label>
 
 									<p:selectCheckboxMenu id="menu"
-										value="#{usuarioControlador.preferencias}"
-										label="Dias" filter="true"
-										filterMatchMode="startsWith" styleClass="form-control ">
-										<f:selectItem itemLabel="Lunes" itemValue="Xbox One" />
-										<f:selectItem itemLabel="Martes" itemValue="PS4" />
-										<f:selectItem itemLabel="Miercoles" itemValue="Wii U" />
-										<f:selectItem itemLabel="Jueves" itemValue="Xbox One" />
-										<f:selectItem itemLabel="Viernes" itemValue="PS4" />
+										value="#{usuarioControlador.preferencias}" label="Dias"
+										filter="true" filterMatchMode="startsWith"
+										styleClass="form-control ">
+										<f:selectItem itemLabel="Lunes" itemValue="Lunes" />
+										<f:selectItem itemLabel="Martes" itemValue="Martes" />
+										<f:selectItem itemLabel="Miercoles" itemValue="Miercoles" />
+										<f:selectItem itemLabel="Jueves" itemValue="Jueves" />
+										<f:selectItem itemLabel="Viernes" itemValue="Viernes" />
 									</p:selectCheckboxMenu>
 
 								</div>
@@ -207,10 +213,9 @@
 								<div class="form-group">
 
 									<p:commandButton value="Registrarse"
-										actionListener="#{usuarioControlador.guardar}" ajax="false"
-										validateClient="true" style="margin-right:10px"
+										actionListener="#{usuarioControlador.guardar}"
+										validateClient="true" 
 										styleClass="btn btn-block btn-md btn-success" />
-
 								</div>
 							</h:form>
 

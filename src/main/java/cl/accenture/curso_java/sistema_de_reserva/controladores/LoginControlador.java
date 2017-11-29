@@ -22,17 +22,68 @@ public class LoginControlador implements Serializable {
 	private String nombreUsuario;
 	private String password;
 	private String mensaje;
-	private boolean estado;
+	private int estado;
 	private boolean error;
 	private Usuario usuarioLogeado;
+	private int intentosFallidos;
 
 	public LoginControlador() {
-		this.nombreUsuario = "";
-		this.password = "";
-		this.estado = true;
-		this.mensaje = "";
-		this.usuarioLogeado = new Usuario();
 
+	}
+
+	// inicio de sesion
+
+	public String iniciarSesion() {
+
+		try {
+
+			Usuario usuario = UsuarioDAO.validar(new Usuario(this.nombreUsuario, this.password));
+			usuarioLogeado = usuario;
+
+			// validar el estado
+
+			if (usuarioLogeado.getEstado() == 1) {
+
+				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
+				UsuarioDAO.actualizarUltimoIngreso(usuarioLogeado);
+				this.mensaje = "";
+				this.error = false;
+
+				if (usuario.getPerfil().getId() == 1) {
+					return "Cliente?faces-redirect=true";
+				} else if (usuario.getPerfil().getId() == 2) {
+					return "Ejecutivo?faces-redirect=true";
+				} else if (usuario.getPerfil().getId() == 3) {
+					return "Admin?faces-redirect=true";
+				}
+
+			} else if (usuarioLogeado.getEstado() == 2) {
+
+				return "cuenta_bloqueda?faces-redirect=true";
+
+			}
+
+			return "";
+
+		} catch (
+
+		ObjetoNoEncontradoException e) {
+			this.error = true;
+			this.mensaje = "Usuario y/o Password incorrectos";
+			return "";
+		} catch (Exception e) {
+			this.error = true;
+			this.mensaje = "Ocurrio un error inesperado, intente más tarde";
+			return "";
+		}
+	}
+
+	public String cerrarSesion() {
+
+		this.usuarioLogeado = null;
+		this.nombreUsuario = null;
+		this.password = null;
+		return "InicioFinal?faces-redirect=true";
 	}
 
 	public String getNombreUsuario() {
@@ -59,14 +110,6 @@ public class LoginControlador implements Serializable {
 		this.mensaje = mensaje;
 	}
 
-	public boolean isEstado() {
-		return estado;
-	}
-
-	public void setEstado(boolean estado) {
-		this.estado = estado;
-	}
-
 	public boolean isError() {
 		return error;
 	}
@@ -83,45 +126,20 @@ public class LoginControlador implements Serializable {
 		this.usuarioLogeado = usuarioLogeado;
 	}
 
-	// inicio de sesion
-
-	public String iniciarSesion() {
-
-		try {
-			Usuario usuario = UsuarioDAO.validar(new Usuario(this.nombreUsuario, this.password));
-			usuarioLogeado = usuario;
-			FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
-			UsuarioDAO.actualizarUltimoIngreso(usuarioLogeado);
-			this.mensaje = "";
-			this.error = false;
-
-			if (usuario.getPerfil().getId() == 1) {
-				return "Cliente?faces-redirect=true";
-			} else if (usuario.getPerfil().getId() == 2) {
-				return "Ejecutivo?faces-redirect=true";
-			} else if (usuario.getPerfil().getId() == 3) {
-				return "Admin?faces-redirect=true";
-			}
-			
-			return "";
-
-		} catch (ObjetoNoEncontradoException e) {
-			this.error = true;
-			this.mensaje = "Usuario y/o Password incorrectos";
-			return "";
-		} catch (Exception e) {
-			this.error = true;
-			this.mensaje = "Ocurrio un error inesperado, intente más tarde";
-			return "";
-		}
+	public int getIntentosFallidos() {
+		return intentosFallidos;
 	}
 
-	public String cerrarSesion() {
+	public void setIntentosFallidos(int intentosFallidos) {
+		this.intentosFallidos = intentosFallidos;
+	}
 
-		this.usuarioLogeado = null;
-		this.nombreUsuario = null;
-		this.password = null;
-		return "InicioFinal?faces-redirect=true";
+	public int getEstado() {
+		return estado;
+	}
+
+	public void setEstado(int estado) {
+		this.estado = estado;
 	}
 
 }
