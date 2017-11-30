@@ -20,6 +20,7 @@ import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.SucursalDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Configuracion;
+import cl.accenture.curso_java.sistema_de_reserva.modelo.Preferencia;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Sucursal;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 import cl.accenture.curso_java.sistema_de_reserva.servicio.SendEmailUsingGMailSMTP;
@@ -96,6 +97,12 @@ public class AgregarReservaControlador implements Serializable {
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener la Sucursal";
 			this.sucursales = new ArrayList<Sucursal>();
 		}
+	}
+	
+	
+	public void cargarHoras( Preferencia p  )
+	{
+		System.out.println( p );
 	}
 
 	// Horas disponibles

@@ -182,7 +182,7 @@
 									</p:column>
 
 									<p:column headerText="Ver horas" style="text-align: center">
-										<p:commandButton oncomplete="PF('dlg2').show();"
+										<p:commandButton action="#{agregarReservaControlador.cargarHoras(preferecia)}" oncomplete="PF('dlg2').show();"
 											icon="ui-icon-search" title="View">
 											<f:setPropertyActionListener value="#{preferecia.dia}"
 												target="#{agregarReservaControlador.fechaReserva}" />

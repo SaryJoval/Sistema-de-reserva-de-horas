@@ -54,7 +54,9 @@ public class LoginControlador implements Serializable {
 				} else if (usuario.getPerfil().getId() == 2) {
 					return "Ejecutivo?faces-redirect=true";
 				} else if (usuario.getPerfil().getId() == 3) {
-					return "admin?faces-redirect=true";
+//					FacesContext contex = FacesContext.getCurrentInstance();
+//		            contex.getExternalContext().redirect( "admin" );
+					return "root";
 				}
 
 			} else if (usuarioLogeado.getEstado() == 2) {
