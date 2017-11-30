@@ -98,11 +98,9 @@ public class AgregarReservaControlador implements Serializable {
 			this.sucursales = new ArrayList<Sucursal>();
 		}
 	}
-	
-	
-	public void cargarHoras( Preferencia p  )
-	{
-		System.out.println( p );
+
+	public void cargarHoras(Preferencia p) {
+		System.out.println(p);
 	}
 
 	// Horas disponibles
