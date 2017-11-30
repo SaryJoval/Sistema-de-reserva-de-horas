@@ -36,8 +36,11 @@ public class ListarPreferenciaControlador implements Serializable {
 
 	private String mensaje;
 	private String fechaFin;
+	private String nombreDia;
 
 	public ListarPreferenciaControlador() {
+		
+		obtenerDias();
 	}
 
 	public void obtenerDias() {
@@ -45,9 +48,29 @@ public class ListarPreferenciaControlador implements Serializable {
 		try {
 
 			Usuario u = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+			
 			this.preferencias = PreferenciaDAO.obtenerPreferencia(u.getNombreUsuario());
-
-			this.diasDelMes = ServicioDias.calcularDiasDelMes(this.fechaFin, this.preferencias);
+			
+			for (Preferencia preferencia : preferencias) {
+				
+				
+				if (preferencia.getValor() == 2) {
+					nombreDia = "Lunes";
+				} else if (preferencia.getValor() == 3) {
+					nombreDia = "Martes";
+				} else if (preferencia.getValor() == 4) {
+					nombreDia = "Miercoles";
+				} else if (preferencia.getValor() == 5) {
+					nombreDia = "Jueves";
+				} else if (preferencia.getValor() == 6) {
+					nombreDia = "Viernes";
+				}
+				
+				preferencia.setNombreDia(nombreDia);
+				
+			}
+			
+			this.diasDelMes = ServicioDias.calcularDiasDelMes(this.preferencias);
 
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block

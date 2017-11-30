@@ -27,4 +27,20 @@ public class SucursalDAO {
 		return sucursales;
 	}
 
+	public static void agregarSucursal(String nombre) throws SQLException, SinConexionException {
+
+		PreparedStatement st = Conexion.getInstancia().prepareStatement("" + "insert into sucursal (nombre) values(?)");
+
+		st.setString(1, nombre);
+
+		st.executeUpdate();
+
+	}
+
+	public static void eliminarSucursal(Sucursal sucursal) throws SQLException, SinConexionException {
+		PreparedStatement st = Conexion.getInstancia().prepareStatement("delete from sucursal where idsucursal = ?;");
+		st.setInt(1, sucursal.getIdSucursal());
+		st.executeUpdate();
+	}
+
 }

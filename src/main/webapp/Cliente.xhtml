@@ -33,13 +33,12 @@
 
 <h:body id="page-top">
 
-
-
 	<!-- Navigation -->
 	<h:form>
 		<nav class="navbar navbar-expand-lg navbar-light fixed-top"
 			id="mainNav">
 			<div class="container">
+
 				<a class="navbar-brand js-scroll-trigger" href="#">Sistema de
 					Reservas</a>
 				<button class="navbar-toggler navbar-toggler-right" type="button"
@@ -68,6 +67,7 @@
 
 	</h:form>
 	<hr></hr>
+
 	<!-- Reserva Section -->
 	<section class="success" id="reserva">
 		<div class="container">
@@ -75,17 +75,57 @@
 
 			<hr></hr>
 
-			<div class="row">
+			<div class="col-md-12">
 
-				<div class="col-md-12">
+				<div class="row">
 
-					<h:form styleClass="form-inline">
+					<!-- SECCION PREFERENCIAS -->
+					<div class="col-md-6">
 
-						<div class="col-md-6">
+						<h:form styleClass="form" id="form">
 
+							<!-- 						MODAL -->
 
+							<p:dialog header="Horas Disponibles" widgetVar="dlg2"
+								modal="true" height="300">
+
+								<div class="row">
+									<div class="col-md-12">
+										<div class="form-group">
+
+											<span style="">#{agregarReservaControlador.sinHoras}</span>
+
+											<p:selectOneListbox required="true" id="basic"
+												styleClass="form-control input-lg"
+												value="#{agregarReservaControlador.hora}">
+
+												<f:selectItems
+													value="#{agregarReservaControlador.horasDisponibles}"
+													var="hora" itemLabel="#{hora}" itemValue="#{hora}" />
+
+											</p:selectOneListbox>
+										</div>
+
+										<div class="form-group">
+
+											<h:commandButton
+												styleClass="btn btn-primary btn-lg btn-block"
+												value="RESERVAR"
+												action="#{agregarReservaControlador.agregarReserva}">
+											</h:commandButton>
+										</div>
+									</div>
+								</div>
+							</p:dialog>
+
+							<!-- 							FIN MODAL -->
+
+							<h5>Reservar horas segun preferencias</h5>
+							<hr></hr>
+
+							<!-- 							SUCURSAL -->
 							<div class="form-group">
-								<h5>Sucursal</h5>
+								<h6>Sucursal (*)</h6>
 
 								<h:selectOneMenu required="true"
 									styleClass="btn btn-default dropdown-toggle btn-block"
@@ -97,13 +137,11 @@
 
 								</h:selectOneMenu>
 							</div>
-						</div>
 
-						<div class="col-md-6">
-
+							<!-- 							SERVICIO -->
 							<div class="form-group">
-								<h5>Servicio</h5>
 
+								<h6>Servicio (*)</h6>
 
 								<h:selectOneMenu id="Servicio" required="true"
 									styleClass="btn btn-default dropdown-toggle btn-block"
@@ -128,118 +166,7 @@
 
 							</div>
 
-
-						</div>
-
-
-					</h:form>
-				</div>
-
-			</div>
-
-			<hr></hr>
-
-			<div class="col-md-12">
-
-				<div class="row">
-
-
-
-					<!-- 					INICIO SECCION AGREGAR RESERVA -->
-
-					<div class="col-md-6">
-
-						<h:form styleClass="form">
-							<h5>Reservar horas</h5>
-
-							<div class="form-group">
-								<p>Selecciona una fecha</p>
-
-
-								<h:panelGrid columns="2" cellpadding="5">
-
-									<p:calendar mindate="#{agregarReservaControlador.fechaActual}"
-										showOn="button" disabledWeekends="true" required="true"
-										requiredMessage="Fecha obligatoria" styleClass="btn btn-block"
-										id="inline" locale="es" pattern="yyyy/MM/dd"
-										value="#{agregarReservaControlador.fechaReserva}"
-										mode="inline">
-										<f:convertDateTime pattern="yyyy/MM/dd" />
-
-										<p:ajax event="dateSelect"
-											listener="#{agregarReservaControlador.obtenerHorasDisponibles}" />
-
-									</p:calendar>
-								</h:panelGrid>
-
-							</div>
-
-							<div class="form-group">
-
-								<p>Horas disponibles para el dia:</p>
-								<p>#{agregarReservaControlador.verFecha}</p>
-								<p>#{agregarReservaControlador.sinHoras}</p>
-
-								<h:panelGrid columns="1" cellpadding="5">
-
-									<p:selectOneListbox required="true" id="basic" styleClass=""
-										value="#{agregarReservaControlador.hora}">
-
-										<f:selectItems
-											value="#{agregarReservaControlador.horasDisponibles}"
-											var="hora" itemLabel="#{hora}" itemValue="#{hora}" />
-
-									</p:selectOneListbox>
-								</h:panelGrid>
-							</div>
-
-							<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
-								value="RESERVAR"
-								action="#{agregarReservaControlador.agregarReserva}"></h:commandButton>
-
-
-						</h:form>
-
-					</div>
-
-					<!-- 					FIN AGREGAR RESERVA -->
-					<!-- SECCION PREFERENCIAS -->
-					<div class="col-md-6">
-
-						<p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true"
-							height="100">
-							<h:outputText value="#{listarPreferenciaControlador.mensaje}"></h:outputText>
-						</p:dialog>
-
-						<h5>Reservar horas segun preferencias</h5>
-
-						<h:form styleClass="form" id="form">
-
-							<div class="form-group ">
-								<p>Mes:</p>
-
-								<h:selectOneMenu required="true"
-									styleClass="btn btn-default dropdown-toggle btn-block"
-									value="#{listarPreferenciaControlador.fechaFin}">
-
-									<f:selectItem itemValue="31/01/2017" itemLabel="Enero" />
-									<f:selectItem itemValue="28/02/2017" itemLabel="Febrero" />
-									<f:selectItem itemValue="31/03/2017" itemLabel="Marzo" />
-									<f:selectItem itemValue="30/04/2017" itemLabel="Abril" />
-									<f:selectItem itemValue="31/05/2017" itemLabel="Mayo" />
-									<f:selectItem itemValue="30/06/2017" itemLabel="Junio" />
-									<f:selectItem itemValue="31/07/2017" itemLabel="Julio" />
-									<f:selectItem itemValue="31/08/2017" itemLabel="Agosto" />
-									<f:selectItem itemValue="30/09/2017" itemLabel="Septiembre" />
-									<f:selectItem itemValue="31/10/2017" itemLabel="Octubre" />
-									<f:selectItem itemValue="30/11/2017" itemLabel="Noviembre" />
-									<f:selectItem itemValue="31/12/2017" itemLabel="Diciembre" />
-
-
-								</h:selectOneMenu>
-
-
-							</div>
+							<!-- 							TABLA DE PREFERENCIAS -->
 
 							<div class="form-group ">
 
@@ -254,31 +181,158 @@
 										<h:outputText value="#{preferecia.dia}" />
 									</p:column>
 
-									<p:column style="text-align: center">
+									<p:column headerText="Ver horas" style="text-align: center">
 										<p:commandButton oncomplete="PF('dlg2').show();"
 											icon="ui-icon-search" title="View">
-											<f:setPropertyActionListener value="#{idPreferencia}"
-												target="#{listarPreferenciaControlador.obtenerPreferencias}" />
+											<f:setPropertyActionListener value="#{preferecia.dia}"
+												target="#{agregarReservaControlador.fechaReserva}" />
 										</p:commandButton>
 									</p:column>
 
 
 								</p:dataTable>
-								<div class="form-group ">
-									<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
-										value="ver"
-										action="#{listarPreferenciaControlador.obtenerDias}"></h:commandButton>
-
-								</div>
-
 
 
 							</div>
+
+							<!-- 							FIN TABLA PREFERENCIAS -->
 
 						</h:form>
 
 					</div>
 					<!-- 					FIN SECCION -->
+					<div class="col-md-4 ml-auto">
+
+						<img class="img-fluid" src="img/profile.png" alt=""></img>
+
+					</div>
+
+				</div>
+
+				<!-- 					INICIO SECCION AGREGAR RESERVA -->
+
+				<hr></hr>
+
+				<div class="row">
+
+					<div class="col-md-6">
+
+						<!-- 						INICIO FORMULARIO -->
+						<h:form styleClass="form">
+
+							<h5>Reservar horas</h5>
+
+							<hr></hr>
+
+							<!-- 							SUCURSAL -->
+							<div class="form-group">
+								<h6>Sucursal (*)</h6>
+
+								<h:selectOneMenu required="true"
+									styleClass="btn btn-default dropdown-toggle btn-block"
+									value="#{agregarReservaControlador.nombre}">
+
+									<f:selectItems value="#{agregarReservaControlador.sucursales}"
+										var="sucursal" itemLabel="#{sucursal.nombre}"
+										itemValue="#{sucursal.nombre}" />
+
+								</h:selectOneMenu>
+							</div>
+
+							<!-- 							SERVICIO -->
+							<div class="form-group">
+
+								<h6>Servicio (*)</h6>
+
+								<h:selectOneMenu id="Servicio" required="true"
+									styleClass="btn btn-default dropdown-toggle btn-block"
+									value="#{agregarReservaControlador.servicio}">
+
+									<f:selectItem itemValue="Contratar un plan"
+										itemLabel="Contratar un plan" />
+									<f:selectItem itemValue="Dar de alta planes"
+										itemLabel="Dar de alta planes" />
+									<f:selectItem itemValue="Dar de baja planes"
+										itemLabel="Dar de baja planes" />
+									<f:selectItem itemValue="Modificacion de planes"
+										itemLabel="Modificacion de planes" />
+									<f:selectItem itemValue="Contratar servicios adicionales"
+										itemLabel="Contratar servicios adicionales" />
+
+								</h:selectOneMenu>
+
+								<p>
+									<h:message for="Servicio" style="color:red" />
+								</p>
+
+							</div>
+
+							<div class="row">
+
+								<div class="col-md-6">
+
+									<div class="form-group">
+										<h6>Selecciona una fecha</h6>
+
+										<p:calendar mindate="#{agregarReservaControlador.fechaActual}"
+											disabledWeekends="true" required="true"
+											requiredMessage="Fecha obligatoria" id="effect" locale="es"
+											pattern="yyyy/MM/dd" effect="fold"
+											value="#{agregarReservaControlador.fechaReserva}">
+											<f:convertDateTime pattern="yyyy/MM/dd" />
+
+											<p:ajax event="dateSelect" update="out"
+												listener="#{agregarReservaControlador.obtenerHorasDisponibles}" />
+
+										</p:calendar>
+
+									</div>
+
+								</div>
+
+
+								<div class="col-md-6">
+									<div class="form-group">
+
+										<h6>Horas disponibles:</h6>
+										<span style="color: red;">#{agregarReservaControlador.sinHoras}</span>
+
+
+										<p:selectOneListbox required="true" id="out"
+											styleClass="form-control input-lg"
+											value="#{agregarReservaControlador.hora}">
+
+											<f:selectItems
+												value="#{agregarReservaControlador.horasDisponibles}"
+												var="hora" itemLabel="#{hora}" itemValue="#{hora}" />
+
+										</p:selectOneListbox>
+
+
+									</div>
+
+
+								</div>
+
+							</div>
+
+
+							<h:commandButton styleClass="btn btn-primary btn-lg btn-block"
+								value="RESERVAR"
+								action="#{agregarReservaControlador.agregarReserva}"></h:commandButton>
+
+
+						</h:form>
+
+					</div>
+
+					<div class="col-md-4 ml-auto">
+
+						<img class="img-fluid" src="img/profile.png" alt=""></img>
+
+					</div>
+
+					<!-- 					FIN AGREGAR RESERVA -->
 
 				</div>
 
@@ -332,89 +386,17 @@
 		</div>
 	</section>
 
-	<!-- Perfil Section -->
-	<section class="success" id="perfil">
-		<div class="container">
-			<h2 class="text-center">#{listarPerfilControlador.usuario.nombreUsuario}</h2>
-			<hr></hr>
-			<div class="row">
-				<div class="col-lg-4 ml-auto">
-					<img class="img-fluid" src="img/profile.png" alt=""></img>
-				</div>
-				<div class="col-lg-4 mr-auto">
+	<!-- 	PERFIL -->
 
-					<p>Nombre: #{listarPerfilControlador.usuario.nombre}</p>
-					<p>Apellido: #{listarPerfilControlador.usuario.apellidoPaterno}
-						#{listarPerfilControlador.usuario.apellidoMaterno}</p>
-					<p>Correo: #{listarPerfilControlador.usuario.correo}</p>
-					<p>Celular: #{listarPerfilControlador.usuario.celular}</p>
-					<p>Preferencia de dias:</p>
+	<ui:include src="/WEB-INF/perfil.xhtml" />
 
-					<h:form>
-						<h:commandLink action="PerfilFinal.xhtml"
-							styleClass="btn btn-primary btn-lg btn-block">
-							<img class="" src="glyphicons/png/glyphicons-151-edit.png" alt=""></img>
-						Modificar
-					</h:commandLink>
-					</h:form>
+	<!-- FIN PERFIL -->
 
-				</div>
-			</div>
-		</div>
-	</section>
+	<!-- FOOTER -->
 
-	<!-- Footer -->
-	<footer class="text-center">
-		<div class="footer-above">
-			<div class="container">
-				<div class="row">
-					<div class="footer-col col-md-4">
-						<h3>Ubicacion</h3>
-						<p>
-							<iframe
-								src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d53248.34497462993!2d-70.69298608961924!3d-33.47478942491934!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5a6a08ffab9%3A0x61461936cbe07d4f!2sAccenture!5e0!3m2!1ses-419!2scl!4v1511240552312"
-								width="400" height="300" frameborder="0" style="border: 0"
-								allowfullscreen=""></iframe>
-						</p>
+	<ui:include src="/WEB-INF/footer.xhtml" />
 
-
-					</div>
-					<div class="footer-col col-md-4">
-						<h3>Redes Sociales</h3>
-						<ul class="list-inline">
-							<li class="list-inline-item"><a
-								class="btn-social btn-outline" href="#"> <i
-									class="fa fa-fw fa-facebook"></i>
-							</a></li>
-							<li class="list-inline-item"><a
-								class="btn-social btn-outline" href="#"> <i
-									class="fa fa-fw fa-google-plus"></i>
-							</a></li>
-							<li class="list-inline-item"><a
-								class="btn-social btn-outline" href="#"> <i
-									class="fa fa-fw fa-twitter"></i>
-							</a></li>
-							<li class="list-inline-item"><a
-								class="btn-social btn-outline" href="#"> <i
-									class="fa fa-fw fa-linkedin"></i>
-							</a></li>
-						</ul>
-					</div>
-					<div class="footer-col col-md-4">
-						<h3>Acerca de Sistema de reservas</h3>
-						<p>blablabla</p>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="footer-below">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">Copyright Your Website 2017</div>
-				</div>
-			</div>
-		</div>
-	</footer>
+	<!--FIN FOOTER -->
 
 	<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
 	<div class="scroll-top d-lg-none">

@@ -155,7 +155,7 @@ CREATE TABLE `preferencia` (
   PRIMARY KEY (`idpreferencia`),
   KEY `fk_preferencia_id_usuario_idx` (`id_usuario`),
   CONSTRAINT `fk_preferencia_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`nombreUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -164,7 +164,6 @@ CREATE TABLE `preferencia` (
 
 LOCK TABLES `preferencia` WRITE;
 /*!40000 ALTER TABLE `preferencia` DISABLE KEYS */;
-INSERT INTO `preferencia` VALUES (1,'ciro',2);
 /*!40000 ALTER TABLE `preferencia` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -185,7 +184,7 @@ CREATE TABLE `reserva` (
   PRIMARY KEY (`idreserva`),
   KEY `fk_id_usuario_idx` (`id_usuario`),
   CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`nombreUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -253,7 +252,7 @@ CREATE TABLE `usuario` (
 
 LOCK TABLES `usuario` WRITE;
 /*!40000 ALTER TABLE `usuario` DISABLE KEYS */;
-INSERT INTO `usuario` VALUES ('Luis','Torres','Cereño','torrescereno@gmail.com',12312312,24,1,'ciro','123','2017-11-29 02:15:43',0,1),('asdasd','asdasd','asdasd','ejemplo@gmail.com',12345678,23,1,'ejemplo','Luis1231',NULL,NULL,1),('Gabriel','Torres','Ledezma','gabotorres@gmail.com',12312312,99,1,'gabo','123','2017-11-28 21:06:24',0,2),('Graciela','CereÃ±o','Villagra','t.tciro@gmail.com',12312312,57,1,'gcereno','Luis1231',NULL,NULL,1),('Pepe','Torres','Cereño','pepe@gmail.com',12312312,28,1,'pepe','123','2017-11-27 00:23:43',0,1);
+INSERT INTO `usuario` VALUES ('admin','admin','admin','admin@email.com',11111111,99,1,'admin','123456','2017-11-30 04:13:18',0,3),('cliente','cliente','cliente','cliente@email.com',11111111,99,1,'cliente','123456','2017-11-30 04:13:10',0,1),('ejecutivo','ejecutivo','ejecutivo','ejecutivo@email.com',11111111,99,1,'ejecutivo','123456','2017-11-30 03:08:01',0,2);
 /*!40000 ALTER TABLE `usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -266,4 +265,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-29  2:21:02
+-- Dump completed on 2017-11-30  4:15:34

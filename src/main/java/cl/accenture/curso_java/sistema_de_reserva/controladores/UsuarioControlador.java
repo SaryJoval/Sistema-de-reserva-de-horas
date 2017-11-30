@@ -1,5 +1,6 @@
 package cl.accenture.curso_java.sistema_de_reserva.controladores;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -9,6 +10,7 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 
 import cl.accenture.curso_java.sistema_de_reserva.dao.PreferenciaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
@@ -43,11 +45,11 @@ public class UsuarioControlador implements Serializable {
 	private int edad;
 	private int estado;
 
-	private List<Integer> preferencias;
+	private List<String> preferencias;
 	private List<Usuario> usuarios;
 
 	public UsuarioControlador() {
-		
+
 		this.idPerfil = 1;
 
 	}
@@ -122,9 +124,7 @@ public class UsuarioControlador implements Serializable {
 	}
 
 	public String guardar() {
-		
-		
-		
+
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.getTime();
 
@@ -136,7 +136,8 @@ public class UsuarioControlador implements Serializable {
 
 		Usuario usuario = new Usuario();
 		Perfil perfil = new Perfil();
-		
+		// Preferencia preferencia = new Preferencia();
+
 		usuario.setNombreUsuario(this.nombreUsuario);
 		usuario.setNombre(this.nombre);
 		usuario.setApellidoPaterno(this.apellidoPaterno);
@@ -158,22 +159,30 @@ public class UsuarioControlador implements Serializable {
 				this.errorEmail = "El correo ya existe";
 			} else {
 
-				UsuarioDAO.insertarUsuario(usuario,perfil);
-
-				for (int p : preferencias) {
-					PreferenciaDAO.agregarPreferencia(this.nombreUsuario, p);
+				UsuarioDAO.insertarUsuario(usuario, perfil);
+				
+				
+				for (String p : preferencias) {
+					
+					int diaP = Integer.parseInt(p);
+					PreferenciaDAO.agregarPreferencia(this.nombreUsuario, diaP);
+					
 				}
 
 				// envio email Registro
 				SendEmailUsingGMailSMTP.envioMail(correo, fecha, asunto, texto);
 
-				return "InicioFinal?faces-redirect=true";
+				FacesContext contex = FacesContext.getCurrentInstance();
+	            contex.getExternalContext().redirect( "login.xhtml" );
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SinConexionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -316,13 +325,12 @@ public class UsuarioControlador implements Serializable {
 		this.idPerfil = idPerfil;
 	}
 
-	public List<Integer> getPreferencias() {
+	public List<String> getPreferencias() {
 		return preferencias;
 	}
 
-	public void setPreferencias(List<Integer> preferencias) {
+	public void setPreferencias(List<String> preferencias) {
 		this.preferencias = preferencias;
 	}
-	
 
 }

@@ -17,69 +17,67 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 
 /**
  * @author Sara
-
+ * 
  */
 public class UsuarioDAO {
-	
+
 	private static int intentos = 0;
 
 	public static Usuario validar(Usuario usuario) throws SQLException, SinConexionException {
-		
-		intentos ++;
-		
-		PreparedStatement st = Conexion.getInstancia().prepareStatement(
-				"select * from usuario where "+
-				"nombreUsuario =?  AND "+  
-				"password = ?");
-		st.setString(1,  usuario.getNombreUsuario() );
-		st.setString(2,  usuario.getPassword() );
+
+		intentos++;
+
+		PreparedStatement st = Conexion.getInstancia()
+				.prepareStatement("select * from usuario where " + "nombreUsuario =?  AND " + "password = ?");
+		st.setString(1, usuario.getNombreUsuario());
+		st.setString(2, usuario.getPassword());
 		ResultSet rs = st.executeQuery();
-		if( rs.next() ){
-			Perfil perfil =PerfilDAO.obtenerPerfil( rs.getInt("id_perfil") ) ;
+		if (rs.next()) {
+			Perfil perfil = PerfilDAO.obtenerPerfil(rs.getInt("id_perfil"));
 			usuario.setPerfil(perfil);
-			usuario.setUltimoIngreso( rs.getDate("ultimoIngreso") );
-			usuario.setIntentosFallidos(  rs.getInt("intentosFallidos" ) );
+			usuario.setUltimoIngreso(rs.getDate("ultimoIngreso"));
+			usuario.setIntentosFallidos(rs.getInt("intentosFallidos"));
 			usuario.setEstado(rs.getInt("estado"));
 			return usuario;
 		}
-		
-		usuario.setIntentosFallidos(intentos);	
+
+		usuario.setIntentosFallidos(intentos);
 		throw new ObjetoNoEncontradoException("Usuario y/o password incorrectos");
 	}
-	
+
 	public static boolean nombreUsuario_existe(String nombre) throws SQLException, SinConexionException {
 		PreparedStatement ps = Conexion.getInstancia().prepareStatement("select * from usuario where nombreUsuario =?");
 		ps.setString(1, nombre);
 		ResultSet rs = ps.executeQuery();
 		boolean nombreUsuario_existe = false;
-		if(rs.next()) {
+		if (rs.next()) {
 			nombreUsuario_existe = true;
 		}
 		return nombreUsuario_existe;
 	}
-	
+
 	public static boolean correo_existe(String email) throws SQLException, SinConexionException {
 		PreparedStatement ps = Conexion.getInstancia().prepareStatement("select * from usuario where correo =?");
 		ps.setString(1, email);
 		ResultSet rs = ps.executeQuery();
 		boolean correo_existe = false;
-		if(rs.next()) {
+		if (rs.next()) {
 			correo_existe = true;
 		}
 		return correo_existe;
 	}
-	
-	public static void insertarUsuario(Usuario usuario,  Perfil perfil) throws SQLException, SinConexionException {
+
+	public static void insertarUsuario(Usuario usuario, Perfil perfil) throws SQLException, SinConexionException {
 		PreparedStatement st = Conexion.getInstancia().prepareStatement(
 				"insert into usuario(nombre, apellidoPaterno, apellidoMaterno, correo, celular, edad,estado,nombreUsuario, password,id_perfil) values(?,?,?,?,?,?,?,?,?,?);");
-		
+
 		st.setString(1, usuario.getNombre());
 		st.setString(2, usuario.getApellidoPaterno());
 		st.setString(3, usuario.getApellidoMaterno());
 		st.setString(4, usuario.getCorreo());
 		st.setInt(5, usuario.getCelular());
 		st.setInt(6, usuario.getEdad());
-		st.setInt(5, 1);
+		st.setInt(7, usuario.getEstado());
 		st.setString(8, usuario.getNombreUsuario());
 		st.setString(9, usuario.getPassword());
 		st.setInt(10, perfil.getId());
@@ -113,13 +111,14 @@ public class UsuarioDAO {
 	}
 
 	public static Usuario obtenerUsuario(String usuario) throws SQLException, SinConexionException {
-		PreparedStatement st = Conexion.getInstancia().prepareStatement("select * from usuario where nombreUsuario = ?;");
+		PreparedStatement st = Conexion.getInstancia()
+				.prepareStatement("select * from usuario where nombreUsuario = ?;");
 		st.setString(1, usuario);
 		ResultSet rs = st.executeQuery();
 		while (rs.next()) {
-			
+
 			Usuario u = new Usuario();
-			
+
 			u.setNombre(rs.getString("nombre"));
 			u.setApellidoPaterno(rs.getString("apellidoPaterno"));
 			u.setApellidoMaterno(rs.getString("apellidoMaterno"));
@@ -127,9 +126,31 @@ public class UsuarioDAO {
 			u.setEdad(rs.getInt("edad"));
 			u.setNombreUsuario(rs.getString("nombreUsuario"));
 			u.setCelular(rs.getInt("celular"));
-			
+
 			return u;
 		}
 		throw new ObjetoNoEncontradoException("Perfil no existe");
 	}
+
+	// modificar
+
+	public static void modificarUsuario(Usuario usuario) throws SQLException, SinConexionException {
+		
+		PreparedStatement st = Conexion.getInstancia()
+				.prepareStatement("update usuario set nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, "
+						+ "correo = ?, celular = ? "
+						+ "where nombreUsuario = ? and password = ?;");	
+		
+		st.setString(1, usuario.getNombre());
+		st.setString(2, usuario.getApellidoPaterno());
+		st.setString(3, usuario.getApellidoMaterno());
+		st.setString(4, usuario.getCorreo());
+		st.setInt(5, usuario.getCelular());
+		st.setString(6, usuario.getNombreUsuario());
+		st.setString(7, usuario.getPassword());
+		
+		st.executeUpdate();
+
+	}
+
 }

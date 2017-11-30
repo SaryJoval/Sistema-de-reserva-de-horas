@@ -1,6 +1,7 @@
 package cl.accenture.curso_java.sistema_de_reserva.modelo;
 
 import java.util.Date;
+import java.util.List;
 
 public class Usuario {
 
@@ -19,6 +20,8 @@ public class Usuario {
 	private int intentosFallidos;
 	
 	private Perfil perfil;
+	
+	private List<Preferencia> preferencias;
 
 	public Usuario() {
 
@@ -129,6 +132,14 @@ public class Usuario {
 
 	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
+	}
+
+	public List<Preferencia> getPreferencias() {
+		return preferencias;
+	}
+
+	public void setPreferencias(List<Preferencia> preferencias) {
+		this.preferencias = preferencias;
 	}
 
 

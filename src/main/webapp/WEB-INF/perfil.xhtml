@@ -1,0 +1,63 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+	<!-- Perfil Section -->
+	<section class="success" id="perfil">
+		<div class="container">
+			<h2 class="text-center">Perfil</h2>
+			<hr></hr>
+			<div class="row">
+				<div class="col-lg-4 ml-auto">
+					<img class="img-fluid" src="img/profile.png" alt=""></img>
+				</div>
+				<div class="col-lg-4 mr-auto">
+
+					<h:form>
+
+						<div class="form-group">
+							<h3>#{listarPerfilControlador.usuario.nombreUsuario}</h3>
+
+						</div>
+
+						<div class="form-group">
+
+							<p class="font-weight-bold">Nombre:
+								#{listarPerfilControlador.usuario.nombre}
+								#{listarPerfilControlador.usuario.apellidoPaterno}</p>
+
+						</div>
+
+						<div class="form-group">
+
+							<p class="font-weight-bold">Correo:
+								#{listarPerfilControlador.usuario.correo}</p>
+
+						</div>
+
+						<div class="form-group">
+
+							<p class="font-weight-bold">Celular:
+								#{listarPerfilControlador.usuario.celular}</p>
+
+						</div>
+
+						<h:commandLink action="modificar_user.xhtml"
+							styleClass="btn btn-primary btn-lg btn-block">
+							<img class="" src="glyphicons/png/glyphicons-151-edit.png" alt=""></img>
+						Modificar
+						</h:commandLink>
+
+					</h:form>
+
+
+
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+</ui:composition>

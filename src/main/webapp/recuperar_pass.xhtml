@@ -30,17 +30,19 @@
 
 				<div class="modal-body">
 					<div class="form-group">
+					
+					<span style="color: red">#{pass.mensaje}</span>
 
 						<p:inputText type="text" name="l-form-username"
 							styleClass="form-control input-lg"
-							value="#{recuperarCuentaControlador.email}" placeholder="Email"></p:inputText>
+							value="#{pass.email}" placeholder="Email"></p:inputText>
 
 					</div>
 
 					<div class="form-group">
 
 						<h:commandButton value="Enviar"
-							action="#{recuperarCuentaControlador.recuperar}"
+							action="#{pass.recuperar}"
 							styleClass="btn btn-block btn-lg btn-primary"></h:commandButton>
 						<span class="pull-right"><a href="login.xhtml">Login</a></span>
 					</div>
