@@ -1,6 +1,7 @@
 package cl.accenture.curso_java.sistema_de_reserva.controladores;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -8,9 +9,11 @@ import java.util.GregorianCalendar;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
+import cl.accenture.curso_java.sistema_de_reserva.modelo.SinConexionException;
 import cl.accenture.curso_java.sistema_de_reserva.servicio.SendEmailUsingGMailSMTP;
 
-@ManagedBean
+@ManagedBean (name="pass")
 @SessionScoped
 public class RecuperarCuentaControlador implements Serializable {
 
@@ -25,22 +28,46 @@ public class RecuperarCuentaControlador implements Serializable {
 	private String asunto;
 
 	public RecuperarCuentaControlador() {
+		
+		this.mensaje = "";
+		this.email = "";
 
 	}
 
 	public void recuperar() {
-		
-		//texto
-		this.texto = "Por favor ingrese a este link para recuperar su contraseña: link";
-		this.asunto = "Recuperacion de contraseña";
 
-		Calendar cal = GregorianCalendar.getInstance();
-		cal.getTime();
+		boolean validar = false;
 
-		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-		String fecha = formatoFecha.format(cal.getTime());
+		try {
+			validar = UsuarioDAO.correo_existe(this.email);
 
-		SendEmailUsingGMailSMTP.envioMail(this.email, fecha, this.asunto, this.texto);
+			if (validar) {
+
+				this.texto = "Por favor ingrese a este link para recuperar su contraseña: link";
+				this.asunto = "Recuperacion de contraseña";
+
+				Calendar cal = GregorianCalendar.getInstance();
+				cal.getTime();
+
+				SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+				String fecha = formatoFecha.format(cal.getTime());
+
+				SendEmailUsingGMailSMTP.envioMail(this.email, fecha, this.asunto, this.texto);
+
+			}else {
+				this.mensaje = "El correo no esta registrado";
+			}
+			
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SinConexionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		// texto
 
 	}
 
@@ -59,7 +86,7 @@ public class RecuperarCuentaControlador implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
@@ -79,7 +106,5 @@ public class RecuperarCuentaControlador implements Serializable {
 	public void setAsunto(String asunto) {
 		this.asunto = asunto;
 	}
-	
-	
 
 }

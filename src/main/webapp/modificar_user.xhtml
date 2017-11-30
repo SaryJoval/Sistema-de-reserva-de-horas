@@ -29,7 +29,7 @@
 				<div class="col-lg-9 col-lg-offset-2">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h1 class="text-center">Registro</h1>
+							<h1 class="text-center">Modificacion</h1>
 						</div>
 						<div class="modal-body">
 
@@ -38,14 +38,13 @@
 								<div class="row">
 
 									<div class="col-md-6">
-									
-						
 
 										<div class="form-group">
 
 											<p:inputText id="nombreUsuario"
 												styleClass="form-control input-md"
-												value="#{usuarioControlador.nombreUsuario}" required="true"
+												value="#{listarPerfilControlador.usuario.nombreUsuario}"
+												required="true"
 												requiredMessage="Por favor introduce tu usaurio."
 												label="Usuario" placeholder="Usuario">
 
@@ -77,7 +76,8 @@
 								<div class="form-group">
 
 									<p:inputText styleClass="form-control input-md" id="nombre"
-										value="#{usuarioControlador.nombre}" required="true"
+										value="#{listarPerfilControlador.usuario.nombre}"
+										required="true"
 										requiredMessage="Por favor introduce tu nombre" label="Nombre"
 										placeholder="Nombre" />
 									<h:message style="color:red" for="nombre" />
@@ -87,7 +87,8 @@
 
 									<p:inputText id="apellidoPaterno"
 										styleClass="form-control input-md"
-										value="#{usuarioControlador.apellidoPaterno}" required="true"
+										value="#{listarPerfilControlador.usuario.apellidoPaterno}"
+										required="true"
 										requiredMessage="Por favor introduce tu apellido patenro"
 										label="Apellido Paterno" placeholder="Apellido Paterno" />
 									<h:message style="color:red" for="apellidoPaterno" />
@@ -98,67 +99,36 @@
 
 									<p:inputText id="apellidoMaterno"
 										styleClass="form-control input-md"
-										value="#{usuarioControlador.apellidoMaterno}" required="true"
+										value="#{listarPerfilControlador.usuario.apellidoMaterno}"
+										required="true"
 										requiredMessage="Por favor introduce tu apellido materno"
 										label="Apellido Materno" placeholder="Apellido Materno" />
 									<h:message style="color:red" for="apellidoMaterno" />
 								</div>
 
-								<div class="row">
-
-									<div class="col-md-6">
-
-										<div class="form-group">
-
-											<label>Edad:</label>
-
-											<p:inputText id="edad" value="#{usuarioControlador.edad}"
-												required="true" label="Number"
-												requiredMessage="Por favor introduce tu edad"
-												styleClass="form-control input-md"
-												converterMessage="Por favor solo digitos" placeholder="Edad"
-												validatorMessage="El campo edad sólo acepta hasta tres digitos">
-
-												<p:ajax event="keyup" update="out"
-													listener="#{usuarioControlador.validarEdad}" />
-
-												<f:validateLength maximum="3"></f:validateLength>
 
 
-											</p:inputText>
-											<h:message style="color:red" for="edad" />
-											<h:outputText id="out"
-												value="#{usuarioControlador.errorEdad}" />
-
-
-										</div>
-
-									</div>
-
-									<div class="col-md-6">
-
-										<div class="form-group">
-											<label>Celular:</label>
-											<p:inputText id="celular"
-												value="#{usuarioControlador.celular}" label="Number"
-												styleClass="form-control input-md" required="true"
-												requiredMessage="Por favor introduce tu celular"
-												converterMessage="Por favor solo digitos"
-												placeholder="Celular"
-												validatorMessage="El celular debe tener 8 digitos">
-												<f:validateLength minimum="8" maximum="8"></f:validateLength>
-											</p:inputText>
-											<h:message style="color:red" for="celular" />
-
-										</div>
-									</div>
-
+								<div class="form-group">
+									<label>Celular:</label>
+									<p:inputText id="celular"
+										value="#{listarPerfilControlador.usuario.celular}"
+										label="Number" styleClass="form-control input-md"
+										required="true"
+										requiredMessage="Por favor introduce tu celular"
+										converterMessage="Por favor solo digitos"
+										placeholder="Celular"
+										validatorMessage="El celular debe tener 8 digitos">
+										<f:validateLength minimum="8" maximum="8"></f:validateLength>
+									</p:inputText>
+									<h:message style="color:red" for="celular" />
 
 								</div>
 
+
 								<div class="form-group">
 
-									<p:inputText id="email1" value="#{usuarioControlador.correo}"
+									<p:inputText id="email1"
+										value="#{listarPerfilControlador.usuario.correo}"
 										label="Email" required="true"
 										requiredMessage="Por favor introduce tu email"
 										styleClass="form-control input-md" placeholder="E-Mail"
@@ -176,8 +146,11 @@
 								</div>
 
 								<div class="form-group">
+		
+									<label>Ingrese su password para modificar</label>
+									<p style="color: red;">#{listarPerfilControlador.mensaje}</p>
 
-									<p:password id="pwd" value="#{usuarioControlador.password}"
+									<p:password id="pwd" value="#{listarPerfilControlador.usuario.password}"
 										styleClass="form-control input-md" placeholder="Password"
 										required="true"
 										requiredMessage="Por favor introduce tu contraseña"
@@ -193,27 +166,12 @@
 
 								</div>
 
-								<div class="form-group">
-
-									<label>Elige dias de preferencia</label>
-
-									<p:selectCheckboxMenu id="menu"
-										value="#{usuarioControlador.preferencias}" label="Dias"
-										styleClass="form-control ">
-										<f:selectItem itemLabel="Lunes" itemValue="2" />
-										<f:selectItem itemLabel="Martes" itemValue="3" />
-										<f:selectItem itemLabel="Miercoles" itemValue="4" />
-										<f:selectItem itemLabel="Jueves" itemValue="5" />
-										<f:selectItem itemLabel="Viernes" itemValue="6" />
-									</p:selectCheckboxMenu>
-
-								</div>
 
 								<div class="form-group">
 
-									<p:commandButton value="Registrarse"
-										actionListener="#{usuarioControlador.guardar}"
-										validateClient="true" 
+									<p:commandButton value="Modificar"
+										actionListener="#{listarPerfilControlador.modificarUsuario}"
+										validateClient="true"
 										styleClass="btn btn-block btn-md btn-success" />
 								</div>
 							</h:form>

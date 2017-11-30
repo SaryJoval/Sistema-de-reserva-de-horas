@@ -20,6 +20,7 @@ import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.SucursalDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Configuracion;
+import cl.accenture.curso_java.sistema_de_reserva.modelo.Preferencia;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Sucursal;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 import cl.accenture.curso_java.sistema_de_reserva.servicio.SendEmailUsingGMailSMTP;
@@ -28,11 +29,9 @@ import cl.accenture.curso_java.sistema_de_reserva.servicio.ServicioHorasDisponib
 @ManagedBean
 @SessionScoped
 public class AgregarReservaControlador implements Serializable {
-	
-	
-	
-//	"Hola has reservado una hora para el dia: " + fecha + " "
-//			+ "En los proximos dias te llamaremos para confirmar la reserva. Gracias"
+
+	// "Hola has reservado una hora para el dia: " + fecha + " "
+	// + "En los proximos dias te llamaremos para confirmar la reserva. Gracias"
 
 	/**
 	 * @author Luis Torres
@@ -56,6 +55,7 @@ public class AgregarReservaControlador implements Serializable {
 
 	private Date fechaActual;
 	private Date fechaReserva;
+	private Date fechaFinal;
 
 	private int idsucursal;
 
@@ -98,14 +98,18 @@ public class AgregarReservaControlador implements Serializable {
 			this.sucursales = new ArrayList<Sucursal>();
 		}
 	}
+	
+	
+	public void cargarHoras( Preferencia p  )
+	{
+		System.out.println( p );
+	}
 
 	// Horas disponibles
 
 	public void obtenerHorasDisponibles() {
 
 		try {
-
-			recargar();
 
 			this.configuraciones = ConfiguracionDAO.obtenerConfiguraciones();
 
@@ -120,8 +124,10 @@ public class AgregarReservaControlador implements Serializable {
 			cal.add(Calendar.DAY_OF_MONTH, 1);
 			this.fechaReserva = cal.getTime();
 
+			this.fechaFinal = this.fechaReserva;
+
 			SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-			String fecha = formatoFecha.format(this.fechaReserva);
+			String fecha = formatoFecha.format(this.fechaFinal);
 			this.horas = ServicioHorasDisponibles.calcularHorasDisponibles(this.horaInicio, this.horaFin, bloqueF);
 			this.horasReservadas = ReservaDAO.obenerHorasReservadas(fecha);
 			this.horasDisponibles = ServicioHorasDisponibles.obtenerHorasDisponibles(this.horasReservadas, this.horas);
@@ -169,13 +175,11 @@ public class AgregarReservaControlador implements Serializable {
 	public void agregarReserva() {
 
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-		String fecha = formatoFecha.format(this.fechaReserva);
-		
+		String fecha = formatoFecha.format(this.fechaFinal);
+
 		this.asunto = "Reserva de hora";
-		this.texto = "Reserva de hora para el dia: " + fecha + " a las: " +this.hora+  ""
-				+ " Resivira una llamada en los proximos dias para confirmar la cita"
-				+ " Gracias "
-				+ " Accentue";
+		this.texto = "Reserva de hora para el dia: " + fecha + " a las: " + this.hora + ""
+				+ " Resivira una llamada en los proximos dias para confirmar la cita" + " Gracias " + " Accentue";
 
 		Usuario usuario = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
 				.get("usuario");
@@ -204,7 +208,11 @@ public class AgregarReservaControlador implements Serializable {
 	public void agregarReservaUsuario() {
 
 		SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
-		String fecha = formatoFecha.format(this.fechaReserva);
+		String fecha = formatoFecha.format(this.fechaFinal);
+
+		this.asunto = "Reserva de hora";
+		this.texto = "Reserva de hora para el dia: " + fecha + " a las: " + this.hora + ""
+				+ " Resivira una llamada en los proximos dias para confirmar la cita" + " Gracias " + " Accentue";
 
 		Usuario u = new Usuario();
 
@@ -212,6 +220,9 @@ public class AgregarReservaControlador implements Serializable {
 
 		try {
 			ReservaDAO.agregarReserva(fecha, this.servicio, this.nombre, u, this.hora);
+
+			SendEmailUsingGMailSMTP.envioMail(this.email, fecha, this.asunto, this.texto);
+
 			recargar();
 			obtenerHorasDisponibles();
 
@@ -409,6 +420,14 @@ public class AgregarReservaControlador implements Serializable {
 
 	public void setFechaActual(Date fechaActual) {
 		this.fechaActual = fechaActual;
+	}
+
+	public Date getFechaFinal() {
+		return fechaFinal;
+	}
+
+	public void setFechaFinal(Date fechaFinal) {
+		this.fechaFinal = fechaFinal;
 	}
 
 }

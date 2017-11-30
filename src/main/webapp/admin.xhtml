@@ -50,9 +50,11 @@
 
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item"><a class="nav-link js-scroll-trigger"
-							href="#reserva">Reserva</a></li>
+							href="#empresa">Empresa</a></li>
 						<li class="nav-item"><a class="nav-link js-scroll-trigger"
-							href="#cliente">Cliente</a></li>
+							href="#ejecutivo">Ejecutivo</a></li>
+						<li class="nav-item"><a class="nav-link js-scroll-trigger"
+							href="#aministrador">Administrador</a></li>
 						<li class="nav-item"><a class="nav-link js-scroll-trigger"
 							href="#perfil">#{listarPerfilControlador.usuario.nombreUsuario}</a></li>
 						<li class="nav-item"><h:commandLink styleClass="nav-link"
@@ -66,152 +68,81 @@
 	</h:form>
 
 
-	<!-- Listar Reserva Section -->
+	<!-- Reserva Section -->
+
 	<hr></hr>
-	<section class="success" id="reserva">
+	<section class="success" id="empresa">
 		<div class="container">
-			<h2 class="text-center">Lista de reservas pendientes</h2>
+
+			<h2 class="text-center">Empresa</h2>
+
 			<hr></hr>
-			<div class="row">
 
-				<div class="col-lg-6 col-lg-offset-6">
-					<p>#{ejecutivoControlador.mensaje}</p>
-				</div>
-				<div class="col-lg-6 col-lg-offset-6">
-					<div class="row">
-						<div class="col-lg-6 col-lg-offset-6">
-							<div id="imaginary_container">
-								<h:form
-									styleClass="input-group stylish-input-group input-append">
-									<h:inputText value="#{ejecutivoControlador.idReserva}"
-										maxlength="36" styleClass="form-control"></h:inputText>
-									<h:commandButton
-										action="#{ejecutivoControlador.obtenerReservaID}"
-										image="ico/search.svg" styleClass="btn btn-primary"></h:commandButton>
+			<div class="col-lg-6">
 
-								</h:form>
-							</div>
-						</div>
+				<div class="row">
 
-						<div class="col-lg-6 col-lg-offset-6">
-							<h:form>
-
+					<div class="col-lg-12">
+						<div id="imaginary_container">
+							<h:form styleClass="input-group stylish-input-group input-append">
+								<h:inputText value="#{ejecutivoControlador.idReserva}"
+									maxlength="36" styleClass="form-control"></h:inputText>
 								<h:commandButton
-									action="#{ejecutivoControlador.obtenerReseravsTotales}"
-									value="Listar Todo" styleClass="btn btn-primary"></h:commandButton>
+									action="#{ejecutivoControlador.obtenerReservaID}"
+									styleClass="btn btn-primary" value="Guardar"></h:commandButton>
+
 							</h:form>
 						</div>
+					</div>
 
+				</div>
+				<hr></hr>
 
+				<div class="row">
+
+					<div class="col-lg-12 " id="table">
+
+						<h:dataTable value="#{agregarReservaControlador.sucursales}"
+							var="sucursal" styleClass="table table-striped table-inverse">
+
+							<h:column>
+								<f:facet name="header">ID</f:facet>
+									#{sucursal.idSucursal}
+								</h:column>
+
+							<h:column>
+								<f:facet name="header">Sucursal</f:facet>
+									#{sucursal.nombre}
+								</h:column>
+
+							<h:column>
+								<f:facet name="header">Accion</f:facet>
+								<h:form>
+									<h:commandButton
+										action="#{agregarSucursalControlador.eliminar( sucursal )}"
+										image="ico/delete.svg" value="" styleClass="btn btn-danger">
+									</h:commandButton>
+								</h:form>
+							</h:column>
+
+						</h:dataTable>
 					</div>
 
 
 				</div>
-			</div>
 
-			<hr></hr>
 
-			<div class="row">
-				<div class="col-lg-12 ml-auto " id="table">
 
-					<h:dataTable value="#{ejecutivoControlador.reservasTotales}"
-						var="reserva" styleClass="table table-striped table-inverse">
 
-						<h:column>
-							<f:facet name="header">Numero de Reserva</f:facet>
-									#{reserva.idreserva}
-								</h:column>
 
-						<h:column>
-							<f:facet name="header">Fecha Reserva</f:facet>
-									#{reserva.fechaReserva}
-								</h:column>
 
-						<h:column>
-							<f:facet name="header">Hora</f:facet>
-									#{reserva.hora}
-								</h:column>
-
-						<h:column>
-							<f:facet name="header">Servicio</f:facet>
-									#{reserva.servicio}
-								</h:column>
-
-						<h:column>
-							<f:facet name="header">Sucursal</f:facet>
-									#{reserva.sucursal}
-								</h:column>
-
-						<h:column>
-							<f:facet name="header">Nombre</f:facet>
-									#{reserva.nombre} #{reserva.apellidoPaterno}
-								</h:column>
-
-						<h:column>
-							<f:facet name="header">Email</f:facet>
-									#{reserva.correo}
-								</h:column>
-
-						<h:column>
-							<f:facet name="header">Celular</f:facet>
-									#{reserva.celular}
-								</h:column>
-
-						<h:column>
-							<f:facet name="header">Accion</f:facet>
-							<h:form>
-								<h:commandButton
-									action="#{ejecutivoControlador.eliminar( reserva )}"
-									image="ico/delete.svg" value="" styleClass="btn btn-danger">
-								</h:commandButton>
-							</h:form>
-						</h:column>
-
-					</h:dataTable>
-				</div>
 
 			</div>
+
+			<!-- 					FIN SECCION -->
+
 		</div>
-	</section>
 
-
-	<!-- SECCION CLIENTE -->
-	<section class="success" id="cliente">
-		<div class="container">
-			<h2 class="text-center">Cliente</h2>
-			<hr></hr>
-			<div class="row" style="margin: auto; text-align: center;">
-
-				<div class="col-lg-6 col-lg-offset-6">
-					<p>
-						<IMG width="300px" height="300px" alt="Agregar" src="img/user.svg" />
-					</p>
-
-					<p>
-						<a class="btn btn-primary btn-lg" href="registro_cliente.xhtml">AGREGAR</a>
-					</p>
-
-
-				</div>
-				<div class="col-lg-6 col-lg-offset-6">
-
-					<p>
-						<IMG width="300px" height="300px" alt="Reservar hora"
-							src="img/reservar.svg" />
-					</p>
-
-					<p>
-
-						<a class="btn btn-primary btn-lg" href="reservar_hora.xhtml">RESERVAR
-							HORA</a>
-
-					</p>
-
-
-				</div>
-
-			</div>
-		</div>
 	</section>
 
 	<!-- FIN SECCION CLIENTE -->

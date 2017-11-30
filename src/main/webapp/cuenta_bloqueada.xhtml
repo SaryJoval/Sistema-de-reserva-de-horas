@@ -2,8 +2,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
 <h:head>
 
@@ -11,7 +11,7 @@
 	<meta charset="utf-8"></meta>
 	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
-	<title>Sistema de Reservas de horas</title>
+	<title>Bloqueo</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
@@ -29,9 +29,7 @@
 	<link href="css/freelancer.min.css" rel="stylesheet"></link>
 
 </h:head>
-
-<h:body id="page-top">
-
+<h:body>
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-light fixed-top"
 		id="mainNav">
@@ -55,21 +53,25 @@
 		</div>
 	</nav>
 
-	<div class="container-fluid">
-		<header class="masthead">
-
-			<img class="img-fluid" src="img/recuperarCuenta.png" alt=""></img>
-
-			<h2 class="text-center">Recupera tu cuenta</h2>
-			<hr></hr>
-			<H6>Ingresa tu nombre de usuario o e-mail</H6>
-
-		</header>
-		<div class="col-lg-offset-4 col-lg-4 registro">
-	
+	<!-- Header -->
+	<header class="masthead">
+		<div class="container">
+			<img class="img-fluid" width="200px" src="img/bloqueo.png" alt=""></img>
+			<div class="intro-text">
+				<span class="name">Cuenta Bloqueada</span>
+				<hr class="star-light"></hr>
+				<p>Por politicas de seguridad hemos bloqueado su cuenta, para
+					desbloquearla ingresa tu correo electronico.</p>
+			</div>
 		</div>
 
-	</div>
+
+		<h:inputText styleClass="form" value="" />
+		<BR />
+		<h:commandButton style="margin=10px;" styleClass="btn btn-primary  "
+			value="Recuperar" action="#"></h:commandButton>
+
+	</header>
 	<!-- Footer -->
 	<footer class="text-center">
 		<div class="footer-above">

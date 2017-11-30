@@ -53,6 +53,7 @@ public final class SendEmailUsingGMailSMTP {
 			Transport.send(message);
 
 			System.out.println("Sent message successfully....");
+			
 
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
