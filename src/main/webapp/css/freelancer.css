@@ -55,7 +55,7 @@ hr.star-light {
 
 hr.star-light:after {
   color: #2c3e50;
-  background-color: #c4e9f7; }
+  background-color: #f7f3c4; }
 
 hr.star-primary {
   border-color: #2C3E50; }
@@ -75,7 +75,7 @@ section {
 
 section.success {
   color: #2c3e50;
-  background: #c4e9f7; }
+  background: #f7f3c4; }
 
 @media (max-width: 767px) {
   section {
@@ -105,7 +105,7 @@ section.success {
   font-weight: 700;
   text-transform: uppercase;
   border: none;
-  background: #2C3E50; }
+  background: #2c3e50b8; }
   #mainNav a:focus {
     outline: none; }
   #mainNav .navbar-brand {
@@ -118,7 +118,7 @@ section.success {
     #mainNav .navbar-nav li.nav-item a.nav-link {
       color: white; }
       #mainNav .navbar-nav li.nav-item a.nav-link:hover {
-        color: #c4e9f7;
+        color: #f7f3c4;
         outline: none; }
       #mainNav .navbar-nav li.nav-item a.nav-link:active, #mainNav .navbar-nav li.nav-item a.nav-link:focus {
         color: white; }
@@ -130,8 +130,8 @@ section.success {
     border-color: white; }
     #mainNav .navbar-toggler:focus, #mainNav .navbar-toggler:hover {
       color: white;
-      border-color: #18BC9C;
-      background-color: #18BC9C; }
+      border-color: #2c3e50;
+      background-color: #f7f3c4; }
 
 @media (min-width: 992px) {
   #mainNav {
@@ -148,10 +148,10 @@ section.success {
     #mainNav .navbar-nav > li.nav-item > a.nav-link.active {
       color: white;
       border-radius: 3px;
-      background: #c4e9f7; }
+      background: #2c3e50; }
       #mainNav .navbar-nav > li.nav-item > a.nav-link.active:active, #mainNav .navbar-nav > li.nav-item > a.nav-link.active:focus, #mainNav .navbar-nav > li.nav-item > a.nav-link.active:hover {
         color: white;
-        background: #18BC9C; }
+        background: #2c3e50; }
   #mainNav.navbar-shrink {
     padding-top: 10px;
     padding-bottom: 10px; }
@@ -163,7 +163,7 @@ header.masthead {
   padding-bottom: 50px;
   text-align: center;
   color: #2c3e50;
-  background: #c4e9f7; }
+  background: #f7f3c4; }
   header.masthead img {
     display: block;
     margin: 0 auto 20px; }
