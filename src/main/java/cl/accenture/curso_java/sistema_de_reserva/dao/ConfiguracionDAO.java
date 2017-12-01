@@ -12,26 +12,24 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Configuracion;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.SinConexionException;
 
 public class ConfiguracionDAO {
-	
+
 	public static List<Configuracion> obtenerConfiguraciones() throws SQLException, SinConexionException {
 		List<Configuracion> configuraciones = new ArrayList<Configuracion>();
-		PreparedStatement st = Conexion.getInstancia()
-				.prepareStatement("select * from configuracion;");
+		PreparedStatement st = Conexion.getInstancia().prepareStatement("select * from configuracion;");
 		ResultSet rs = st.executeQuery();
-		
-		while(rs.next()) {
+
+		while (rs.next()) {
 
 			Configuracion config = new Configuracion();
-			
+
 			config.setClave(rs.getString("clave"));
 			config.setValor(rs.getString("valor"));
-			
+
 			configuraciones.add(config);
 		}
-		
+
 		return configuraciones;
 	}
-	
-	
+
 
 }
