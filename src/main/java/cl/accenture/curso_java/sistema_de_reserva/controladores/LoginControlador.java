@@ -42,7 +42,7 @@ public class LoginControlador implements Serializable {
 
 			// validar el estado
 
-			if (usuarioLogeado.getEstado() == 1) {
+			if (usuarioLogeado.getEstado().equals("Activo") ) {
 
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
 				UsuarioDAO.actualizarUltimoIngreso(usuarioLogeado);
@@ -57,9 +57,10 @@ public class LoginControlador implements Serializable {
 		            return "root?faces-redirect=true";
 				}
 
-			} else if (usuarioLogeado.getEstado() == 2) {
-
-				return "cuenta_bloqueda?faces-redirect=true";
+			} else if (usuarioLogeado.getEstado().equals("Inactivo")) {
+				
+				FacesContext contex = FacesContext.getCurrentInstance();
+				contex.getExternalContext().redirect("block.xhtml");
 
 			}
 

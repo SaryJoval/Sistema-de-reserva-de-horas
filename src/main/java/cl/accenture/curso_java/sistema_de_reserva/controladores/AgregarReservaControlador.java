@@ -50,6 +50,8 @@ public class AgregarReservaControlador implements Serializable {
 	private String email;
 	private String asunto;
 	private String texto;
+	
+	private Preferencia p;
 
 	private Date fechaActual;
 	private Date fechaReserva;
@@ -68,7 +70,6 @@ public class AgregarReservaControlador implements Serializable {
 		obtenerSucursal();
 		obtenerFeriados();
 		recargarFecha();
-
 	}
 
 	// Listar dias Feriados
@@ -440,6 +441,14 @@ public class AgregarReservaControlador implements Serializable {
 
 	public void setDiasFeriados(List<Feriado> diasFeriados) {
 		this.diasFeriados = diasFeriados;
+	}
+
+	public Preferencia getP() {
+		return p;
+	}
+
+	public void setP(Preferencia p) {
+		this.p = p;
 	}
 
 }

@@ -39,11 +39,12 @@ public class UsuarioControlador implements Serializable {
 	private String errorUser;
 	private String errorEdad;
 	private String errorEmail;
+	private String estado;
+
 	private int idPerfil;
 
 	private int celular;
 	private int edad;
-	private int estado;
 
 	private List<String> preferencias;
 	private List<Usuario> usuarios;
@@ -146,7 +147,7 @@ public class UsuarioControlador implements Serializable {
 		usuario.setCelular(this.celular);
 		usuario.setEdad(this.edad);
 		usuario.setPassword(this.password);
-		usuario.setEstado(1);
+		usuario.setEstado("Activo");
 		perfil.setId(idPerfil);
 
 		try {
@@ -160,20 +161,19 @@ public class UsuarioControlador implements Serializable {
 			} else {
 
 				UsuarioDAO.insertarUsuario(usuario, perfil);
-				
-				
+
 				for (String p : preferencias) {
-					
+
 					int diaP = Integer.parseInt(p);
 					PreferenciaDAO.agregarPreferencia(this.nombreUsuario, diaP);
-					
+
 				}
 
 				// envio email Registro
 				SendEmailUsingGMailSMTP.envioMail(correo, fecha, asunto, texto);
 
 				FacesContext contex = FacesContext.getCurrentInstance();
-	            contex.getExternalContext().redirect( "login.xhtml" );
+				contex.getExternalContext().redirect("login.xhtml");
 			}
 
 		} catch (SQLException e) {
@@ -245,14 +245,6 @@ public class UsuarioControlador implements Serializable {
 		this.edad = edad;
 	}
 
-	public int isEstado() {
-		return estado;
-	}
-
-	public void setEstado(int estado) {
-		this.estado = estado;
-	}
-
 	public List<Usuario> getUsuarios() {
 		return usuarios;
 	}
@@ -279,10 +271,6 @@ public class UsuarioControlador implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public int getEstado() {
-		return estado;
 	}
 
 	public String getMensaje() {
@@ -331,6 +319,14 @@ public class UsuarioControlador implements Serializable {
 
 	public void setPreferencias(List<String> preferencias) {
 		this.preferencias = preferencias;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 
 }

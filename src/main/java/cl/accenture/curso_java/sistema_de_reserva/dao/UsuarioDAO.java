@@ -37,7 +37,7 @@ public class UsuarioDAO {
 			usuario.setPerfil(perfil);
 			usuario.setUltimoIngreso(rs.getDate("ultimoIngreso"));
 			usuario.setIntentosFallidos(rs.getInt("intentosFallidos"));
-			usuario.setEstado(rs.getInt("estado"));
+			usuario.setEstado(rs.getString("estado"));
 			return usuario;
 		}
 
@@ -77,7 +77,7 @@ public class UsuarioDAO {
 		st.setString(4, usuario.getCorreo());
 		st.setInt(5, usuario.getCelular());
 		st.setInt(6, usuario.getEdad());
-		st.setInt(7, usuario.getEstado());
+		st.setString(7, usuario.getEstado());
 		st.setString(8, usuario.getNombreUsuario());
 		st.setString(9, usuario.getPassword());
 		st.setInt(10, perfil.getId());
@@ -98,6 +98,7 @@ public class UsuarioDAO {
 			usuario.setApellidoPaterno(rs.getString("apellidoPaterno"));
 			usuario.setApellidoMaterno(rs.getString("apellidoMaterno"));
 			usuario.setCorreo(rs.getString("correo"));
+			usuario.setEstado(rs.getString("estado"));
 
 			usuarios.add(usuario);
 		}
@@ -153,6 +154,19 @@ public class UsuarioDAO {
 
 		st.executeUpdate();
 
+	}
+	
+	//cambiar estado
+	
+	public static void cambiarEstado(Usuario usuario , String estado) throws SQLException, SinConexionException {
+		
+		PreparedStatement st = Conexion.getInstancia()
+				.prepareStatement("update usuario set estado = ? " + "where nombreUsuario = ?;");
+		st.setString(1, estado);
+		st.setString(2, usuario.getNombreUsuario());
+		
+		st.executeUpdate();
+		
 	}
 
 }
