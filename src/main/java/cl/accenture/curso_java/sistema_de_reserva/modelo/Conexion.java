@@ -17,7 +17,7 @@ public class Conexion {
 		this.puerto = 3306;
 		this.baseDeDatos = "pro";
 		this.nombre = "root";
-		this.password = "ciro";
+		this.password = "nanita1406.";
 	}
 
 	public String getHost() {
