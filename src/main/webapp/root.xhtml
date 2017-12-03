@@ -3,8 +3,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:ui="http://java.sun.com/jsf/facelets"
-	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+
 
 <h:head>
 
@@ -54,7 +54,7 @@
 						<li class="nav-item"><a class="nav-link js-scroll-trigger"
 							href="#ejecutivo">Ejecutivo</a></li>
 						<li class="nav-item"><a class="nav-link js-scroll-trigger"
-							href="#aministrador">Administrador</a></li>
+							href="#admin">Administrador</a></li>
 						<li class="nav-item"><a class="nav-link js-scroll-trigger"
 							href="#perfil">#{listarPerfilControlador.usuario.nombreUsuario}</a></li>
 						<li class="nav-item"><h:commandLink styleClass="nav-link"
@@ -78,50 +78,197 @@
 
 			<hr></hr>
 
-			<div class="col-lg-6">
+			<!-- SUCARUSAL -->
 
+			<div class="col-lg-12">
 				<div class="row">
 
-					<div class="col-lg-12">
-						<div id="imaginary_container">
-							<h:form styleClass="input-group stylish-input-group input-append">
-								<h:inputText value="#{ejecutivoControlador.idReserva}"
-									maxlength="36" styleClass="form-control"></h:inputText>
-								<h:commandButton
-									action="#{ejecutivoControlador.obtenerReservaID}"
-									styleClass="btn btn-primary" value="Guardar"></h:commandButton>
+					<div class="col-lg-6">
 
-							</h:form>
+						<h5>Sucursal</h5>
+						<p class="pull-right">#{ejecutivoControlador.mensaje}</p>
+
+						<div class="row">
+
+							<div class="col-lg-12">
+								<div id="imaginary_container">
+									<h:form
+										styleClass="input-group stylish-input-group input-append">
+										<h:inputText value="#{ejecutivoControlador.nombre}"
+											maxlength="36" styleClass="form-control"></h:inputText>
+										<h:commandButton
+											action="#{ejecutivoControlador.agregarSucursal}"
+											styleClass="btn btn-primary" value="Guardar"></h:commandButton>
+
+									</h:form>
+								</div>
+							</div>
+
 						</div>
-					</div>
+						<hr></hr>
 
-				</div>
-				<hr></hr>
+						<div class="row">
 
-				<div class="row">
+							<div class="col-lg-12 " id="table">
 
-					<div class="col-lg-12 " id="table">
+								<h:dataTable value="#{ejecutivoControlador.sucursales}"
+									var="sucursal" styleClass="table table-striped table-inverse">
 
-						<h:dataTable value="#{agregarReservaControlador.sucursales}"
-							var="sucursal" styleClass="table table-striped table-inverse">
-
-							<h:column>
-								<f:facet name="header">ID</f:facet>
+									<h:column>
+										<f:facet name="header">ID</f:facet>
 									#{sucursal.idSucursal}
 								</h:column>
 
-							<h:column>
-								<f:facet name="header">Sucursal</f:facet>
+									<h:column>
+										<f:facet name="header">Sucursal</f:facet>
 									#{sucursal.nombre}
 								</h:column>
 
-							<h:column>
-								<f:facet name="header">Accion</f:facet>
-								<h:form>
+									<h:column>
+										<f:facet name="header">Accion</f:facet>
+										<h:form>
+											<h:commandButton
+												action="#{ejecutivoControlador.eliminarSucursal( sucursal )}"
+												image="ico/delete.svg" value="" styleClass="btn btn-danger">
+											</h:commandButton>
+										</h:form>
+									</h:column>
+
+								</h:dataTable>
+							</div>
+
+
+						</div>
+
+					</div>
+
+					<!-- DIAS FERIADOS -->
+
+					<div class="col-lg-6">
+
+						<h5>Dias feriados</h5>
+						<p class="pull-right">#{ejecutivoControlador.mensajeFeriados}</p>
+
+						<div class="col-lg-12">
+
+							<div class="row">
+
+
+								<h:form styleClass="form-inline">
+
+									<h:inputText value="#{ejecutivoControlador.fecha}"
+										maxlength="36" styleClass="form-control"></h:inputText>
+
+									<h:inputText value="#{ejecutivoControlador.descripcion}"
+										maxlength="36" styleClass="form-control"></h:inputText>
+
 									<h:commandButton
-										action="#{agregarSucursalControlador.eliminar( sucursal )}"
-										image="ico/delete.svg" value="" styleClass="btn btn-danger">
-									</h:commandButton>
+										action="#{ejecutivoControlador.agregarFeriado}"
+										styleClass="btn btn-primary" value="Guardar"></h:commandButton>
+								</h:form>
+							</div>
+
+						</div>
+						<hr></hr>
+						<div class="row">
+
+
+							<div class="col-lg-12 " id="table">
+
+								<h:dataTable value="#{ejecutivoControlador.feriados}"
+									var="feriado" styleClass="table table-striped table-inverse">
+
+									<h:column>
+										<f:facet name="header">Fecha</f:facet>
+									#{feriado.fecha}
+								</h:column>
+
+									<h:column>
+										<f:facet name="header">Descripcion</f:facet>
+									#{feriado.descripcion}
+								</h:column>
+
+									<h:column>
+										<f:facet name="header">Accion</f:facet>
+										<h:form>
+											<h:commandButton
+												action="#{ejecutivoControlador.eliminarFeriado( feriado )}"
+												image="ico/delete.svg" value="" styleClass="btn btn-danger">
+											</h:commandButton>
+										</h:form>
+									</h:column>
+
+								</h:dataTable>
+							</div>
+
+
+						</div>
+						<hr></hr>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+		</div>
+	</section>
+
+	<!-- 	SECCION EJECUTIVO -->
+
+	<section class="success" id="ejecutivo">
+		<div class="container">
+
+
+			<h2 class="text-center">Ejecutivo</h2>
+
+			<HR />
+
+
+
+			<div class="col-lg-12">
+
+				<div class="row">
+
+
+					<div class="col-lg-12 ">
+
+						<h:form>
+							<h:commandButton action="record.xhtml" image="ico/add-user.png"
+								value="record.xhtml" styleClass="btn btn-default">
+							</h:commandButton>
+
+						</h:form>
+						<hr></hr>
+
+						<h:dataTable value="#{listarEjecutivoControlador.usuarios}"
+							var="usuario" styleClass="table table-striped table-inverse">
+
+							<h:column>
+								<f:facet name="header">Usuario</f:facet>
+									#{usuario.nombreUsuario}
+								</h:column>
+
+							<h:column>
+								<f:facet name="header">Nombre</f:facet>
+									#{usuario.nombre} #{usuario.apellidoPaterno}
+								</h:column>
+
+							<h:column>
+								<f:facet name="header">Usuario</f:facet>
+									#{usuario.correo}
+								</h:column>
+
+							<h:column>
+								<f:facet name="header">Estado</f:facet>
+								<h:form>
+
+									<p:inputSwitch value="#{usuario.valorEstado}">
+										<p:ajax
+											listener="#{listarEjecutivoControlador.cambiarEstado( usuario )}" />
+									</p:inputSwitch>
+
 								</h:form>
 							</h:column>
 
@@ -129,35 +276,89 @@
 					</div>
 
 
+
 				</div>
-
-
-
-
-
-
 
 			</div>
 
-			<!-- 					FIN SECCION -->
-
+			<hr></hr>
 		</div>
-
 	</section>
 
-	<!-- FIN SECCION CLIENTE -->
+	<!-- SECCION ADMINISTRADOR -->
 
-	<!-- 	PERFIL -->
+	<section class="success" id="admin">
+		<div class="container">
+
+
+			<h2 class="text-center">Administrador</h2>
+
+			<div class="col-lg-12">
+
+				<div class="row">
+
+					<div class="col-lg-12 ">
+
+						<h:form>
+							<h:commandButton action="record.xhtml" image="ico/add-user.png"
+								value="record.xhtml" styleClass="btn btn-default">
+							</h:commandButton>
+
+						</h:form>
+
+
+						<hr></hr>
+
+						<h:dataTable value="#{listarAdminControlador.usuarios}"
+							var="usuario" styleClass="table table-striped table-inverse">
+
+							<h:column>
+								<f:facet name="header">Usuario</f:facet>
+									#{usuario.nombreUsuario}
+								</h:column>
+
+							<h:column>
+								<f:facet name="header">Nombre</f:facet>
+									#{usuario.nombre} #{usuario.apellidoPaterno}
+								</h:column>
+
+							<h:column>
+								<f:facet name="header">Usuario</f:facet>
+									#{usuario.correo}
+								</h:column>
+
+							<h:column>
+								<f:facet name="header">Estado</f:facet>
+								<h:form>
+
+									<p:inputSwitch value="#{usuario.valorEstado}">
+										<p:ajax
+											listener="#{listarAdminControlador.cambiarEstado( usuario )}" />
+									</p:inputSwitch>
+
+								</h:form>
+							</h:column>
+
+						</h:dataTable>
+					</div>
+
+
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+
+	<!-- PERFIL -->
 
 	<ui:include src="/WEB-INF/perfil.xhtml" />
 
-	<!-- FIN PERFIL -->
 
 	<!-- FOOTER -->
 
 	<ui:include src="/WEB-INF/footer.xhtml" />
-
-	<!--FIN FOOTER -->
 
 
 	<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->

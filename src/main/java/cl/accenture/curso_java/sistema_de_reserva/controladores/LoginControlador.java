@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import cl.accenture.curso_java.sistema_de_reserva.dao.ObjetoNoEncontradoException;
 import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
+import cl.accenture.curso_java.sistema_de_reserva.servicio.ServicioEncriptar;
 
 @ManagedBean
 @SessionScoped
@@ -37,12 +38,12 @@ public class LoginControlador implements Serializable {
 
 		try {
 
-			Usuario usuario = UsuarioDAO.validar(new Usuario(this.nombreUsuario, this.password));
+			Usuario usuario = UsuarioDAO.validar(new Usuario(this.nombreUsuario, ServicioEncriptar.encriptar(this.password)));
 			usuarioLogeado = usuario;
 
 			// validar el estado
 
-			if (usuarioLogeado.getEstado() == 1) {
+			if (usuarioLogeado.getEstado().equals("Activo") ) {
 
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
 				UsuarioDAO.actualizarUltimoIngreso(usuarioLogeado);
@@ -54,14 +55,13 @@ public class LoginControlador implements Serializable {
 				} else if (usuario.getPerfil().getId() == 2) {
 					return "Ejecutivo?faces-redirect=true";
 				} else if (usuario.getPerfil().getId() == 3) {
-//					FacesContext contex = FacesContext.getCurrentInstance();
-//		            contex.getExternalContext().redirect( "admin" );
-					return "root";
+		            return "root?faces-redirect=true";
 				}
 
-			} else if (usuarioLogeado.getEstado() == 2) {
-
-				return "cuenta_bloqueda?faces-redirect=true";
+			} else if (usuarioLogeado.getEstado().equals("Inactivo")) {
+				
+				FacesContext contex = FacesContext.getCurrentInstance();
+				contex.getExternalContext().redirect("block.xhtml");
 
 			}
 

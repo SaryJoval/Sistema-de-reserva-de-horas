@@ -84,7 +84,7 @@
 
 						<h:form styleClass="form" id="form">
 
-							<!-- 						MODAL -->
+							<!-- MODAL -->
 
 							<p:dialog header="Horas Disponibles" widgetVar="dlg2"
 								modal="true" height="300">
@@ -118,12 +118,9 @@
 								</div>
 							</p:dialog>
 
-							<!-- 							FIN MODAL -->
-
 							<h5>Reservar horas segun preferencias</h5>
 							<hr></hr>
 
-							<!-- 							SUCURSAL -->
 							<div class="form-group">
 								<h6>Sucursal (*)</h6>
 
@@ -166,7 +163,7 @@
 
 							</div>
 
-							<!-- 							TABLA DE PREFERENCIAS -->
+							<!-- TABLA DE PREFERENCIAS -->
 
 							<div class="form-group ">
 
@@ -182,8 +179,10 @@
 									</p:column>
 
 									<p:column headerText="Ver horas" style="text-align: center">
-										<p:commandButton action="#{agregarReservaControlador.cargarHoras(preferecia)}" oncomplete="PF('dlg2').show();"
-											icon="ui-icon-search" title="View">
+										<p:commandButton
+											action="#{agregarReservaControlador.cargarHoras(preferecia)}"
+											oncomplete="PF('dlg2').show();" icon="ui-icon-search"
+											title="View">
 											<f:setPropertyActionListener value="#{preferecia.dia}"
 												target="#{agregarReservaControlador.fechaReserva}" />
 										</p:commandButton>
@@ -195,12 +194,11 @@
 
 							</div>
 
-							<!-- 							FIN TABLA PREFERENCIAS -->
 
 						</h:form>
 
 					</div>
-					<!-- 					FIN SECCION -->
+
 					<div class="col-md-4 ml-auto">
 
 						<img class="img-fluid" src="img/profile.png" alt=""></img>
@@ -209,7 +207,7 @@
 
 				</div>
 
-				<!-- 					INICIO SECCION AGREGAR RESERVA -->
+				<!-- 		INICIO SECCION AGREGAR RESERVA -->
 
 				<hr></hr>
 
@@ -217,14 +215,14 @@
 
 					<div class="col-md-6">
 
-						<!-- 						INICIO FORMULARIO -->
+						<!-- 	INICIO FORMULARIO -->
 						<h:form styleClass="form">
 
 							<h5>Reservar horas</h5>
 
 							<hr></hr>
 
-							<!-- 							SUCURSAL -->
+							<!-- 	SUCURSAL -->
 							<div class="form-group">
 								<h6>Sucursal (*)</h6>
 
@@ -239,7 +237,7 @@
 								</h:selectOneMenu>
 							</div>
 
-							<!-- 							SERVICIO -->
+							<!-- 	SERVICIO -->
 							<div class="form-group">
 
 								<h6>Servicio (*)</h6>
@@ -332,8 +330,6 @@
 
 					</div>
 
-					<!-- 					FIN AGREGAR RESERVA -->
-
 				</div>
 
 			</div>
@@ -390,13 +386,11 @@
 
 	<ui:include src="/WEB-INF/perfil.xhtml" />
 
-	<!-- FIN PERFIL -->
 
 	<!-- FOOTER -->
 
 	<ui:include src="/WEB-INF/footer.xhtml" />
 
-	<!--FIN FOOTER -->
 
 	<!-- Scroll to Top Button (Only visible on small and extra-small screen sizes) -->
 	<div class="scroll-top d-lg-none">

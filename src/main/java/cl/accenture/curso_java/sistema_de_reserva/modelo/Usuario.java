@@ -11,17 +11,19 @@ public class Usuario {
 	private String apellidoMaterno;
 	private String correo;
 	private String password;
-	
+	private String estado;
+	private boolean valorEstado;
+
 	private Date ultimoIngreso;
-	
+
 	private int celular;
 	private int edad;
-	private int estado;
 	private int intentosFallidos;
-	
+
 	private Perfil perfil;
-	
+
 	private List<Preferencia> preferencias;
+	
 
 	public Usuario() {
 
@@ -31,11 +33,6 @@ public class Usuario {
 		super();
 		this.nombreUsuario = nombreUsuario;
 		this.password = password;
-	}
-	
-
-	public int getEstado() {
-		return estado;
 	}
 
 	public String getNombre() {
@@ -86,14 +83,6 @@ public class Usuario {
 		this.edad = edad;
 	}
 
-	public int isEstado() {
-		return estado;
-	}
-
-	public void setEstado(int estado) {
-		this.estado = estado;
-	}
-
 	public String getNombreUsuario() {
 		return nombreUsuario;
 	}
@@ -142,5 +131,20 @@ public class Usuario {
 		this.preferencias = preferencias;
 	}
 
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	public boolean isValorEstado() {
+		return valorEstado;
+	}
+
+	public void setValorEstado(boolean valorEstado) {
+		this.valorEstado = valorEstado;
+	}
 
 }

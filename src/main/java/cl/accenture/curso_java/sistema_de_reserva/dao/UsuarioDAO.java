@@ -37,7 +37,7 @@ public class UsuarioDAO {
 			usuario.setPerfil(perfil);
 			usuario.setUltimoIngreso(rs.getDate("ultimoIngreso"));
 			usuario.setIntentosFallidos(rs.getInt("intentosFallidos"));
-			usuario.setEstado(rs.getInt("estado"));
+			usuario.setEstado(rs.getString("estado"));
 			return usuario;
 		}
 
@@ -77,7 +77,7 @@ public class UsuarioDAO {
 		st.setString(4, usuario.getCorreo());
 		st.setInt(5, usuario.getCelular());
 		st.setInt(6, usuario.getEdad());
-		st.setInt(7, usuario.getEstado());
+		st.setString(7, usuario.getEstado());
 		st.setString(8, usuario.getNombreUsuario());
 		st.setString(9, usuario.getPassword());
 		st.setInt(10, perfil.getId());
@@ -85,17 +85,21 @@ public class UsuarioDAO {
 		st.executeUpdate();
 	}
 
-	public static List<Usuario> obtenerUsuarios() throws SQLException, SinConexionException {
+	public static List<Usuario> obtenerUsuarios(int idPerfil) throws SQLException, SinConexionException {
 		List<Usuario> usuarios = new ArrayList<Usuario>();
-		PreparedStatement st = Conexion.getInstancia().prepareStatement("select * from usuario");
+		PreparedStatement st = Conexion.getInstancia().prepareStatement("select * from usuario where id_perfil = ?");
+		st.setInt(1, idPerfil);
 		ResultSet rs = st.executeQuery();
 		while (rs.next()) {
 			Usuario usuario = new Usuario();
-			Perfil perfil = PerfilDAO.obtenerPerfil(rs.getInt("id_perfil"));
-			usuario.setPerfil(perfil);
+
 			usuario.setNombreUsuario(rs.getString("nombreUsuario"));
-			usuario.setUltimoIngreso(rs.getTimestamp("ultimoIngreso"));
-			usuario.setIntentosFallidos(rs.getInt("intentosFallidos"));
+			usuario.setNombre(rs.getString("nombre"));
+			usuario.setApellidoPaterno(rs.getString("apellidoPaterno"));
+			usuario.setApellidoMaterno(rs.getString("apellidoMaterno"));
+			usuario.setCorreo(rs.getString("correo"));
+			usuario.setEstado(rs.getString("estado"));
+
 			usuarios.add(usuario);
 		}
 		return usuarios;
@@ -135,12 +139,11 @@ public class UsuarioDAO {
 	// modificar
 
 	public static void modificarUsuario(Usuario usuario) throws SQLException, SinConexionException {
-		
+
 		PreparedStatement st = Conexion.getInstancia()
 				.prepareStatement("update usuario set nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, "
-						+ "correo = ?, celular = ? "
-						+ "where nombreUsuario = ? and password = ?;");	
-		
+						+ "correo = ?, celular = ? " + "where nombreUsuario = ? and password = ?;");
+
 		st.setString(1, usuario.getNombre());
 		st.setString(2, usuario.getApellidoPaterno());
 		st.setString(3, usuario.getApellidoMaterno());
@@ -148,9 +151,22 @@ public class UsuarioDAO {
 		st.setInt(5, usuario.getCelular());
 		st.setString(6, usuario.getNombreUsuario());
 		st.setString(7, usuario.getPassword());
-		
+
 		st.executeUpdate();
 
+	}
+	
+	//cambiar estado
+	
+	public static void cambiarEstado(Usuario usuario , String estado) throws SQLException, SinConexionException {
+		
+		PreparedStatement st = Conexion.getInstancia()
+				.prepareStatement("update usuario set estado = ? " + "where nombreUsuario = ?;");
+		st.setString(1, estado);
+		st.setString(2, usuario.getNombreUsuario());
+		
+		st.executeUpdate();
+		
 	}
 
 }
