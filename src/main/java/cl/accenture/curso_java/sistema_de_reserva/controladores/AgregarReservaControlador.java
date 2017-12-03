@@ -14,6 +14,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 import cl.accenture.curso_java.sistema_de_reserva.dao.ConfiguracionDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.FeriadoDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
@@ -36,6 +38,7 @@ public class AgregarReservaControlador implements Serializable {
 	 *
 	 */
 	private static final long serialVersionUID = 2545746997175419045L;
+	private static final Logger LOGGER = Logger.getLogger(AgregarReservaControlador.class);
 
 	private String mensaje;
 	private String servicio;
@@ -82,6 +85,7 @@ public class AgregarReservaControlador implements Serializable {
 			// TODO: handle exception
 			this.mensaje = "Lo sentimos ocurrio un error en listar los dias feriados";
 			this.setDiasFeriados(new ArrayList<Feriado>());
+			LOGGER.error("Ocurrio un error ", e);
 		}
 
 	}
@@ -95,11 +99,8 @@ public class AgregarReservaControlador implements Serializable {
 		} catch (Exception e) {
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener la Sucursal";
 			this.sucursales = new ArrayList<Sucursal>();
+			LOGGER.error("Ocurrio un error ", e);
 		}
-	}
-
-	public void cargarHoras(Preferencia p) {
-		System.out.println(p);
 	}
 
 	// Horas disponibles
@@ -159,11 +160,11 @@ public class AgregarReservaControlador implements Serializable {
 			this.fechaReserva = cal.getTime();
 
 		} catch (Exception e) {
-			e.printStackTrace();
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las Horas";
 			this.configuraciones = new ArrayList<Configuracion>();
 			this.horasDisponibles = new ArrayList<String>();
 			this.horasReservadas = new ArrayList<String>();
+			LOGGER.error("Ocurrio un error ", e);
 		}
 	}
 
@@ -192,10 +193,11 @@ public class AgregarReservaControlador implements Serializable {
 			obtenerHorasDisponibles();
 
 			this.mensaje = "Reserva agregada con exito";
+			LOGGER.info("El usuario " + usuario.getNombreUsuario() + " ha reservado una cita para el dia: " + fecha);
 
 		} catch (Exception e) {
 			this.mensaje = "Ocurrio un error al agregar la reserva";
-			System.err.println(e);
+			LOGGER.error("Ocurrio un error ", e);
 		}
 
 	}
@@ -219,16 +221,18 @@ public class AgregarReservaControlador implements Serializable {
 			ReservaDAO.agregarReserva(fecha, this.servicio, this.nombre, u, this.hora);
 
 			SendEmailUsingGMailSMTP.envioMail(this.email, fecha, this.asunto, this.texto);
+			LOGGER.info("Correo enviado");
 
 			recargar();
 			obtenerHorasDisponibles();
 
 			this.mensaje = "Reserva agregada con exito";
 			this.nombreU = "";
+			LOGGER.info("El usuario " + u.getNombreUsuario() + " ha reservado una cita para el dia: " + fecha);
 
 		} catch (Exception e) {
 			this.mensaje = "Ocurrio un error al agregar la reserva";
-			System.err.println(e);
+			LOGGER.error("Ocurrio un error ", e);
 		}
 
 	}

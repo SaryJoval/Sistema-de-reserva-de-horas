@@ -13,6 +13,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
+
 import cl.accenture.curso_java.sistema_de_reserva.dao.PreferenciaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Perfil;
@@ -29,6 +31,7 @@ public class UsuarioControlador implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 5485314226149147415L;
+	private static final Logger LOGGER = Logger.getLogger(UsuarioControlador.class);
 
 	private String nombreUsuario;
 	private String nombre;
@@ -88,10 +91,10 @@ public class UsuarioControlador implements Serializable {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (SinConexionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		}
 
 		return false;
@@ -117,10 +120,10 @@ public class UsuarioControlador implements Serializable {
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (SinConexionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		}
 
 		return false;
@@ -166,8 +169,17 @@ public class UsuarioControlador implements Serializable {
 			} else if (validarCorreo()) {
 				this.errorEmail = "El correo ya existe";
 			} else {
+				
+				if (perfil.getId() == 1) {
+					perfil.setNombre("Cliente");
+				}else if(perfil.getId() == 2) {
+					perfil.setNombre("Ejecutivo");
+				}else {
+					perfil.setNombre("Aministrador");
+				}
 
 				UsuarioDAO.insertarUsuario(usuario, perfil);
+				LOGGER.info( perfil.getNombre() +  " Nombre de usuario: " + usuario.getNombreUsuario() + " agregado con exito");
 
 				if (this.idPerfil == 1) {
 
@@ -190,21 +202,23 @@ public class UsuarioControlador implements Serializable {
 
 				// envio email Registro
 				SendEmailUsingGMailSMTP.envioMail(correo, fecha, asunto, texto);
+				LOGGER.info("Correo enviado");
+				
 
 			}
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (SinConexionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		}
 		return "";
 	}
