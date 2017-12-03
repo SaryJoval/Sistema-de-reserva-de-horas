@@ -2,6 +2,7 @@ package cl.accenture.curso_java.sistema_de_reserva.controladores;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -18,6 +19,7 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Perfil;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.SinConexionException;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 import cl.accenture.curso_java.sistema_de_reserva.servicio.SendEmailUsingGMailSMTP;
+import cl.accenture.curso_java.sistema_de_reserva.servicio.ServicioEncriptar;
 
 @ManagedBean
 @RequestScoped
@@ -138,22 +140,24 @@ public class UsuarioControlador implements Serializable {
 		String asunto = "Registro sistema reservas de horas";
 		String texto = " Registro ñññññññ  ISO-8859-1";
 
-		Usuario usuario = new Usuario();
-		Perfil perfil = new Perfil();
+		
 		// Preferencia preferencia = new Preferencia();
 
-		usuario.setNombreUsuario(this.nombreUsuario);
-		usuario.setNombre(this.nombre);
-		usuario.setApellidoPaterno(this.apellidoPaterno);
-		usuario.setApellidoMaterno(this.apellidoMaterno);
-		usuario.setCorreo(this.correo);
-		usuario.setCelular(this.celular);
-		usuario.setEdad(this.edad);
-		usuario.setPassword(this.password);
-		usuario.setEstado("Activo");
-		perfil.setId(this.idPerfil);
-
 		try {
+			
+			Usuario usuario = new Usuario();
+			Perfil perfil = new Perfil();
+
+			usuario.setNombreUsuario(this.nombreUsuario);
+			usuario.setNombre(this.nombre);
+			usuario.setApellidoPaterno(this.apellidoPaterno);
+			usuario.setApellidoMaterno(this.apellidoMaterno);
+			usuario.setCorreo(this.correo);
+			usuario.setCelular(this.celular);
+			usuario.setEdad(this.edad);
+			usuario.setPassword(ServicioEncriptar.encriptar(this.password));
+			usuario.setEstado("Activo");
+			perfil.setId(this.idPerfil);
 
 			if (validarUsuario()) {
 				this.errorUser = "El usuario ya existe";
@@ -165,7 +169,6 @@ public class UsuarioControlador implements Serializable {
 
 				UsuarioDAO.insertarUsuario(usuario, perfil);
 
-				
 				if (this.idPerfil == 1) {
 
 					for (String p : preferencias) {
@@ -184,14 +187,11 @@ public class UsuarioControlador implements Serializable {
 					FacesContext contex = FacesContext.getCurrentInstance();
 					contex.getExternalContext().redirect("root.xhtml");
 				}
-				
+
 				// envio email Registro
 				SendEmailUsingGMailSMTP.envioMail(correo, fecha, asunto, texto);
 
 			}
-			
-			
-
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -200,6 +200,9 @@ public class UsuarioControlador implements Serializable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
