@@ -12,6 +12,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
+
 import cl.accenture.curso_java.sistema_de_reserva.dao.PreferenciaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Preferencia;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.SinConexionException;
@@ -30,6 +32,7 @@ public class ListarPreferenciaControlador implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -6770267643578042348L;
+	private static final Logger LOGGER = Logger.getLogger(ListarPreferenciaControlador.class);
 
 	private List<Preferencia> preferencias;
 	private List<Preferencia> diasDelMes;
@@ -74,13 +77,13 @@ public class ListarPreferenciaControlador implements Serializable {
 
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (SinConexionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		}
 
 	}
@@ -94,10 +97,10 @@ public class ListarPreferenciaControlador implements Serializable {
 			this.mensaje = "hola";
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (SinConexionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		}
 	}
 

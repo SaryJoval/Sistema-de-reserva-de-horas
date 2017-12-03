@@ -6,6 +6,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
+
 import cl.accenture.curso_java.sistema_de_reserva.dao.ObjetoNoEncontradoException;
 import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
@@ -19,6 +21,7 @@ public class LoginControlador implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -5310586593465150563L;
+	private static final Logger LOGGER = Logger.getLogger(LoginControlador.class);
 
 	private String nombreUsuario;
 	private String password;
@@ -46,6 +49,7 @@ public class LoginControlador implements Serializable {
 			if (usuarioLogeado.getEstado().equals("Activo") ) {
 
 				FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", usuario);
+				LOGGER.info("El usuario " + this.nombreUsuario + " ha iniciado sesion");
 				UsuarioDAO.actualizarUltimoIngreso(usuarioLogeado);
 				this.mensaje = "";
 				this.error = false;
@@ -60,8 +64,11 @@ public class LoginControlador implements Serializable {
 
 			} else if (usuarioLogeado.getEstado().equals("Inactivo")) {
 				
+				LOGGER.info("Cuenta del usuario " + this.nombreUsuario + " bloqueada");
+				
 				FacesContext contex = FacesContext.getCurrentInstance();
 				contex.getExternalContext().redirect("block.xhtml");
+				
 
 			}
 
@@ -72,8 +79,11 @@ public class LoginControlador implements Serializable {
 		ObjetoNoEncontradoException e) {
 			this.error = true;
 			this.mensaje = "Usuario y/o Password incorrectos";
+			LOGGER.warn( "Error al iniciar sesion, datos no coinciden , " + this.nombreUsuario );
+			LOGGER.debug( "Usuario " + this.nombreUsuario + " password " + this.password );
 			return "";
 		} catch (Exception e) {
+			LOGGER.error("Error desconocido", e);
 			this.error = true;
 			this.mensaje = "Ocurrio un error inesperado, intente más tarde";
 			return "";
@@ -82,6 +92,8 @@ public class LoginControlador implements Serializable {
 
 	public String cerrarSesion() {
 
+		LOGGER.info("Usuario: " + this.nombreUsuario + " cerro sesion");
+		
 		this.usuarioLogeado = null;
 		this.nombreUsuario = null;
 		this.password = null;

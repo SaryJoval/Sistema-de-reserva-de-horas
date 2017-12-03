@@ -13,6 +13,8 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.apache.log4j.Logger;
+
 import cl.accenture.curso_java.sistema_de_reserva.dao.FeriadoDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.dao.SucursalDAO;
@@ -29,6 +31,7 @@ public class EjecutivoControlador implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 5464344401830887343L;
+	private static final Logger LOGGER = Logger.getLogger(EjecutivoControlador.class);
 
 	private Date fechaActual;
 	private String mensaje;
@@ -74,6 +77,8 @@ public class EjecutivoControlador implements Serializable {
 			// TODO: handle exception
 			this.mensaje = "Lo sentimos ocurrio un error en listar las reservas";
 			this.setReservasTotales(new ArrayList<Reserva>());
+			LOGGER.error("Error desconocido", e);
+
 		}
 	}
 
@@ -92,7 +97,8 @@ public class EjecutivoControlador implements Serializable {
 			});
 
 			if (this.reservasTotales.size() == 0) {
-				this.mensaje = "Numero de reserva incorrecto";
+				this.mensaje = "No se encontro la reserva";
+				LOGGER.warn("No se encontro la reserva");
 			} else {
 				this.mensaje = "";
 			}
@@ -101,6 +107,7 @@ public class EjecutivoControlador implements Serializable {
 			// TODO: handle exception
 			this.mensaje = "Lo sentimos ocurrio un error en listar las reservas";
 			this.setReservasTotales(new ArrayList<Reserva>());
+			LOGGER.error("Error desconocido", e);
 		}
 	}
 
@@ -113,8 +120,10 @@ public class EjecutivoControlador implements Serializable {
 			obtenerReseravsTotales();
 			this.mensaje = "La reserva se elimino con exito";
 			this.nombre = "";
+			LOGGER.info("Se elimino la reserva " + reserva.getIdreserva());
 		} catch (Exception e) {
 			this.mensaje = "Lo sentimos, Ocurrio un error al eliminar la reserva";
+			LOGGER.error("Error desconocido", e);
 		}
 	}
 
@@ -126,6 +135,7 @@ public class EjecutivoControlador implements Serializable {
 		} catch (Exception e) {
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener la Sucursal";
 			this.setSucursales(new ArrayList<Sucursal>());
+			LOGGER.error("Error desconocido", e);
 		}
 	}
 
@@ -135,15 +145,17 @@ public class EjecutivoControlador implements Serializable {
 
 		try {
 			SucursalDAO.agregarSucursal(this.nombre);
+			LOGGER.info("Se agrego la sucursal: " + this.nombre);
 			obtenerSucursal();
 			this.mensaje = "Sucursal agregada con exito!";
 			this.nombre = "";
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (SinConexionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		}
 
 	}
@@ -155,13 +167,14 @@ public class EjecutivoControlador implements Serializable {
 		try {
 			SucursalDAO.eliminarSucursal(sucursal);
 			this.mensaje = "Sucursal eliminada";
+			LOGGER.info("Se elimino la sucursal " + sucursal.getNombre());
 			obtenerSucursal();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (SinConexionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		}
 
 	}
@@ -185,17 +198,17 @@ public class EjecutivoControlador implements Serializable {
 			obtenerFeriado();
 			this.mensajeFeriados = "Feriado agregardo con exito";
 			this.nombre = "";
+			LOGGER.info("Se agrego el feriado " + this.fecha);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (SinConexionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		}
-
 	}
 
-	// elimiar feriado
+	// eliminar feriado
 
 	public void eliminarFeriado(Feriado feriado) {
 
@@ -203,20 +216,18 @@ public class EjecutivoControlador implements Serializable {
 			FeriadoDAO.eliminarFeriado(feriado);
 			this.mensajeFeriados = "Feriado eliminado";
 			obtenerFeriado();
+			LOGGER.info("Se elimino el feriado con fecha " + this.fecha);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (SinConexionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		}
 
 	}
-	
-	
-	//horas
-	
-	
+
+	// horas
 
 	public Date getFechaActual() {
 		return fechaActual;

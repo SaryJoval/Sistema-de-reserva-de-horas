@@ -11,6 +11,8 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
+
 import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.SinConexionException;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
@@ -23,6 +25,7 @@ public class ListarEjecutivoControlador implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 6458120473107931313L;
+	private static final Logger LOGGER = Logger.getLogger(ListarEjecutivoControlador.class);
 
 	private List<Usuario> usuarios;
 
@@ -49,10 +52,10 @@ public class ListarEjecutivoControlador implements Serializable {
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (SinConexionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		}
 
 	}
@@ -75,8 +78,9 @@ public class ListarEjecutivoControlador implements Serializable {
 
 		try {
 			UsuarioDAO.cambiarEstado(usuario, estado);
+			LOGGER.info("Se cambio el estado del usuario " + usuario.getNombreUsuario() + "a " + estado);
 		} catch (Exception e) {
-
+			LOGGER.error("Error desconocido", e);
 		}
 
 	}

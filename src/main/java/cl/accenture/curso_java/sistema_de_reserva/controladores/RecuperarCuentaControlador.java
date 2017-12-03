@@ -11,6 +11,8 @@ import java.util.GregorianCalendar;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
+import org.apache.log4j.Logger;
+
 import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.SinConexionException;
 import cl.accenture.curso_java.sistema_de_reserva.servicio.SendEmailUsingGMailSMTP;
@@ -23,6 +25,7 @@ public class RecuperarCuentaControlador implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 6406456345344022963L;
+	private static final Logger LOGGER = Logger.getLogger(RecuperarCuentaControlador.class);
 
 	private String mensaje;
 	private String email;
@@ -55,6 +58,7 @@ public class RecuperarCuentaControlador implements Serializable {
 				String fecha = formatoFecha.format(cal.getTime());
 
 				SendEmailUsingGMailSMTP.envioMail(this.email, fecha, this.asunto, this.texto);
+				LOGGER.info("Correo enviado");
 
 			}else {
 				this.mensaje = "El correo no esta registrado";
@@ -63,10 +67,10 @@ public class RecuperarCuentaControlador implements Serializable {
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		} catch (SinConexionException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.error("Error desconocido", e);
 		}
 
 		// texto

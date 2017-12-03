@@ -10,6 +10,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.Logger;
+
 import cl.accenture.curso_java.sistema_de_reserva.dao.ReservaDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Reserva;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
@@ -19,6 +21,7 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
 public class ListarReservaControlador implements Serializable {
 
 	private static final long serialVersionUID = -4791973245161975696L;
+	private static final Logger LOGGER = Logger.getLogger(ListarReservaControlador.class);
 
 	private String mensaje;
 	private List<Reserva> reservas;
@@ -51,7 +54,7 @@ public class ListarReservaControlador implements Serializable {
 		} catch (Exception e) {
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener las Reservas";
 			this.reservas = new ArrayList<Reserva>();
-			System.err.println(e);
+			LOGGER.error("Error desconocido", e);
 		}
 	}
 
