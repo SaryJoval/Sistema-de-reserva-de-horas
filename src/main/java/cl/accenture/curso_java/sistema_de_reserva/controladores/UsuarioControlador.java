@@ -40,6 +40,7 @@ public class UsuarioControlador implements Serializable {
 	private String errorEdad;
 	private String errorEmail;
 	private String estado;
+	private String idp;
 
 	private int idPerfil;
 
@@ -51,7 +52,7 @@ public class UsuarioControlador implements Serializable {
 
 	public UsuarioControlador() {
 
-		this.idPerfil = 1;
+		this.idp = "1";
 
 	}
 
@@ -126,6 +127,8 @@ public class UsuarioControlador implements Serializable {
 
 	public String guardar() {
 
+		this.idPerfil = Integer.parseInt(this.idp);
+
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.getTime();
 
@@ -148,7 +151,7 @@ public class UsuarioControlador implements Serializable {
 		usuario.setEdad(this.edad);
 		usuario.setPassword(this.password);
 		usuario.setEstado("Activo");
-		perfil.setId(idPerfil);
+		perfil.setId(this.idPerfil);
 
 		try {
 
@@ -162,19 +165,33 @@ public class UsuarioControlador implements Serializable {
 
 				UsuarioDAO.insertarUsuario(usuario, perfil);
 
-				for (String p : preferencias) {
+				
+				if (this.idPerfil == 1) {
 
-					int diaP = Integer.parseInt(p);
-					PreferenciaDAO.agregarPreferencia(this.nombreUsuario, diaP);
+					for (String p : preferencias) {
 
+						int diaP = Integer.parseInt(p);
+						PreferenciaDAO.agregarPreferencia(this.nombreUsuario, diaP);
+
+					}
+
+					FacesContext contex = FacesContext.getCurrentInstance();
+					contex.getExternalContext().redirect("login.xhtml");
+				} else if (this.idPerfil == 2) {
+					FacesContext contex = FacesContext.getCurrentInstance();
+					contex.getExternalContext().redirect("root.xhtml");
+				} else {
+					FacesContext contex = FacesContext.getCurrentInstance();
+					contex.getExternalContext().redirect("root.xhtml");
 				}
-
+				
 				// envio email Registro
 				SendEmailUsingGMailSMTP.envioMail(correo, fecha, asunto, texto);
 
-				FacesContext contex = FacesContext.getCurrentInstance();
-				contex.getExternalContext().redirect("login.xhtml");
 			}
+			
+			
+
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -327,6 +344,14 @@ public class UsuarioControlador implements Serializable {
 
 	public void setEstado(String estado) {
 		this.estado = estado;
+	}
+
+	public String getIdp() {
+		return idp;
+	}
+
+	public void setIdp(String idp) {
+		this.idp = idp;
 	}
 
 }

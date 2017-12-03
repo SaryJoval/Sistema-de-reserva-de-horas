@@ -9,6 +9,7 @@ import javax.faces.context.FacesContext;
 import cl.accenture.curso_java.sistema_de_reserva.dao.ObjetoNoEncontradoException;
 import cl.accenture.curso_java.sistema_de_reserva.dao.UsuarioDAO;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Usuario;
+import cl.accenture.curso_java.sistema_de_reserva.servicio.ServicioEncriptar;
 
 @ManagedBean
 @SessionScoped
@@ -37,7 +38,7 @@ public class LoginControlador implements Serializable {
 
 		try {
 
-			Usuario usuario = UsuarioDAO.validar(new Usuario(this.nombreUsuario, this.password));
+			Usuario usuario = UsuarioDAO.validar(new Usuario(this.nombreUsuario, ServicioEncriptar.encriptar(this.password)));
 			usuarioLogeado = usuario;
 
 			// validar el estado

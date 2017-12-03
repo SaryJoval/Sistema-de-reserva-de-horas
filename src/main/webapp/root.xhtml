@@ -225,12 +225,22 @@
 
 			<HR />
 
+
+
 			<div class="col-lg-12">
 
 				<div class="row">
 
 
 					<div class="col-lg-12 ">
+
+						<h:form>
+							<h:commandButton action="record.xhtml" image="ico/add-user.png"
+								value="record.xhtml" styleClass="btn btn-default">
+							</h:commandButton>
+
+						</h:form>
+						<hr></hr>
 
 						<h:dataTable value="#{listarEjecutivoControlador.usuarios}"
 							var="usuario" styleClass="table table-striped table-inverse">
@@ -283,14 +293,21 @@
 
 			<h2 class="text-center">Administrador</h2>
 
-			<hr></hr>
-
 			<div class="col-lg-12">
 
 				<div class="row">
 
-
 					<div class="col-lg-12 ">
+
+						<h:form>
+							<h:commandButton action="record.xhtml" image="ico/add-user.png"
+								value="record.xhtml" styleClass="btn btn-default">
+							</h:commandButton>
+
+						</h:form>
+
+
+						<hr></hr>
 
 						<h:dataTable value="#{listarAdminControlador.usuarios}"
 							var="usuario" styleClass="table table-striped table-inverse">
