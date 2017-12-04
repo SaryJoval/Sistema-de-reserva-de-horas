@@ -17,8 +17,8 @@
 	<link href="bootstrap-3.3.7-dist/css/bootstrap.min.css"
 		rel="stylesheet" type="text/css"></link>
 
-
 </h:head>
+
 
 <h:body>
 
@@ -179,10 +179,9 @@
 										styleClass="form-control input-md" placeholder="Password"
 										required="true"
 										requiredMessage="Por favor introduce tu contraseña"
-										validatorMessage="minimo 1 minuscula y 1 numero ">
+										validatorMessage="minimo 8 de largo, una mayuscula y una minuscula ">
 										<f:validateRegex
-											pattern="^(?=(?:.*\d){2})(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){2})\S{6,}$"
-											for="invalido" />
+											pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" />
 										<f:validateLength minimum="8">
 										</f:validateLength>
 									</p:password>
@@ -208,7 +207,7 @@
 
 								<div class="form-group">
 
-									<p:commandButton value="Registrarse"
+									<h:commandButton value="Registrarse"
 										actionListener="#{usuarioControlador.guardar}"
 										validateClient="true"
 										styleClass="btn btn-block btn-md btn-success" />

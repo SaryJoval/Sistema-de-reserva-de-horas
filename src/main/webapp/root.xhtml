@@ -5,14 +5,13 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-
 <h:head>
 
 	<meta charset="ISO-8859-1"></meta>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 
-	<title>Ejecutivo</title>
+	<title>Admin</title>
 
 	<!-- Bootstrap core CSS -->
 	<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
@@ -94,6 +93,8 @@
 								<div id="imaginary_container">
 									<h:form
 										styleClass="input-group stylish-input-group input-append">
+										
+										
 										<h:inputText value="#{ejecutivoControlador.nombre}"
 											maxlength="36" styleClass="form-control"></h:inputText>
 										<h:commandButton
@@ -158,32 +159,60 @@
 
 							</div>
 
-
-
-
-
 						</div>
 
-
-
-
-
-						<div class="col-lg-12">
-
-							<div class="row">
+						<div class="row">
+						
+							<div class="col-lg-12">
 
 
 								<h:form styleClass="form-inline">
 
-									<h:inputText value="#{ejecutivoControlador.fecha}"
-										maxlength="36" styleClass="form-control"></h:inputText>
 
-									<h:inputText value="#{ejecutivoControlador.descripcion}"
-										maxlength="36" styleClass="form-control"></h:inputText>
+									<div class="col-lg-6">
+										<div class="form-group">
 
-									<h:commandButton
-										action="#{ejecutivoControlador.agregarFeriado}"
-										styleClass="btn btn-primary" value="Guardar"></h:commandButton>
+											<span>Fecha</span>
+
+											<p:calendar id="mask" value="#{ejecutivoControlador.fecha}"
+												pattern="yyyy/MM/dd" disabledWeekends="true" locale="es"
+												mask="true" />
+
+										</div>
+
+									</div>
+									<div class="col-lg-6">
+
+										<div class="form-group">
+
+
+
+											<span>Descripcion</span>
+
+											<h:inputText value="#{ejecutivoControlador.descripcion}"
+												maxlength="36" styleClass="form-control"></h:inputText>
+
+										</div>
+
+
+									</div>
+
+									<div class="col-lg-12">
+									
+									<hr></hr>
+
+										<div class="form-group">
+										
+											<h:commandButton
+												action="#{ejecutivoControlador.agregarFeriado}"
+												styleClass="btn btn-primary btn-block" value="Guardar"></h:commandButton>
+
+										</div>
+
+
+									</div>
+
+
 								</h:form>
 							</div>
 
@@ -391,7 +420,7 @@
 	</div>
 
 	<!-- Bootstrap core JavaScript -->
-	<script src="jquery/jquery.min.js"></script>
+	<!-- 	<script src="jquery/jquery.min.js"></script> -->
 	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
 
 	<!-- Plugin JavaScript -->
