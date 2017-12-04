@@ -194,6 +194,7 @@ public class AgregarReservaControlador implements Serializable {
 
 			this.mensaje = "Reserva agregada con exito";
 			LOGGER.info("El usuario " + usuario.getNombreUsuario() + " ha reservado una cita para el dia: " + fecha);
+			LOGGER.info("Se envio un email con la informacion de la reserva a el usuario " + usuario.getNombreUsuario());
 
 		} catch (Exception e) {
 			this.mensaje = "Ocurrio un error al agregar la reserva";

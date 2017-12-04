@@ -37,7 +37,7 @@ public class EjecutivoControlador implements Serializable {
 	private String mensaje;
 	private String mensajeFeriados;
 	private String nombre;
-	private String fecha;
+	private Date fecha;
 	private String descripcion;
 	private int idReserva;
 
@@ -149,7 +149,7 @@ public class EjecutivoControlador implements Serializable {
 			obtenerSucursal();
 			this.mensaje = "Sucursal agregada con exito!";
 			this.nombre = "";
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			LOGGER.error("Error desconocido", e);
@@ -194,7 +194,11 @@ public class EjecutivoControlador implements Serializable {
 	public void agregarFeriado() {
 
 		try {
-			FeriadoDAO.agregarFeriado(this.fecha, this.descripcion);
+
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			String f = formatter.format(this.fecha);
+
+			FeriadoDAO.agregarFeriado(f, this.descripcion);
 			obtenerFeriado();
 			this.mensajeFeriados = "Feriado agregardo con exito";
 			this.nombre = "";
@@ -297,20 +301,20 @@ public class EjecutivoControlador implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public String getFecha() {
-		return fecha;
-	}
-
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
-	}
-
 	public String getMensajeFeriados() {
 		return mensajeFeriados;
 	}
 
 	public void setMensajeFeriados(String mensajeFeriados) {
 		this.mensajeFeriados = mensajeFeriados;
+	}
+
+	public Date getFecha() {
+		return fecha;
+	}
+
+	public void setFecha(Date fecha) {
+		this.fecha = fecha;
 	}
 
 }

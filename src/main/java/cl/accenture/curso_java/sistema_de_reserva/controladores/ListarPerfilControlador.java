@@ -46,7 +46,6 @@ public class ListarPerfilControlador implements Serializable {
 		}
 
 	}
-	
 
 	// Modificacion de usaurio
 
@@ -55,12 +54,24 @@ public class ListarPerfilControlador implements Serializable {
 		try {
 
 			UsuarioDAO.modificarUsuario(this.usuario);
-			LOGGER.info("Se modifico el usuario " + this.usuario.getNombreUsuario());
-			//refireccionar
-			
-			FacesContext contex = FacesContext.getCurrentInstance();
-            contex.getExternalContext().redirect( "Cliente.xhtml" );
 
+			if (this.usuario.getPerfil().getId() == 1) {
+
+				FacesContext contex = FacesContext.getCurrentInstance();
+				contex.getExternalContext().redirect("Cliente.xhtml");
+
+			} else if (this.usuario.getPerfil().getId() == 2) {
+				FacesContext contex = FacesContext.getCurrentInstance();
+				contex.getExternalContext().redirect("Ejecutivo.xhtml");
+
+			} else {
+
+				FacesContext contex = FacesContext.getCurrentInstance();
+				contex.getExternalContext().redirect("root.xhtml");
+
+			}
+
+			LOGGER.info("Se modifico el usuario " + this.usuario.getNombreUsuario());
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
