@@ -167,8 +167,8 @@
 
 							<div class="form-group ">
 
-								<p:dataTable id="basicDT" var="preferecia">
-<!-- 									value="#{listarPreferenciaControlador.diasDelMes}"> -->
+								<p:dataTable id="basicDT" var="preferecia"
+									value="#{listarPreferenciaControlador.diasDelMes}">
 
 									<p:column headerText="Dia">
 										<h:outputText value="#{preferecia.nombreDia}" />
@@ -183,6 +183,8 @@
 											action="#{agregarReservaControlador.cargarHoras(preferecia)}"
 											oncomplete="PF('dlg2').show();" icon="ui-icon-search"
 											title="View">
+											
+											
 											<f:setPropertyActionListener value="#{preferecia.dia}"
 												target="#{agregarReservaControlador.fechaReserva}" />
 										</p:commandButton>

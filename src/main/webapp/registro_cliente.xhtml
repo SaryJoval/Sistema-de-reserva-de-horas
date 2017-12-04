@@ -39,8 +39,6 @@
 
 									<div class="col-md-6">
 
-
-
 										<div class="form-group">
 
 											<p:inputText id="nombreUsuario"
@@ -53,7 +51,7 @@
 													listener="#{usuarioControlador.validarUsuario}" />
 
 												<f:validateLength minimum="4"></f:validateLength>
-												<f:validateRequired />
+
 
 											</p:inputText>
 
@@ -199,12 +197,9 @@
 										styleClass="form-control input-md" placeholder="Password"
 										required="true"
 										requiredMessage="Por favor introduce tu contraseña"
-										validatorMessage="minimo 1 minuscula y 1 numero ">
+										validatorMessage="minimo 8 de largo, una mayuscula y una minuscula ">
 										<f:validateRegex
-											pattern="^(?=(?:.*\d){2})(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){2})\S{6,}$"
-											for="invalido" />
-										<f:validateLength minimum="8">
-										</f:validateLength>
+											pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" />
 										<f:validateRequired />
 									</p:password>
 									<h:message style="color:red" for="pwd" />
@@ -230,7 +225,7 @@
 
 								<div class="form-group">
 
-									<p:commandButton value="Registrarse"
+									<h:commandButton value="Registrarse"
 										actionListener="#{usuarioControlador.guardar}"
 										validateClient="true"
 										styleClass="btn btn-block btn-md btn-success" />
