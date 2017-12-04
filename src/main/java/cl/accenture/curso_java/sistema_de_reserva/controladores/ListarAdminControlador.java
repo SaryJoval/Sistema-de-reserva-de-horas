@@ -36,7 +36,7 @@ public class ListarAdminControlador implements Serializable {
 	public void obtenerUsuarios() {
 
 		try {
-			this.usuarios = UsuarioDAO.obtenerUsuarios(1);
+			this.usuarios = UsuarioDAO.obtenerUsuarios(3);
 
 			for (Usuario usuario : usuarios) {
 

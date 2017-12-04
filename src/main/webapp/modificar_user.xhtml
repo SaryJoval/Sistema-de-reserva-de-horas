@@ -150,7 +150,7 @@
 									<label>Ingrese su password para modificar</label>
 									<p style="color: red;">#{listarPerfilControlador.mensaje}</p>
 
-									<p:password id="pwd" value="#{listarPerfilControlador.usuario.password}"
+									<p:password id="pwd" value="#{listarPerfilControlador.password}"
 										styleClass="form-control input-md" placeholder="Password"
 										required="true"
 										requiredMessage="Por favor introduce tu contraseña"
@@ -169,7 +169,7 @@
 
 								<div class="form-group">
 
-									<p:commandButton value="Modificar"
+									<h:commandButton value="Modificar"
 										actionListener="#{listarPerfilControlador.modificarUsuario}"
 										validateClient="true"
 										styleClass="btn btn-block btn-md btn-success" />

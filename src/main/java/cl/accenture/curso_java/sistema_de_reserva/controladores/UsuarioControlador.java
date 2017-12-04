@@ -222,6 +222,10 @@ public class UsuarioControlador implements Serializable {
 		}
 		return "";
 	}
+	
+	//modificar 
+	
+	
 
 	public String getNombreUsuario() {
 		return nombreUsuario;
