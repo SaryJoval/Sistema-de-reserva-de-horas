@@ -130,6 +130,7 @@ public class UsuarioDAO {
 			u.setEdad(rs.getInt("edad"));
 			u.setNombreUsuario(rs.getString("nombreUsuario"));
 			u.setCelular(rs.getInt("celular"));
+			
 
 			return u;
 		}
@@ -138,7 +139,7 @@ public class UsuarioDAO {
 
 	// modificar
 
-	public static void modificarUsuario(Usuario usuario) throws SQLException, SinConexionException {
+	public static void modificarUsuario(Usuario usuario, String pass) throws SQLException, SinConexionException {
 
 		PreparedStatement st = Conexion.getInstancia()
 				.prepareStatement("update usuario set nombre = ?, apellidoPaterno = ?, apellidoMaterno = ?, "
@@ -150,7 +151,7 @@ public class UsuarioDAO {
 		st.setString(4, usuario.getCorreo());
 		st.setInt(5, usuario.getCelular());
 		st.setString(6, usuario.getNombreUsuario());
-		st.setString(7, usuario.getPassword());
+		st.setString(7, pass);
 
 		st.executeUpdate();
 
