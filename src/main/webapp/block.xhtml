@@ -69,33 +69,6 @@
 
 		<div class="row">
 
-			<div class="col-lg-4 mx-auto">
-
-
-				<h:form styleClass="form">
-
-					<div class="form-group">
-
-						<p:inputText id="email1" value="#{usuarioControlador.correo}"
-							label="Email" required="true"
-							requiredMessage="Por favor introduce tu email"
-							styleClass="form-control input-md" placeholder="E-Mail"
-							validatorMessage="E-mail no es valido">
-							<p:ajax event="keyup" update="correo"
-								listener="#{usuarioControlador.validarUsuario}" />
-							<f:validateRegex
-								pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
-						</p:inputText>
-
-						<h:outputText id="correo" value="#{usuarioControlador.errorEmail}" />
-						<h:message style="color:red" for="email1" />
-
-					</div>
-
-				</h:form>
-
-			</div>
-
 		</div>
 
 

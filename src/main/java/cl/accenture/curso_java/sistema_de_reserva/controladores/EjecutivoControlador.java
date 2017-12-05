@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
 
 import org.apache.log4j.Logger;
 
@@ -24,7 +24,7 @@ import cl.accenture.curso_java.sistema_de_reserva.modelo.SinConexionException;
 import cl.accenture.curso_java.sistema_de_reserva.modelo.Sucursal;
 
 @ManagedBean
-@SessionScoped
+@RequestScoped
 public class EjecutivoControlador implements Serializable {
 
 	/**

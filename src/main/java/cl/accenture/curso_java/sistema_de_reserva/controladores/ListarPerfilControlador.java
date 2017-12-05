@@ -39,21 +39,27 @@ public class ListarPerfilControlador implements Serializable {
 	public void obtenerUsuario() {
 
 		try {
-			
+
 			Perfil p = new Perfil();
-			
+
 			Usuario u = (Usuario) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-			
+
 			p.setId(u.getPerfil().getId());
-			
+
 			this.usuario = UsuarioDAO.obtenerUsuario(u.getNombreUsuario());
 			this.usuario.setPerfil(p);
-			
+
 			this.mensaje = "";
 		} catch (Exception e) {
+			FacesContext contex = FacesContext.getCurrentInstance();
+			try {
+				contex.getExternalContext().redirect("InicioFinal.xhtml");
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			this.mensaje = "Lo sentimos, Ocurrio un error al obtener el perfil";
 			this.usuario = null;
-			LOGGER.error("Error desconocido", e);
 		}
 
 	}
@@ -61,14 +67,13 @@ public class ListarPerfilControlador implements Serializable {
 	// Modificacion de usaurio
 
 	public String modificarUsuario() {
-		
 
 		try {
 			String pass = "";
-			
+
 			pass = ServicioEncriptar.encriptar(this.password);
 
-			UsuarioDAO.modificarUsuario(this.usuario,pass);
+			UsuarioDAO.modificarUsuario(this.usuario, pass);
 
 			if (this.usuario.getPerfil().getId() == 1) {
 
