@@ -221,9 +221,6 @@ public class AgregarReservaControlador implements Serializable {
 		try {
 			ReservaDAO.agregarReserva(fecha, this.servicio, this.nombre, u, this.hora);
 
-			SendEmailUsingGMailSMTP.envioMail(this.email, fecha, this.asunto, this.texto);
-			LOGGER.info("Correo enviado");
-
 			recargar();
 			obtenerHorasDisponibles();
 
